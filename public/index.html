@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <link rel="icon" id="favicon" href="<%= BASE_URL %>favicon.png" />
+
+    <!-- TODO: implement ios splashscreens -->
+    <!-- <link href="" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" /> -->
+    <!-- <link href="" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" /> -->
+    <!-- <link href="" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" /> -->
+    <!-- <link href="" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" /> -->
+    <!-- <link href="" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" /> -->
+    <!-- <link href="" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" /> -->
+    <!-- <link href="" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" /> -->
+    <!-- <link href="" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" /> -->
+    <!-- <link href="" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" /> -->
+    <!-- <link href="" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" /> -->
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,500;1,600&display=swap"
+      rel="stylesheet preload prefetch"
+      as="style"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      rel="stylesheet preload prefetch"
+      as="style"
+      crossorigin="anonymous"
+    />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <div class="noscript">
+        Definario wymaga włączonego JavaScriptu do prawidłowego działania.
+      </div>
+      <style>
+        body {
+          margin: 0;
+          background: #3e85ee;
+          background: radial-gradient(
+            60.33% 115.75% at 2.43% 14.05%,
+            #3e85ee 2%,
+            #e389f0 50%,
+            #f3c07c 90%
+          );
+        }
+        div.noscript {
+          display: flex;
+          height: 100vh;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          font-size: 2rem;
+          text-align: center;
+          font-weight: bold;
+          font-family: sans;
+          color: white;
+          text-shadow:
+          2px 2px 0 #000;
+        }
+      </style>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
