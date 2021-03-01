@@ -24,7 +24,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 main {
   display: flex;
   flex-direction: column;

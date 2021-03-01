@@ -1,22 +1,54 @@
 <template>
-  <BaseCard #default="{ definee, definition }" class="card card--home">
+  <div class="card" @click="openModal" tabindex="0">
     <span class="card__header">
       {{ definee }}
     </span>
     <p class="card__content">
       {{ definition }}
     </p>
-  </BaseCard>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import BaseCard from "@/components/cards/BaseCard.vue";
+import { defineComponent, ref, watchEffect, computed } from "vue";
+import { useStore } from "../../store/index";
 
 export default defineComponent({
   name: "HomeCard",
-  components: {
-    BaseCard
+  props: {
+    definitionId: {
+      required: true,
+      type: Number
+    }
+  },
+  setup(props) {
+    const store = useStore();
+
+    // const definee = ref(`definee no. ${props.definitionId}`);
+    // const definition = ref(`definition no. ${props.definitionId}`);
+
+    store.dispatch("modalUpdate", props.definitionId);
+    const definee = computed(() => store.state.modal.definee);
+    const definition = computed(() => store.state.modal.definition);
+
+    const modalVisible = ref(false);
+
+    function openModal() {
+      modalVisible.value = true;
+      store.dispatch("openModal");
+    }
+
+    watchEffect(() => {
+      if (!store.state.modal.visible)
+        modalVisible.value = store.state.modal.visible;
+    });
+
+    return {
+      definee,
+      definition,
+      openModal,
+      modalVisible
+    };
   }
 });
 </script>
@@ -25,12 +57,14 @@ export default defineComponent({
 .card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   position: relative;
 
   padding: 2ch;
   padding-top: 1.5ch;
+
+  max-height: 22ch;
+  overflow: hidden;
 
   text-decoration: none;
   cursor: pointer;

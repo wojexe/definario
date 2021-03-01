@@ -4,15 +4,15 @@
       v-for="definitionId in definitionList"
       :key="definitionId"
       :definition-id="definitionId"
+      tabindex="0"
     />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, computed, onMounted, nextTick } from "vue";
+import { useStore } from "../store/index";
 import CarouselCard from "@/components/cards/CarouselCard.vue";
-
-// TODO: CAROUSEL
 
 export default defineComponent({
   name: "DefinitionCarousel",
@@ -26,6 +26,8 @@ export default defineComponent({
     CarouselCard
   },
   setup(props) {
+    const store = useStore();
+
     const getGridTemplateColumns = computed(
       () =>
         `grid-template-columns: repeat(${props.definitionList.length}, 18ch);`
@@ -84,20 +86,20 @@ export default defineComponent({
           slider?.addEventListener("mouseleave", () => {
             isDown = false;
             slider?.classList.remove("active");
-            setTimeout(() => localStorage.removeItem("modalNoClick"), 100);
+            setTimeout(() => store.dispatch("carouselStopBlocking"), 100);
           });
 
           slider?.addEventListener("mouseup", () => {
             isDown = false;
             slider?.classList.remove("active");
-            setTimeout(() => localStorage.removeItem("modalNoClick"), 100);
+            setTimeout(() => store.dispatch("carouselStopBlocking"), 100);
             beginMomentumTracking();
           });
 
           slider?.addEventListener("mousemove", e => {
             if (!isDown) return;
             e.preventDefault();
-            localStorage.setItem("modalNoClick", "");
+            store.dispatch("carouselStartBlocking");
             const x = e.pageX - slider?.offsetLeft;
             const walk = (x - startX) * 1.2; //scroll-fast
             const prevScrollLeft = slider?.scrollLeft;

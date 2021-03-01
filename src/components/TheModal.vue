@@ -1,67 +1,51 @@
 <template>
-  <teleport to="#app">
-    <div class="overlay" @click="overlayClick">
-      <div
-        class="modal"
-        :class="modalVisible ? 'modal--visible' : ''"
-        ref="modal"
-      >
-        <span class="modal__title">{{ modalTitle }}</span>
-        <div class="modal__content">
-          <p class="modal__content__definition">{{ modalDefinition }}</p>
-          <img
-            v-show="modalImage"
-            :src="imageSource"
-            :alt="modalTitle"
-            class="modal__content__image"
-          />
-          <div class="modal__content__credits">
-            <span class="modal__content__credits__definition"
-              >Definicja: {{ modalDefinitionSource }}</span
-            >
-            <span class="modal__content__credits__image"
-              >Zdjęcie: {{ modalImageSource }}</span
-            >
-          </div>
+  <div class="overlay" @click="overlayClick">
+    <div class="modal" ref="modal">
+      <span class="modal__title">{{ definee }}</span>
+      <div class="modal__content">
+        <p class="modal__content__definition">{{ definition }}</p>
+        <img
+          v-show="image"
+          :src="image"
+          :alt="definee"
+          class="modal__content__image"
+        />
+        <div
+          class="modal__content__credits"
+          v-if="definitionSource || imageSource"
+        >
+          <span
+            class="modal__content__credits__definition"
+            v-show="definitionSource"
+            >Definicja: {{ definitionSource }}</span
+          >
+          <span class="modal__content__credits__image" v-show="imageSource">
+            Zdjęcie: {{ imageSource }}</span
+          >
         </div>
       </div>
     </div>
-  </teleport>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, computed, onMounted } from "vue";
+import { useStore } from "../store/index";
+
 import anime from "animejs";
 
 export default defineComponent({
   name: "Modal",
-  props: {
-    modalVisible: {
-      required: true,
-      type: Boolean
-    },
-    modalTitle: {
-      required: true,
-      type: String
-    },
-    modalDefinition: {
-      required: true,
-      type: String
-    },
-    modalDefinitionSource: {
-      required: false,
-      type: String
-    },
-    modalImage: {
-      required: false,
-      type: String
-    },
-    modalImageSource: {
-      required: false,
-      type: String
-    }
-  },
   setup() {
+    const store = useStore();
+
+    const isVisible = computed(() => store.state.modal.visible);
+    const definee = computed(() => store.state.modal.definee);
+    const definition = computed(() => store.state.modal.definition);
+    const definitionSource = computed(() => store.state.modal.definitionSource);
+    const image = computed(() => store.state.modal.modalImage);
+    const imageSource = computed(() => store.state.modal.modalImageSource);
+
     const tl = ref(
       anime.timeline({
         easing: "easeInOutExpo"
@@ -69,45 +53,52 @@ export default defineComponent({
     );
 
     onMounted(() => {
-      document.body.setAttribute("modal-open", "");
       tl.value
         .add({
-          duration: 300,
+          duration: 200,
           targets: ".overlay",
           opacity: [0, 1]
         })
         .add(
           {
-            duration: 300,
+            duration: 250,
             targets: ".modal",
             translateY: ["25%", "0%"],
             opacity: [0, 1],
             easing: "easeOutCirc"
           },
           0
-        );
+        )
+        .finished.then(() => {
+          window.addEventListener("keyup", e => {
+            if (e.key === "Esc" || e.key === "Escape") {
+              tl.value.reverse();
+              tl.value.play();
+              tl.value.finished.then(() => store.dispatch("closeModal"));
+            }
+          });
+        });
     });
 
-    return { tl };
-  },
-  emits: ["closeModal"],
-  computed: {
-    imageSource(): NodeRequire {
-      return require(`@/assets/${this.modalImage}`);
-    }
+    return {
+      tl,
+      isVisible,
+      definee,
+      definition,
+      definitionSource,
+      image,
+      imageSource
+    };
   },
   methods: {
-    async overlayClick(e: PointerEvent) {
+    overlayClick(e: PointerEvent) {
       if (
         e.target !== this.$refs.modal &&
         !(this.$refs.modal as HTMLElement).contains(e.target as Node)
       ) {
         this.tl.reverse();
         this.tl.play();
-        this.tl.finished.then(() => {
-          document.body.removeAttribute("modal-open");
-          this.$emit("closeModal");
-        });
+        this.tl.finished.then(() => this.$store.dispatch("closeModal"));
       }
     }
   }
@@ -131,6 +122,12 @@ export default defineComponent({
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 100;
 
+  // transition: all ease-in-out 300ms;
+  // opacity: 0;
+  // &--visible {
+  //   opacity: 1;
+  // }
+
   .modal {
     display: flex;
     flex-direction: column;
@@ -151,6 +148,12 @@ export default defineComponent({
     border-radius: 30px;
 
     margin: var(--sat) var(--sar) var(--sab) var(--sal);
+
+    // transition: all ease-in-out 300ms;
+    // transform: translateY(25%);
+    // &--visible {
+    //   transform: translateY(0);
+    // }
 
     &__title {
       display: flex;
@@ -181,10 +184,12 @@ export default defineComponent({
     }
 
     &__content {
-      display: flex;
+      display: grid;
       flex-direction: column;
       align-items: center;
       gap: 2ch;
+      grid-auto-columns: auto;
+      height: min-content;
       padding-bottom: 0.2ch;
       overflow: auto;
       color: rgb(var(--text-color__paragraph));
@@ -194,6 +199,7 @@ export default defineComponent({
       }
       &__image {
         width: clamp(26ch, 50%, 70vw);
+        margin: auto;
         display: block;
         user-select: none;
         pointer-events: none;

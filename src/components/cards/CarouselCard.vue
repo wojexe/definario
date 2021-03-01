@@ -1,22 +1,78 @@
 <template>
-  <BaseCard #default="{ definee, definitionAbbr }">
-    <div class="carousel__card">
-      <span class="carousel__card__title">{{ definee }}</span>
-      <p class="carousel__card__definitionShort">
-        {{ definitionAbbr }}
-      </p>
-    </div>
-  </BaseCard>
+  <div class="carousel__card" @click="openModal">
+    <span class="carousel__card__title">{{ definee }}</span>
+    <p class="carousel__card__definitionShort">
+      {{ definitionAbbr }}
+    </p>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import BaseCard from "@/components/cards/BaseCard.vue";
+import { defineComponent, watchEffect, ref } from "vue";
+import { useStore } from "../../store/index";
 
 export default defineComponent({
   name: "CarouselCard",
-  components: {
-    BaseCard
+  props: {
+    definitionId: {
+      required: true,
+      type: Number
+    }
+  },
+  setup(props) {
+    const store = useStore();
+
+    const definee = ref(`definee no. ${props.definitionId}`);
+    const definition = ref(`definition no. ${props.definitionId}`);
+
+    const modalVisible = ref(false);
+
+    function openModal() {
+      if (!store.state.carousel.blockModal) {
+        store
+          .dispatch("modalUpdate", props.definitionId)
+          .then(() => store.dispatch("openModal"));
+      }
+    }
+
+    watchEffect(() => {
+      if (!store.state.modal.visible)
+        modalVisible.value = store.state.modal.visible;
+    });
+
+    // Calculate abbreviation
+    const definitionAbbr = ref(``);
+    const calculateAbbr = function(maxCharacters: number) {
+      definitionAbbr.value = "";
+      let wordsToProvide = 0;
+      for (let i = 0; i < maxCharacters; i++) {
+        if (definition.value.split("")[i] === " ") wordsToProvide += 1;
+      }
+      for (const w in definition.value.split(" ")) {
+        definitionAbbr.value += definition.value.split(" ")[w] + " ";
+        if (wordsToProvide === 0) break;
+        wordsToProvide -= 1;
+      }
+      definitionAbbr.value = definitionAbbr.value.substr(
+        0,
+        definitionAbbr.value.length - 1
+      );
+      definitionAbbr.value += "...";
+    };
+    const textSizeQuery = window.matchMedia(
+      "(min-width: 350px) and (min-height: 650px)"
+    );
+    textSizeQuery.matches ? calculateAbbr(70) : calculateAbbr(110);
+    textSizeQuery.addEventListener("change", e => {
+      e.matches ? calculateAbbr(70) : calculateAbbr(110);
+    });
+
+    return {
+      definee,
+      definitionAbbr,
+      openModal,
+      modalVisible
+    };
   }
 });
 </script>
@@ -47,6 +103,8 @@ p {
     text-overflow: ellipsis;
 
     cursor: pointer;
+    user-select: none;
+    cursor: pointer;
 
     &__title {
       font-size: var(--text-size--L);
@@ -61,7 +119,18 @@ p {
       font-size: var(--text-size--S);
       box-sizing: border-box;
       height: 100%;
-      // margin: 1ch 0 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    transition: all 150ms ease-in-out;
+    &:focus {
+      box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.4);
+    }
+
+    &:hover {
+      transform: scale(0.95);
     }
   }
 }

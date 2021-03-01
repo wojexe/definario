@@ -9,8 +9,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watchEffect, ref } from "vue";
+import { defineComponent, watchEffect, watch, ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "./store/index";
 
 import Skeleton from "@/components/TheSkeleton.vue";
 
@@ -22,6 +23,7 @@ export default defineComponent({
     const headerIsVisible = ref(true);
     const headerIsLanding = ref(false);
     const navigationIsVisible = ref(true);
+
     const route = useRoute();
 
     watchEffect(() => {
@@ -31,6 +33,13 @@ export default defineComponent({
         headerIsLanding.value = meta.header.landing;
         navigationIsVisible.value = meta.navbar.visible;
       }
+    });
+
+    const store = useStore();
+    const modalIsVisible = computed(() => store.state.modal.visible);
+    watch(modalIsVisible, now => {
+      if (now) document.body.setAttribute("modal-open", "");
+      else document.body.removeAttribute("modal-open");
     });
 
     return {
@@ -53,6 +62,10 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
 
   -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 :focus {

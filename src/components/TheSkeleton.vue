@@ -2,23 +2,38 @@
   <Header :visible="headerIsVisible" :landing="headerIsLanding" />
   <slot />
   <NavigationBar :visible="navigationIsVisible" />
+  <teleport to="#app">
+    <Modal v-if="modalVisible" />
+  </teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "../store/index";
+
 import Header from "@/components/TheHeader.vue";
 import NavigationBar from "@/components/TheNavigationBar.vue";
+
+import Modal from "@/components/TheModal.vue";
 
 export default defineComponent({
   name: "Skeleton",
   components: {
     Header,
-    NavigationBar
+    NavigationBar,
+    Modal
   },
   props: {
     headerIsVisible: Boolean,
     headerIsLanding: Boolean,
     navigationIsVisible: Boolean
+  },
+  setup() {
+    const store = useStore();
+
+    const modalVisible = computed(() => store.state.modal.visible);
+
+    return { modalVisible };
   }
 });
 </script>

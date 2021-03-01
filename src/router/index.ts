@@ -24,7 +24,22 @@ const routes: Array<RouteRecordRaw> = [
       navbar: { visible: true, active: "Home" },
       header: { visible: true, landing: false }
     },
-    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue")
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
+    children: [
+      {
+        path: "mathematical_tables",
+        name: "Mathematical tables",
+        meta: {
+          title: createTitle("tablice maturalne"),
+          navbar: { visible: true, active: "Home" },
+          header: { visible: true, landing: false }
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "mathematical_tables" */ "../views/MathematicalTables.vue"
+          )
+      }
+    ]
   },
   {
     path: "/learn",
@@ -79,9 +94,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const shouldRedirectHome = localStorage.getItem("visited") === "true";
-
-  // console.log(`shouldRedirectHome: ${shouldRedirectHome}`);
-  // console.log(`to.name: ${to.name?.toString()}`);
 
   // if previously visited AND trying to get to the landing page
   if (shouldRedirectHome && to.name?.toString() === "Landing") {
