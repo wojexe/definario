@@ -64,7 +64,6 @@ export default defineComponent({
   padding-top: 1.5ch;
 
   max-height: 22ch;
-  overflow: hidden;
 
   text-decoration: none;
   cursor: pointer;
@@ -151,7 +150,7 @@ export default defineComponent({
     }
   }
 
-  &:focus {
+  &:focus-visible {
     &::after,
     &::before {
       opacity: 0;

@@ -1,5 +1,10 @@
 <template>
-  <Header :visible="headerIsVisible" :landing="headerIsLanding" />
+  <Header
+    :visible="headerIsVisible"
+    :landing="headerIsLanding"
+    :offline="headerIsOffline"
+    :back-arrow="headerBackArrow"
+  />
   <slot />
   <NavigationBar :visible="navigationIsVisible" />
   <teleport to="#app">
@@ -26,6 +31,8 @@ export default defineComponent({
   props: {
     headerIsVisible: Boolean,
     headerIsLanding: Boolean,
+    headerIsOffline: Boolean,
+    headerBackArrow: Boolean,
     navigationIsVisible: Boolean
   },
   setup() {

@@ -124,11 +124,11 @@ p {
       align-items: center;
     }
 
-    transition: all 150ms ease-in-out;
-    &:focus {
+    &:focus-visible {
       box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.4);
     }
 
+    transition: all 150ms ease-in-out;
     &:hover {
       transform: scale(0.95);
     }

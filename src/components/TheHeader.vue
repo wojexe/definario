@@ -1,6 +1,10 @@
 <template>
   <LandingPageHeader v-if="landing && visible" />
-  <GlobalHeader v-else-if="visible" />
+  <GlobalHeader
+    v-else-if="visible"
+    :back-arrow="backArrow"
+    :offline="offline"
+  />
 </template>
 
 <script lang="ts">
@@ -17,6 +21,7 @@ export default defineComponent({
   props: {
     visible: Boolean,
     landing: Boolean,
+    offline: Boolean,
     backArrow: Boolean
   }
 });

@@ -1,15 +1,24 @@
 <template>
   <Skeleton
-    :headerIsVisible="headerIsVisible"
-    :headerIsLanding="headerIsLanding"
-    :navigationIsVisible="navigationIsVisible"
+    :header-is-visible="headerIsVisible"
+    :header-is-landing="headerIsLanding"
+    :header-is-offline="headerIsOffline"
+    :header-back-arrow="headerBackArrow"
+    :navigation-is-visible="navigationIsVisible"
   >
     <router-view />
   </Skeleton>
 </template>
 
 <script lang="ts">
-import { defineComponent, watchEffect, watch, ref, computed } from "vue";
+import {
+  defineComponent,
+  watchEffect,
+  watch,
+  ref,
+  computed,
+  onMounted
+} from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "./store/index";
 
@@ -22,10 +31,13 @@ export default defineComponent({
   setup() {
     const headerIsVisible = ref(true);
     const headerIsLanding = ref(false);
+    const headerIsOffline = ref(false);
+    const headerBackArrow = ref(false);
     const navigationIsVisible = ref(true);
 
     const route = useRoute();
 
+    // On route change check header and navbar props
     watchEffect(() => {
       const meta = route.meta;
       if (meta.header && meta.navbar) {
@@ -35,6 +47,19 @@ export default defineComponent({
       }
     });
 
+    // Check if app is online
+    function updateOnlineStatus() {
+      const isOnline = navigator.onLine ? true : false;
+
+      headerIsOffline.value = !isOnline;
+    }
+    onMounted(() => {
+      updateOnlineStatus();
+      window.addEventListener("online", updateOnlineStatus);
+      window.addEventListener("offline", updateOnlineStatus);
+    });
+
+    // Check if modal should be visible
     const store = useStore();
     const modalIsVisible = computed(() => store.state.modal.visible);
     watch(modalIsVisible, now => {
@@ -45,6 +70,8 @@ export default defineComponent({
     return {
       headerIsLanding,
       headerIsVisible,
+      headerIsOffline,
+      headerBackArrow,
       navigationIsVisible
     };
   }

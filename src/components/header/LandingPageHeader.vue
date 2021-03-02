@@ -1,7 +1,7 @@
 <template>
-  <header>
-    <span class="title">Definario</span>
-    <span class="subtitle">twoja encyklopedia</span>
+  <header class="header">
+    <span class="header__title">Definario</span>
+    <span class="header__subtitle">twoja encyklopedia</span>
     <img src="@/assets/landing.svg" />
     <img src="@/assets/landing.svg" />
   </header>
@@ -16,7 +16,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-header {
+.header {
   display: flex;
   position: fixed;
 
@@ -47,20 +47,21 @@ header {
     }
   }
 
-  span {
+  &__title,
+  &__subtitle {
     top: 7.5vh;
     z-index: 20;
     color: black;
     mix-blend-mode: overlay;
   }
 
-  .title {
+  &__title {
     position: relative;
     font-size: clamp(1px, 4.5vmax, 6vh);
     font-weight: bold;
   }
 
-  .subtitle {
+  &__subtitle {
     position: relative;
     font-size: clamp(1px, 3vmax, 5vh);
     font-style: italic;

@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="header" :class="offline ? 'offline' : ''">
     <span>Definario</span>
   </header>
 </template>
@@ -8,15 +8,16 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "LandingPageHeader",
+  name: "GlobalHeader",
   props: {
-    backArrow: Boolean
+    backArrow: Boolean,
+    offline: Boolean
   }
 });
 </script>
 
 <style lang="scss" scoped>
-header {
+.header {
   display: flex;
   position: fixed;
 
@@ -45,6 +46,26 @@ header {
     filter: blur(25px);
     opacity: 1;
     z-index: 5;
+  }
+
+  &::before {
+    content: "TRYB OFFLINE";
+    display: absolute;
+    position: absolute;
+    top: calc(60px + var(--sat) + 1ch);
+    padding: 0.25ch 1ch;
+    background: rgba(255, 0, 0, 1);
+    box-shadow: 0 8px 32px rgba(255, 0, 0, 1);
+    border-radius: 100px;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+  }
+
+  &.offline {
+    &::before {
+      opacity: 1;
+    }
   }
 
   span {
