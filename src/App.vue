@@ -31,8 +31,8 @@ export default defineComponent({
   setup() {
     const headerIsVisible = ref(true);
     const headerIsLanding = ref(false);
-    const headerIsOffline = ref(false);
     const headerBackArrow = ref(false);
+    const headerIsOffline = ref(false);
     const navigationIsVisible = ref(true);
 
     const route = useRoute();
@@ -43,6 +43,7 @@ export default defineComponent({
       if (meta.header && meta.navbar) {
         headerIsVisible.value = meta.header.visible;
         headerIsLanding.value = meta.header.landing;
+        headerBackArrow.value = meta.header.backArrow ?? false;
         navigationIsVisible.value = meta.navbar.visible;
       }
     });

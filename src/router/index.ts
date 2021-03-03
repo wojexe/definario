@@ -24,22 +24,21 @@ const routes: Array<RouteRecordRaw> = [
       navbar: { visible: true, active: "Home" },
       header: { visible: true, landing: false }
     },
-    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
-    children: [
-      {
-        path: "mathematical_tables",
-        name: "Mathematical tables",
-        meta: {
-          title: createTitle("tablice maturalne"),
-          navbar: { visible: true, active: "Home" },
-          header: { visible: true, landing: false }
-        },
-        component: () =>
-          import(
-            /* webpackChunkName: "mathematical_tables" */ "../views/MathematicalTables.vue"
-          )
-      }
-    ]
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue")
+  },
+  {
+    path: "/home/mathematical_tables",
+    name: "Mathematical tables",
+    meta: {
+      title: createTitle("tablice maturalne"),
+      navbar: { visible: false, active: "Home" },
+      header: { visible: true, landing: false, backArrow: true },
+      transition: "slide-right"
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "mathematical_tables" */ "../views/MathematicalTables.vue"
+      )
   },
   {
     path: "/learn",
@@ -89,7 +88,14 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return { left: savedPosition?.left, top: savedPosition?.top };
+    // console.log(savedPosition);
+    // return new Promise(resolve => {
+    //   resolve({ left: savedPosition?.left, top: savedPosition?.top });
+    // });
+  }
 });
 
 router.beforeEach((to, from, next) => {

@@ -16,8 +16,11 @@
       section-subtitle="aby wrócić swipenij z lewej"
     >
       <!-- TODO: ADD PROPER NAVIGATION HERE -->
-      <router-link to="mathematical_tables" custom v-slot="{ href, navigate }">
-        <!-- https://docs.google.com/viewer?url=https://cke.gov.pl/images/_EGZAMIN_MATURALNY_OD_2015/Informatory/2015/MATURA_2015_Wybrane_wzory_matematyczne.pdf&embedded=true -->
+      <router-link
+        to="/home/mathematical_tables"
+        custom
+        v-slot="{ href, navigate }"
+      >
         <Button
           :arrow="true"
           content="OTWÓRZ"
@@ -46,7 +49,6 @@ export default defineComponent({
   },
   setup() {
     const carouselDefinitionList = ref<number[]>();
-    // const carouselDefinitionList = ref(["0"]);
 
     const tempArr: number[] = [];
     for (let i = 0; i < 15; i++) tempArr.push(i + 1);

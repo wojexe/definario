@@ -9,8 +9,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-main {
-  background: blue;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -1,6 +1,5 @@
 <template>
   <main>learn</main>
-  <router-view />
 </template>
 
 <script lang="ts">
@@ -10,8 +9,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-main {
-  background: red;
-}
-</style>
+<style lang="scss" scoped></style>

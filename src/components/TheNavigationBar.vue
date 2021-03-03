@@ -1,6 +1,6 @@
 <template>
-  <nav v-if="visible">
-    <div class="navigation_wrapper">
+  <nav class="navigation" :class="visible ? 'navigation--visible' : ''">
+    <div class="navigation__wrapper">
       <NavigationButton destination="home" v-html="svg.home" />
       <NavigationButton destination="learn" v-html="svg.learn" />
       <NavigationButton destination="search" v-html="svg.search" />
@@ -44,7 +44,7 @@ span {
   z-index: 1000;
 }
 
-nav {
+.navigation {
   position: fixed;
   backdrop-filter: blur(20px);
 
@@ -58,10 +58,18 @@ nav {
   width: 100%;
   bottom: 0;
   left: 0;
-  div.navigation_wrapper {
+
+  &__wrapper {
     display: flex;
     justify-content: space-between;
     width: clamp(15ch, 100%, 270px);
+  }
+
+  will-change: opacity;
+  transition: 100ms ease-in-out opacity;
+  opacity: 0;
+  &--visible {
+    opacity: 1;
   }
 }
 </style>
