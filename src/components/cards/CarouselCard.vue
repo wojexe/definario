@@ -2,7 +2,7 @@
   <div class="carousel__card" @click="openModal">
     <span class="carousel__card__title">{{ definee }}</span>
     <p class="carousel__card__definitionShort">
-      {{ definitionAbbr }}
+      {{ definition }}
     </p>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default defineComponent({
   props: {
     definitionId: {
       required: true,
-      type: Number
+      type: String
     }
   },
   setup(props) {
@@ -28,10 +28,8 @@ export default defineComponent({
     const modalVisible = ref(false);
 
     function openModal() {
-      if (!store.state.carousel.blockModal) {
-        store
-          .dispatch("modalUpdate", props.definitionId)
-          .then(() => store.dispatch("openModal"));
+      if (!store.state.homePage.carousel.blockModal) {
+        store.dispatch("openModal", props.definitionId);
       }
     }
 
@@ -40,36 +38,38 @@ export default defineComponent({
         modalVisible.value = store.state.modal.visible;
     });
 
-    // Calculate abbreviation
-    const definitionAbbr = ref(``);
-    const calculateAbbr = function(maxCharacters: number) {
-      definitionAbbr.value = "";
-      let wordsToProvide = 0;
-      for (let i = 0; i < maxCharacters; i++) {
-        if (definition.value.split("")[i] === " ") wordsToProvide += 1;
-      }
-      for (const w in definition.value.split(" ")) {
-        definitionAbbr.value += definition.value.split(" ")[w] + " ";
-        if (wordsToProvide === 0) break;
-        wordsToProvide -= 1;
-      }
-      definitionAbbr.value = definitionAbbr.value.substr(
-        0,
-        definitionAbbr.value.length - 1
+    /*  Now using -webkit-line-clamp ❤️
+      Calculate abbreviation
+      const definitionAbbr = ref(``);
+      const calculateAbbr = function(maxCharacters: number) {
+        definitionAbbr.value = "";
+        let wordsToProvide = 0;
+        for (let i = 0; i < maxCharacters; i++) {
+          if (definition.value.split("")[i] === " ") wordsToProvide += 1;
+        }
+        for (const w in definition.value.split(" ")) {
+          definitionAbbr.value += definition.value.split(" ")[w] + " ";
+          if (wordsToProvide === 0) break;
+          wordsToProvide -= 1;
+        }
+        definitionAbbr.value = definitionAbbr.value.substr(
+          0,
+          definitionAbbr.value.length - 1
+        );
+        definitionAbbr.value += "...";
+      };
+      const textSizeQuery = window.matchMedia(
+        "(min-width: 350px) and (min-height: 650px)"
       );
-      definitionAbbr.value += "...";
-    };
-    const textSizeQuery = window.matchMedia(
-      "(min-width: 350px) and (min-height: 650px)"
-    );
-    textSizeQuery.matches ? calculateAbbr(70) : calculateAbbr(110);
-    textSizeQuery.addEventListener("change", e => {
-      e.matches ? calculateAbbr(70) : calculateAbbr(110);
-    });
+      textSizeQuery.matches ? calculateAbbr(70) : calculateAbbr(110);
+      textSizeQuery.addEventListener("change", e => {
+        e.matches ? calculateAbbr(70) : calculateAbbr(110);
+      })
+    */
 
     return {
       definee,
-      definitionAbbr,
+      definition,
       openModal,
       modalVisible
     };
@@ -119,9 +119,12 @@ p {
       font-size: var(--text-size--S);
       box-sizing: border-box;
       height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 6;
+      padding-bottom: 0.8px;
+      overflow: hidden;
     }
 
     &:focus-visible {

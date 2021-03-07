@@ -6,7 +6,6 @@
       :arrow="false"
       content="WRÓĆ"
       color="255,0,0"
-      :href="href"
       @click="$router.back()"
     />
   </main>

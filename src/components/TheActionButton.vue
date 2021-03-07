@@ -119,5 +119,8 @@ export default defineComponent({
   &:focus {
     box-shadow: 0 16px 64px rgba(var(--theme-color__secondary));
   }
+  &:active {
+    transform: scale(0.95);
+  }
 }
 </style>

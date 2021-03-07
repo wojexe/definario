@@ -116,7 +116,7 @@ body {
   --theme-color__card--background: 255, 255, 255;
 
   --theme-gradient: radial-gradient(
-    60.33% 115.75% at 2.43% 14.05%,
+    60% 115% at 2% 14%,
     #3e85ee 2%,
     #e389f0 50%,
     #f3c07c 90%
@@ -127,6 +127,10 @@ body {
   --theme-shadow__card__x: 0;
   --theme-shadow__card__y: 5px;
   --theme-shadow__card__radius: 25px;
+
+  --theme-shadow__card: var(--theme-shadow__card__x)
+    var(--theme-shadow__card__y) var(--theme-shadow__card__radius)
+    rgba(var(--theme-shadow__card__color), var(--theme-shadow__card__opacity));
 
   --text-color__normal: 0, 0, 0;
   --text-color__paragraph: 40, 40, 40;
@@ -148,6 +152,8 @@ body {
     --text-size--XL: 2rem;
     --text-size--XXL: 3rem;
   }
+
+  --width: clamp(10ch, 100%, 64ch);
 
   color: rgb(var(--text-color__normal));
   background: rgb(var(--theme-color__background));

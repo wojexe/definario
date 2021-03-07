@@ -3,6 +3,7 @@ import { Store } from "vuex";
 
 declare module "@vue/runtime-core" {
   // declare your own store states
+
   export interface State {
     modal: {
       visible: boolean;
@@ -12,8 +13,48 @@ declare module "@vue/runtime-core" {
       modalImage: string;
       modalImageSource: string;
     };
-    carousel: {
-      blockModal: boolean;
+    homePage: {
+      featured: {
+        id: string;
+        definee: string;
+        definition: string;
+        endsAt: Date;
+      };
+      carousel: {
+        blockModal: boolean;
+      };
+      lastVisited: string[];
+    };
+    learn: {
+      lastChosen: [
+        {
+          categories: string[];
+        }
+      ];
+      progress: [
+        {
+          name: string;
+          value: number;
+        }
+      ];
+    };
+    flashcards: {
+      currentDefinee: string;
+      currentDefinition: string;
+      currentDefinitionId: string;
+      currentDefinitionUserKnowledge: number;
+      definitionIdScore: string;
+
+      gameHistory: [{}];
+    };
+    saved: {
+      definitions: [
+        {
+          id: string;
+          definee: string;
+          definition: string;
+        }
+      ];
     };
   }
 

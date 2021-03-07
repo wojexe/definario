@@ -1,7 +1,9 @@
 <template>
   <section class="section">
-    <span class="section__title" :style="titleMargin">{{ sectionTitle }}</span>
-    <span class="section__subtitle" v-show="sectionSubtitle">{{
+    <span v-show="sectionTitle" class="section__title" :style="titleMargin">{{
+      sectionTitle
+    }}</span>
+    <span v-show="sectionSubtitle" class="section__subtitle">{{
       sectionSubtitle
     }}</span>
     <slot v-bind="$props" />
@@ -41,6 +43,8 @@ export default defineComponent({
     text-transform: uppercase;
 
     text-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+
+    text-align: center;
   }
 
   &__subtitle {
@@ -50,6 +54,8 @@ export default defineComponent({
 
     margin-top: -0.5ch;
     margin-bottom: calc(var(--text-size--L) * 0.75);
+
+    text-align: center;
   }
 }
 </style>

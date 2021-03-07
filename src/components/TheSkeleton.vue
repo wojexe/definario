@@ -51,11 +51,11 @@ main {
   justify-self: center;
   grid-gap: 2rem;
   width: 100%;
-  box-sizing: border-box;
+  box-sizing: content-box;
 
   padding-top: max(calc(var(--sat) + calc(60px + 2rem)), calc(60px + 2rem));
   padding-right: max(calc(var(--sar) + 5%), 5%);
-  padding-bottom: max(calc(var(--sab) + calc(60px + 2rem)), calc(60px + 2rem));
+  padding-bottom: max(calc(var(--sab) + calc(60px + 3rem)), calc(60px + 3rem));
   padding-left: max(calc(var(--sal) + 5%), 5%);
 
   overflow-x: hidden;

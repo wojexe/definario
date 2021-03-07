@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Landing from "../views/Landing.vue";
 
 function createTitle(title: string) {
   return `${title} • Definario`;
@@ -14,7 +13,8 @@ const routes: Array<RouteRecordRaw> = [
       navbar: { visible: false, active: "Home" },
       header: { visible: true, landing: true }
     },
-    component: Landing
+    component: () =>
+      import(/* webpackChunkName: "landing" */ "../views/Landing.vue")
   },
   {
     path: "/home",
@@ -27,26 +27,23 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue")
   },
   {
-    path: "/home/mathematical_tables",
-    name: "Mathematical tables",
-    meta: {
-      title: createTitle("tablice maturalne"),
-      navbar: { visible: false, active: "Home" },
-      header: { visible: true, landing: false, backArrow: true },
-      transition: "slide-right"
-    },
-    component: () =>
-      import(
-        /* webpackChunkName: "mathematical_tables" */ "../views/MathematicalTables.vue"
-      )
-  },
-  {
     path: "/learn",
     name: "Learn",
     meta: {
       title: createTitle("nauka"),
       navbar: { visible: true, active: "Learn" },
       header: { visible: true, landing: false }
+    },
+    component: () =>
+      import(/* webpackChunkName: "learn" */ "../views/Learn.vue")
+  },
+  {
+    path: "/learn/:id",
+    name: "Flashcard",
+    meta: {
+      title: createTitle("fiszki"),
+      navbar: { visible: false, active: "Learn" },
+      header: { visible: true, landing: false, backArrow: true }
     },
     component: () =>
       import(/* webpackChunkName: "learn" */ "../views/Learn.vue")

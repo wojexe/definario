@@ -1,0 +1,378 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "title": "Liczby i działania",
+      "description": " W tym rozdziale omawiam najważniejsze rodzaje liczb oraz metody wykonywania na nich działań. Dowiesz się tutaj m.in.:  Jakie są rodzaje liczb. Jak wykonywać działania na procentach. Jak wykonywać działania na ułamkach. Jak potęgować i pierwiastkować. Co to jest NWW i NWD.  "
+    }
+  ],
+  "decks": [
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "0731cb1b-e95f-4899-adee-5a6fd19a6745",
+      "title": "Rodzaje liczb",
+      "description": " W szkole podstawowej i średniej każda liczba jest liczbą rzeczywistą. Oto przykłady liczb rzeczywistych: \\[-3,\\ 0,\\ \\frac{1}{2},\\ \\sqrt{3},\\ \\pi\\]   Wśród liczb rzeczywistych możemy wskazać liczby całkowite: \\[...-3, -2, -1, 0, 1, 2, 3...\\]   oraz naturalne: \\[1, 2, 3, 4, 5,...\\] Czasami do liczb naturalnych zalicza się również liczbę zero.   Mamy również liczby wymierne, czyli takie które można zapisać za pomocą ułamka, np.: \\[-\\frac{1}{2}, \\frac{7}{4}, \\frac{6}{30}\\]   Każda liczba całkowita jest również liczbą wymierną, ponieważ można ją zapisać za pomocą ułamka, np.: \\[5=\\frac{5}{1}\\]   Mamy jeszcze liczby niewymierne, czyli np. pierwiastki: \\[\\sqrt{2}, \\sqrt{3}, \\sqrt{15}, \\sqrt[3]{7}\\] Pierwiastki, które można obliczyć są liczbami wymiernymi, np.: \\[\\sqrt{4}=2\\] Do liczb niewymiernych zaliczamy również takie liczby jak \\(\\pi\\) i \\(e\\). Te liczby dodatkowo są niealgebraiczne, ale to już omówię w oddzielnym rozdziale.   Liczby wymierne i niewymierne tworzą razem zbiór liczb rzeczywistych.   Na studiach możemy spotkać jeszcze liczby zespolone, które omawiam w dziale dla studentów.   W tym rozdziale omawiam wszystkie wymienione wyżej rodzaje liczb. ",
+      "cards": [
+        {
+          "title": "Liczby naturalne",
+          "content": "Liczby naturalne - to liczby całkowite, dodatnie: \\[1, 2, 3, 4, 5, 6, ...\\]  Czasami do liczb naturalnych zaliczamy również liczbę zero (autor książki matematycznej powinien zawsze jasno określić, czy uznaje liczbę zero za naturalną, czy też nie).  Zbiór liczb naturalnych oznaczamy literą \\(\\mathbb{N} \\). Możemy zapisać, że: \\[\\mathbb{N} =\\left \\lbrace 1, 2, 3, 4, 5, 6, ... \\right \\rbrace\\] Jeżeli zakładamy, że zero również jest liczbą naturalną, to zapiszemy: \\[\\mathbb{N} =\\left \\lbrace 0, 1, 2, 3, 4, 5, ... \\right \\rbrace\\] Czasami dla zbioru liczb naturalnych dodatnich stosujemy oznaczenie \\(\\mathbb{N}_{+} \\). \\[\\mathbb{N}_{+} =\\left \\lbrace 1, 2, 3, 4, 5, 6, ... \\right \\rbrace\\] Ten sam zbiór możemy również zapisać wykorzystując symbol liczb całkowitych: \\[\\mathbb{Z}_{+} =\\left \\lbrace 1, 2, 3, 4, 5, 6, ... \\right \\rbrace\\] ",
+          "id": "d010e7ef-2e1b-40a4-8c3e-916527f6fcdd"
+        },
+        {
+          "title": "Liczby całkowite",
+          "content": "Liczby całkowite - to liczby naturalne oraz ich ujemne odpowiedniki, a także liczba zero: \\[ ...-6, -5, -4, -3, -2, -1,\\ 0,\\ 1,\\ 2,\\ 3,\\ 4,\\ 5,\\ 6,\\ ... \\] Zbiór liczb całkowitych oznaczamy symbolem \\( \\mathbb{Z} \\). \\[ \\mathbb{Z} = \\left \\lbrace ...-6, -5, -4, -3, -2, -1,\\ 0,\\ 1,\\ 2,\\ 3,\\ 4,\\ 5,\\ 6,\\ ... \\right \\rbrace \\] Zbiór liczb całkowitych dodatnich to: \\[ \\mathbb{Z}_{+} = \\left \\lbrace 1,\\ 2,\\ 3,\\ 4,\\ 5,\\ 6,\\ ... \\right \\rbrace \\] Możemy także zapisać zbiór liczb całkowitych ujemnych: \\[ \\mathbb{Z}_{-} = \\left \\lbrace ...-6, -5, -4, -3, -2, -1 \\right \\rbrace \\] Zbiór liczb całkowitych dodatnich, to zbiór liczb naturalnych. ",
+          "id": "6f6c5685-3f6e-449a-979a-c1581e36a97e"
+        },
+        {
+          "title": "Liczby wymierne",
+          "content": " Liczba wymierna - to taka liczba, którą można zapisać w postaci ułamka zwykłego, czyli w postaci: \\[\\frac{p}{q}\\] gdzie:  \\(p\\) - to dowolna liczba całkowita \\(q\\) - to liczba całkowita różna od \\(0\\) (ponieważ nie wolno dzielić przez zero).    Zbiór liczb wymiernych oznaczamy symbolem \\(\\mathbb{Q} \\).   Formalnie zbiór liczb wymiernych można zapisać w taki sposób: \\[\\mathbb{Q} =\\left \\lbrace \\frac{p}{q}: p,q\\in \\mathbb{Z} \\land q\\ne 0 \\right \\rbrace\\]   Liczba \\(\\frac{3}{4}\\) jest wymierna, ponieważ jest zapisana w postaci ułamka zwykłego.   Każda liczba całkowita jest wymierna. Każdą liczbę całkowitą można zapisać za pomocą ułamka na dowolnie wiele sposobów.   Liczba \\(1\\) jest wymierna, ponieważ można ją zapisać w postaci ułamka zwykłego: \\[1=\\frac{1}{1}=\\frac{4}{4}=\\frac{17}{17}=\\ ...\\]   Liczba \\(5\\) jest wymierna, ponieważ można ją zapisać w postaci ułamka zwykłego: \\[5=\\frac{5}{1}=\\frac{10}{2}=\\frac{60}{12}=\\ ...\\]   Liczba \\(-3\\) jest wymierna, ponieważ można ją zapisać w postaci ułamka zwykłego: \\[-3=\\frac{-3}{1}=\\frac{-6}{2}=\\frac{900}{-300}=\\ ...\\]   Liczba \\(0\\) jest wymierna, ponieważ można ją zapisać w postaci ułamka zwykłego: \\[0=\\frac{0}{1}=\\frac{0}{2}=\\frac{0}{3}=\\ ...\\]   Liczba \\(1\\!\\frac{7}{8}\\) jest wymierna, ponieważ można ją zapisać w postaci ułamka zwykłego: \\[1\\!\\frac{7}{8}=\\frac{15}{8}\\]   Liczba \\(0{,}(3)\\) jest wymierna, ponieważ można ją zapisać w postaci ułamka zwykłego: \\[0{,}(3)=\\frac{1}{3}\\]   Liczba \\(\\sqrt{4}\\) jest wymierna, ponieważ można ją zapisać w postaci ułamka zwykłego: \\[\\sqrt{4}=2=\\frac{2}{1}\\]   Liczba \\(\\sqrt[3]{125}\\) jest wymierna, ponieważ można ją zapisać w postaci ułamka zwykłego: \\[\\sqrt[3]{125}=5=\\frac{5}{1}\\]   Liczbami niewymiernymi są np.: \\(\\sqrt{2}, \\sqrt{3}, \\pi\\).  ",
+          "id": "d5d745ac-cc4b-4a0c-b976-c82c928bb335"
+        },
+        {
+          "title": "Liczby niewymierne",
+          "content": " Liczba niewymierna - to taka liczba, której nie można zapisać za pomocą ułamka zwykłego.   Liczby niewymierne wraz z liczbami wymiernymi tworzą zbiór liczb rzeczywistych.   Liczbami niewymiernymi są np.: \\[\\sqrt{2},\\ \\sqrt{3},\\ \\sqrt{5},\\ \\sqrt{17},\\ \\sqrt[3]{2},\\ \\pi \\] Żadnej z tych liczb nie da się zapisać w postaci ułamka zwykłego.  Uwaga! Nie każdy pierwiastek jest liczbą niewymierną, np.: \\[\\sqrt{9}=3=\\frac{3}{1}\\]    Suma liczby wymiernej i niewymiernej jest zawsze liczbą niewymierną, np.:  liczba \\(1+\\sqrt{2}\\) jest niewymierna liczba \\(3-\\sqrt{5}\\) jest niewymierna liczba \\(\\frac{4}{7}+\\sqrt{12}\\) jest niewymierna    Iloczyn dwóch liczb niewymiernych może być liczbą wymierną albo niewymierną.  liczba \\(\\sqrt{2}\\cdot \\sqrt{2}\\) jest wymierna, ponieważ: \\[\\sqrt{2}\\cdot \\sqrt{2}=\\sqrt{4}=2\\]  liczba \\(\\sqrt{2}\\cdot \\sqrt{3}\\) jest niewymierna, ponieważ: \\[\\sqrt{2}\\cdot \\sqrt{3}=\\sqrt{6}\\]  liczba \\(\\sqrt{12}\\cdot \\sqrt{3}\\) jest wymierna, ponieważ: \\[\\sqrt{12}\\cdot \\sqrt{3}=\\sqrt{36}=6\\]  liczba \\(\\sqrt[3]{-2}\\cdot \\sqrt[3]{4}\\) jest wymierna, ponieważ: \\[\\sqrt[3]{-2}\\cdot \\sqrt[3]{4}=\\sqrt[3]{-8}=-2\\]    ",
+          "id": "a6dbad93-0edc-4566-8024-1889e7907266"
+        },
+        {
+          "title": "Liczby rzeczywiste",
+          "content": " Zbiór liczb rzeczywistych, to zbiór wszystkich liczb - wymiernych i niewymiernych.   Zbiór liczb rzeczywistych oznaczamy symbolem \\(\\mathbb{R} \\).   Liczbami rzeczywistymi są np.: \\[0,\\ 1,\\ -3,\\ \\frac{5}{6},\\ \\sqrt{2},\\ \\pi \\]  ",
+          "id": "946e1d5d-63ea-4a2e-a458-d8260e9f14a4"
+        },
+        {
+          "title": "Zestawienie informacji o podstawowych rodzajach liczb",
+          "content": "  NazwaOznaczenieDefinicjaPrzykłady Naturalne\\(\\mathbb{N}\\)\\(1,2,3,4,5,...\\)\\(1,4,17,1220\\) Całkowite\\(\\mathbb{Z}\\)\\(-3,-2,-1,0,1,2,3,...\\)\\(1,-4,17,-1220\\) Wymierne\\(\\mathbb{Q}\\)Liczby postaci \\(\\frac{p}{q}\\) gdzie \\(p,q\\in \\mathbb{Z} \\) i \\(q\\ne 0\\)\\(1,4,17,1220\\) NiewymierneLiczby których nie da się zapisać w postaci \\(\\frac{p}{q}\\) gdzie \\(p,q\\in \\mathbb{Z} \\) i \\(q\\ne 0\\)\\(\\sqrt{2}, \\sqrt{7}, -\\sqrt{13}, \\pi \\) Rzeczywiste\\(\\mathbb{R}\\)Wszystkie liczby wymierne i niewymierne\\(-5, 1, \\frac{3}{4}, \\sqrt{2}\\)  ",
+          "id": "35e0522d-dd2e-43a9-9423-52d24c962389"
+        },
+        {
+          "title": "Liczby parzyste i nieparzyste",
+          "content": " Liczba parzysta - to taka liczba całkowita, którą można podzielić przez \\(2\\) (bez reszty): \\[...-6,-4, -2, 0, 2, 4, 6,...\\]   Liczba nieparzysta - to taka liczba całkowita, której nie można podzielić przez \\(2\\) (przy dzieleniu przez \\(2\\) daje resztę \\(1\\)): \\[...-5, -3, -1, 1, 3, 5,...\\]   Liczby: \\[-62, -8, -6,\\ 0,\\ 2,\\ 14,\\ 22,\\ 4536\\] są parzyste.   Liczby: \\[-61, -7, -5,\\ 1,\\ 3,\\ 15,\\ 23,\\ 4537\\] są nieparzyste.  ",
+          "id": "0201db75-085c-4ae5-ad48-e23b008fa794"
+        },
+        {
+          "title": "Liczby przeciwne",
+          "content": " Liczby przeciwne - to dwie liczby, których suma wynosi zero.   Liczby \\(5\\) i \\(-5\\) są liczbami przeciwnymi, ponieważ: \\[5+(-5)=5-5=0\\]   Liczby \\(\\frac{2}{7}\\) i \\(-\\frac{2}{7}\\) są liczbami przeciwnymi, ponieważ: \\[\\frac{2}{7}+(-\\frac{2}{7})=\\frac{2}{7}-\\frac{2}{7}=0\\]   Liczby \\(\\sqrt{2}\\) i \\(-\\sqrt{2}\\) są liczbami przeciwnymi, ponieważ: \\[\\sqrt{2}+(-\\sqrt{2})=\\sqrt{2}-\\sqrt{2}=0\\]   Liczby \\(2\\) i \\(3\\) nie są liczbami przeciwnymi, ponieważ: \\[2+3=5\\ne 0\\]  Znajdź liczbę przeciwną do liczby: \\(1-\\sqrt{2}\\).  Szukana liczba to: \\[-(1-\\sqrt{2})=-1+\\sqrt{2}=\\sqrt{2}-1\\] Sprawdzenie: \\[1-\\sqrt{2}+\\sqrt{2}-1=0\\]   ",
+          "id": "57c2f676-97b4-42c1-b3d9-f494d0c9002b"
+        },
+        {
+          "title": "Liczby odwrotne",
+          "content": " Liczby odwrotne - to dwie liczby, których iloczyn jest równy \\(1\\).   Liczby \\(2\\) i \\(\\frac{1}{2}\\) są odwrotne, ponieważ: \\[2\\cdot \\frac{1}{2}=1\\]   Liczby \\(-5\\) i \\(-\\frac{1}{5}\\) są odwrotne, ponieważ: \\[-5\\cdot \\left (-\\frac{1}{5}\\right )=1\\]   Liczby \\(\\frac{7}{9}\\) i \\(\\frac{9}{7}\\) są odwrotne, ponieważ: \\[\\frac{7}{9}\\cdot \\frac{9}{7}=1\\]   Liczby \\(\\sqrt{2}\\) i \\(\\frac{\\sqrt{2}}{2}\\) są odwrotne, ponieważ: \\[\\sqrt{2}\\cdot \\frac{\\sqrt{2}}{2}=\\frac{\\sqrt{2}\\cdot \\sqrt{2}}{2}=\\frac{2}{2}=1\\]  Znajdź liczbę odwrotną do \\(\\frac{3}{13}\\)  Szukana liczba to: \\[\\frac{1}{\\frac{3}{13}}=\\frac{13}{3}\\] Sprawdzamy czy iloczyn jest równy \\(1\\): \\[\\frac{3}{13}\\cdot \\frac{13}{3}=1\\]   Znajdź liczbę odwrotną do \\(\\sqrt{3}\\).  Szukana liczba to: \\[\\frac{1}{\\sqrt{3}}\\] Sprawdzamy czy iloczyn jest równy \\(1\\): \\[\\sqrt{3}\\cdot \\frac{1}{\\sqrt{3}}=1\\] W tym przykładzie możemy usunąć niewymierność z mianownika: \\[\\frac{1}{\\sqrt{3}}=\\frac{\\sqrt{3}}{3}\\]  ",
+          "id": "56e82843-6758-4a5b-91a0-a6d302db9121"
+        },
+        {
+          "title": "Liczby pierwsze",
+          "content": " Liczba pierwsza - to taka liczba naturalna, która ma dokładnie dwa dzielniki naturalne: jedynkę i samą siebie.   W poniższej tabelce zaznaczono na żółto liczby pierwsze mniejsze od \\(100\\):    Zatem liczby pierwsze mniejsze od \\(100\\), to: \\[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97\\]   Wśród liczb pierwszych możemy wskazać tzw. liczby bliźniacze, czyli takie dwie liczby pierwsze, których różnica wynosi \\(2\\). Oto przykłady liczb pierwszych bliźniaczych:  liczby \\(3\\) i \\(5\\) liczby \\(11\\) i \\(13\\) liczby \\(59\\) i \\(61\\) liczby \\(1619\\) i \\(1621\\)    Generator liczb pierwszych Za pomocą tego programu możesz wygenerować n kolejnych liczb pierwszych. Kolorem czerwonym zostaną zaznaczone liczby pierwsze bliźniacze. Po najechaniu myszką na wygenerowaną liczbę pojawi się jej numer. n =                ",
+          "id": "befe074a-e030-4d8b-9985-e70e43acfcab"
+        },
+        {
+          "title": "Liczby złożone",
+          "content": " Liczba złożona - to każda liczba naturalna, która nie jest liczbą pierwszą.   Każdą liczbę złożoną można zapisać w postaci iloczynu mniejszych liczb naturalnych. Liczbę naturalną złożoną, można podzielić bez reszty przez inną liczbę naturalną, większą od \\(1\\).   Liczba \\(6\\) jest złożona, ponieważ dzieli się przez \\(2\\) i przez \\(3\\). Oto jej rozkład na iloczyn czynników: \\[6 = 2\\cdot 3\\]   Liczba \\(45\\) jest złożona, ponieważ dzieli się np. przez \\(5\\) i przez \\(3\\). Oto jej rozkład na iloczyn czynników: \\[45 = 3 \\cdot 3 \\cdot 5\\]   Liczba \\(13\\) nie jest złożona (jest pierwsza), ponieważ dzieli się tylko przez \\(1\\) i przez samą siebie. Jej rozkład na iloczyn czynników nie istnieje.  ",
+          "id": "d67b5cb8-0afc-4c14-b4d6-a1448538f524"
+        },
+        {
+          "title": "Liczby doskonałe",
+          "content": " Liczba doskonała - to taka liczba naturalna, która jest równa sumie wszystkich swoich podzielników, mniejszych od tej liczby.   Pojęcie liczby doskonałej nie jest wymagane w programie nauczania w szkole średniej i nie pojawia się w zadaniach. Podaję je tutaj jako ciekawostkę, a nie jako wiedzę potrzebną do dalszej nauki.   Liczba \\(6\\) jest doskonała, ponieważ: \\[1 + 2 + 3 = 6\\] Liczby \\(1\\), \\(2\\) i \\(3\\) to podzielniki liczby \\(6\\) mniejsze od \\(6\\).   Liczba \\(28\\) jest doskonała, ponieważ: \\[1 + 2 + 4 + 7 + 14 = 28\\] Liczby \\(1\\), \\(2\\), \\(4\\), \\(7\\), \\(14\\) to podzielniki liczby \\(28\\) mniejsze od \\(28\\).   Liczba \\(496\\) jest doskonała, ponieważ: \\[\\ 1 + 2 + 4 + 8 + 16 + 31 + 62 + 124 + 248 = 496\\] Liczby \\(1\\), \\(2\\), \\(4\\), \\(8\\), \\(16\\), \\(31\\), \\(62\\), \\(124\\), \\(248\\) to jedyne podzielniki liczby \\(496\\) mniejsze od \\(496\\).   W powyższych przykładach zostały podane trzy najmniejsze liczby doskonałe. Oto cztery kolejne liczby doskonałe:  \\(8128\\\\ 33550336\\\\ 8589869056\\\\ 137438691328 \\)  Wszystkie dotychczas wyznaczone liczby doskonałe są parzyste. Nie wiadomo, czy istnieją liczby doskonałe nieparzyste. Nie wiadomo również, czy liczb doskonałych jest skończenie wiele.  ",
+          "id": "d1cbac39-6634-42ae-baa3-655d159ea26f"
+        },
+        {
+          "title": "Liczby algebraiczne",
+          "content": " Liczba algebraiczna - to liczba rzeczywista (lub ogólniej zespolona), która jest pierwiastkiem pewnego niezerowego wielomianu o współczynnikach wymiernych. Stopień takiego wielomianu jest jednocześnie stopniem danej liczby algebraicznej.   Liczba \\(10\\) jest algebraiczna, ponieważ jest pierwiastkiem wielomianu \\(W(x)=x-10\\). Stopień tej liczby algebraicznej jest równy \\(1\\) (ponieważ wielomian \\(W(x)\\) ma stopień \\(1\\)).   Liczba \\(\\sqrt{3}\\) jest algebraiczna, ponieważ jest pierwiastkiem wielomianu \\(W(x)=x^2-3\\). Stopień tej liczby algebraicznej jest równy \\(2\\) (ponieważ wielomian \\(W(x)\\) ma stopień \\(2\\)).   Liczba \\(e\\) nie jest algebraiczna. Taką liczbę nazywamy liczbą przestępną.  ",
+          "id": "f0d1286f-3776-4896-93da-040b448a15d2"
+        },
+        {
+          "title": "Liczby przestępne",
+          "content": " Liczba przestępna - to taka liczba, która nie jest pierwiastkiem żadnego wielomianu o współczynnikach wymiernych. Inaczej mówiąc - jest to liczba niealgebraiczna.   Zazwyczaj nie jest łatwo udowodnić, że jakaś liczba jest przestępna.   Przykłady:   Liczba \\(\\pi \\) (udowodnił to Ferdinand Lindemann w 1882 roku).  Liczba \\(e\\) (udowodnił to Charles Hermite w 1873 roku).  Liczby postaci \\(e^a\\), gdzie \\(a\\) jest dowolną liczbą algebraiczną.  Liczby zapisane w postaci potęgi, które mają w podstawie liczbę wymierną, a w wykładniku liczbę niewymierną, np. liczba \\(2^{\\sqrt{5}}\\).  ",
+          "id": "2c948c25-a960-4f4e-afbb-edef2ee3c855"
+        }
+      ]
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "3b58b54e-5874-4e06-b012-81fbabefc0a6",
+      "title": "Procenty",
+      "description": " Słowo procent pochodzi od łacińskiego wyrażenia per centum - \"na sto\". Jeden procent zapisujemy symbolem \\(1\\%\\). Oznacza on jedną setną część całości.   Jeżeli mówimy, że \\(23\\%\\) Polaków ma oczy niebieskie, to znaczy, że przeciętnie na \\(100\\) Polaków jest \\(23\\) takich, którzy mają oczy niebieskie. Można też powiedzieć, że \\(\\frac{23}{100}\\) wszystkich Polaków ma oczy niebieskie.  Możemy zatem wyrażać procenty w postaci ułamków zwykłych: \\[1\\%=\\frac{1}{100}\\] albo dziesiętnych: \\[1\\%=0{,}01\\]  \\[3\\%=\\frac{3}{100}=0{,}03\\]   \\[24\\%=\\frac{24}{100}=0{,}24\\] Oczywiście ułamek zwykły można skrócić: \\[24\\%=\\frac{24}{100}=\\frac{6}{25}\\]   \\[130\\%=\\frac{130}{100}=1{,}3\\] Oczywiście ułamek zwykły można skrócić: \\[130\\%=\\frac{130}{100}=\\frac{13}{10}\\]   Powyższe przykłady pokazują jak zamieniać procenty na ułamki, ale w praktyce procenty są zawsze liczone \"z czegoś\".   Zdanie: \"\\(5\\%\\) liczby \\(30\\).\" możemy zapisać tak: \\[5\\%\\cdot 30=\\frac{5}{100}\\cdot 30=0{,}05\\cdot 30\\] Możemy również obliczyć wynik: \\[5\\%\\cdot 30=\\frac{5}{100}\\cdot 30=\\frac{1}{20}\\cdot 30=\\frac{3}{2}=1{,}5\\]   Zdanie: \"\\(7\\%\\) liczby \\(x\\).\" zapiszemy tak: \\[7\\%\\cdot x=\\frac{7}{100}\\cdot x=0{,}07\\cdot x\\] Możemy również pominąć znak mnożenia: \\[7\\%\\ x=\\frac{7}{100}x=0{,}07x\\] ",
+      "cards": [
+        {
+          "title": "Zamiana ułamka na procent",
+          "content": " Ułamek zwykły można zamienić na procent rozszerzając go do mianownika \\(100\\). Wówczas w liczniku dostajemy szukaną liczbę procentów.   \\[\\frac{3}{5}=\\frac{60}{100}=60\\%\\]   \\[\\frac{1}{20}=\\frac{5}{100}=5\\%\\]   \\[\\frac{7}{25}=\\frac{28}{100}=28\\%\\]   Dowolny ułamek można zamienić na procenty mnożąc go przez \\(100\\%\\).   \\[\\frac{3}{5}=\\frac{3}{5}\\cdot 100\\%=\\frac{300\\%}{5}=60\\%\\]   \\[\\frac{1}{3}=\\frac{1}{3}\\cdot 100\\%=\\frac{100\\%}{3}=33\\frac{1}{3}\\%\\]   \\[\\frac{5}{7}=\\frac{5}{7}\\cdot 100\\%=\\frac{500\\%}{7}=71\\frac{3}{7}\\%\\]     Program do zamiany ułamka na procent Wpisz w poniższe pole ułamek (np.: 2/5 lub 0,57) lub dowolną liczbę:      Wynik:   ",
+          "id": "6b00fd29-ae82-4510-875c-a2343ff78455"
+        },
+        {
+          "title": "Zamiana procentu na ułamek",
+          "content": " Procenty zamieniamy na ułamki zwykłe pisząc w liczniku liczbę procentów, a w mianowniku \\(100\\). Później oczywiście można taki ułamek skrócić, lub zamienić na ułamek mieszany.   \\[12\\%=\\frac{12}{100}=\\frac{3}{25}\\]   \\[50\\%=\\frac{50}{100}=\\frac{1}{2}\\]   \\[116\\%=\\frac{116}{100}=\\frac{29}{25}=1\\frac{4}{25}\\]   Aby zamienić procenty na ułamek dziesiętny, wystarczy przesunąć przecinek o dwa miejsca w lewo.   \\[12\\%=0{,}12\\]   \\[115\\%=1{,}15\\]   \\[520,7\\%=5{,}207\\]     Program do zamiany procentów na ułamek Podaj liczbę procentów: %       ",
+          "id": "389873f0-e7d9-4ef7-a343-6c1195f3c7b8"
+        },
+        {
+          "title": "Jakim procentem jednej liczby jest druga liczba",
+          "content": " Aby obliczyć jakim procentem liczby \\(x\\) jest liczba \\(y\\), wystarczy podzielić \\(y\\) przez \\(x\\), a następnie otrzymany ułamek zamienić na procenty.  Jakim procentem liczby \\(60\\) jest liczba \\(15\\)?\\[\\frac{15}{60}\\cdot 100\\%=\\frac{1}{4}\\cdot 100\\%=25\\%\\] Jakim procentem liczby \\(15\\) jest liczba \\(60\\)?\\[\\frac{60}{15}\\cdot 100\\%=4\\cdot 100\\%=400\\%\\] Jakim procentem liczby \\(30\\) jest liczba \\(17\\)?\\[\\frac{17}{30}\\cdot 100\\%=\\frac{170}{3}\\%=56\\frac{2}{3}\\%\\]    Program Jakim procentem liczby  jest liczba ?    ",
+          "id": "35be91d3-067a-4a8c-a548-7d1d539d7b60"
+        },
+        {
+          "title": "Obliczanie procentu z danej liczby",
+          "content": "Aby obliczyć procent z danej liczby, należy pomnożyć procent przez tę liczbę. Przed wykonaniem mnożenia oczywiście zamieniamy procent na ułamek. Oblicz ile wynosi \\(5\\%\\) z liczby \\(70\\).Wykonujemy następujący rachunek: \\[5\\%\\cdot 70=\\frac{5}{100}\\cdot 70=\\frac{35}{10}=3{,}5\\] Bartek zarobił \\(1800\\) zł i postanowił przeznaczyć \\(10\\%\\) tej kwoty na zakup gier komputerowych. Ile pieniędzy wydał Bartek na gry?Obliczamy \\(10\\%\\) liczby \\(1800\\): \\[10\\%\\cdot 1800=\\frac{10}{100}\\cdot 1800=10\\cdot 18=180\\] Bartek wydał na gry \\(180\\) zł.    Program do obliczania procentu z liczby Oblicz % z liczby .    ",
+          "id": "8d532a09-1b86-4775-9153-d1d7172c2f4e"
+        },
+        {
+          "title": "Obliczanie liczby mając dany jej procent",
+          "content": " Sposób I - ułożenie równania  Oblicz liczbę, której \\(10\\%\\) jest równe \\(15\\).Niech:  \\(x\\) - szukana liczba  Układamy i rozwiązujemy równanie: \\[\\begin{split}10\\%\\cdot x&=15\\\\0{,}1\\cdot x&=15\\\\x&=15\\cdot 10\\\\x&=150\\end{split}\\]  Oblicz liczbę, której \\(25\\%\\) jest równe \\(7\\).Niech:  \\(x\\) - szukana liczba  Układamy i rozwiązujemy równanie: \\[\\begin{split}25\\%\\cdot x&=7\\\\0{,}25\\cdot x&=7\\\\x&=7\\cdot \\frac{100}{25}\\\\x&=7\\cdot 4\\\\x&=28\\end{split}\\]   Sposób II - ułożenie proporcji  Oblicz liczbę, której \\(6\\%\\) jest równe \\(8\\).Niech:  \\(x\\) - szukana liczba  Układamy i rozwiązujemy proporcję: \\[\\left. \\begin{matrix} 6\\% &-& 8 \\\\ 100\\% &-& x \\end{matrix} \\right \\}\\Rightarrow x=\\frac{100\\cdot 8}{6}=\\frac{800}{6}=133\\frac{1}{3}\\] Wiadomo, że \\(12\\%\\) ceny samochodu jest równe \\(2400\\) zł. Ile kosztuje samochód?Niech:  \\(x\\) - szukana cena samochodu  Układamy i rozwiązujemy proporcję: \\[\\left. \\begin{matrix} 12\\% &-& 2400 \\\\ 100\\% &-& x \\end{matrix} \\right \\}\\Rightarrow x=\\frac{100\\cdot 2400}{12}=20000\\]  Sposób III - podzielenie liczby przez podany procent  Oblicz liczbę, której \\(2\\%\\) jest równe \\(9\\).\\[9:2\\%=9:\\frac{2}{100}=9\\cdot \\frac{100}{2}=450\\] Wiadomo, że \\(70\\%\\) ceny wycieczki jest równe \\(350\\) zł. Ile kosztuje wycieczka?\\[350:70\\%=350:\\frac{70}{100}=350\\cdot \\frac{100}{70}=500\\] Wycieczka kosztuje \\(500\\) zł.    Program do obliczania liczby, gdy dany jest jej procent Oblicz liczbę, której % jest równe .     ",
+          "id": "768ddcf1-f943-44d9-9f69-3adfd94b3075"
+        },
+        {
+          "title": "Podwójna obniżka/podwyżka cen",
+          "content": "Na filmie omawiam metodę rozwiązywania zadań z procentów, w których występuje podwójna obniżka, albo podwyżka ceny.Czas nagrania: 22 min. ",
+          "id": "e20a7022-4cee-4e91-b3e1-fbe60c74f29a"
+        },
+        {
+          "title": "Procent składany - kapitalizacja odsetek",
+          "content": " Kapitalizację odsetek obliczamy ze wzoru: \\[K_n = K\\cdot \\left(1+\\frac{p}{100\\cdot k}\\right)^{n\\cdot k}\\] gdzie:  \\(K\\) - kapitał początkowy \\(n\\) - liczba lat oszczędzania \\(p\\) - oprocentowanie w skali roku (np. gdy mamy \\(3\\%\\) w skali roku, to \\(p=3\\)) \\(k\\) - liczba kapitalizacji w ciągu roku (np. przy kapitalizacji miesięcznej mamy \\(k=12)\\) \\(K_n\\) - kapitał zgromadzony po \\(n\\) latach oszczędzania  ",
+          "id": "dd44e12c-9584-4e5d-be39-5402508c2111"
+        },
+        {
+          "title": "Zadania z procentów",
+          "content": "",
+          "id": "89f0debf-6423-4c36-8fb3-139b69a6af61"
+        }
+      ]
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "8f6d3dfb-cc3b-4163-bd82-b6b4541b692e",
+      "title": "Ułamki",
+      "description": " Poniżej znajdują się jedynie definicje najważniejszych pojęć związanych z ułamkami. W kolejnych rozdziałach znajdziesz dokładniejsze omówienie wszystkich zagadnień, wraz z przykładami.   ułamek - wyrażenie lub liczba postaci \\(\\frac{a}{b}\\) (czasami zapisujemy \\(a/b\\), rzadziej \\(a:b\\)), gdzie \\(a\\) nazywamy licznikiem ułamka, a \\(b\\) nazywamy mianownikiem ułamka. Kreskę poziomą między licznikiem i mianownikiem nazywamy kreską ułamkową.   Ułamek dziesiętny - ułamek, w którym mianownik jest naturalną potęgą liczby \\(10\\), np. \\(\\frac{7}{10}\\), \\(\\frac{32}{100}\\), \\(\\frac{3}{1000}\\). Ułamek dziesiętny zapisujemy najczęściej używając przecinka, a nie kreski ułamkowej, np.:  \\[ \\frac{7}{10}=0{,}7,\\qquad \\frac{16}{10}=1{,}6,\\qquad \\frac{327}{100}=3{,}27. \\]    Ułamek dziesiętny nieskończony - ułamek dziesiętny, który po przecinku ma nieskończenie wiele cyfr (może być okresowy).   Ułamek dziesiętny okresowy - ułamek dziesiętny nieskończony, którego cyfry od pewnego miejsca po przecinku otrzymujemy przez powtarzanie pewnej grupy cyfr zwanej okresem, np. \\[0{,}\\underline{3}33333... = 0{,}(3)\\] \\[0{,}\\underline{42857}4285742857... = 0{,}(42857)\\] \\[(2{,}7351\\underline{42}424242... = 2{,}7351(42)\\] Ułamki okresowe często zapisujemy krócej - pisząc okres w nawiasie. Każdy ułamek okresowy można zamienić na ułamek zwykły.   Ułamek mieszany - ułamek niewłaściwy, który został zapisany jako suma liczby całkowitej i ułamka właściwego (znak \\(+\\) przy takim zapisie pomijamy), np. \\[\\frac{9}{2}=4\\frac{1}{2},\\qquad -\\frac{13}{5}=-2\\frac{3}{5},\\qquad \\frac{7}{3}=2\\frac{1}{3}\\]   Ułamek nieskracalny - ułamek w którym licznik i mianownik mają największy wspólny dzielnik równy \\(1\\), np. \\[\\frac{2}{3}, \\frac{7}{11}, \\frac{14}{9}\\]   Ułamek niewłaściwy - ułamek w którym licznik jest większy lub równy mianownikowi (mówiąc dokładniej - wartość bezwzględna licznika jest większa lub równa od wartości bezwzględnej mianownika), np. \\[\\frac{4}{3},\\quad\\frac{10}{8},\\quad -\\frac{28}{6}\\]   Ułamek właściwy - ułamek w którym licznik jest mniejszy od mianownika (mówiąc dokładniej - wartość bezwzględna licznika jest mniejsza od wartości bezwzględnej mianownika), np. \\[\\frac{3}{4},\\quad \\frac{1}{5},\\quad -\\frac{52}{170}\\]   Ułamek zwykły - ułamek zapisany przy pomocy licznika, mianownika i kreski ułamkowej (nie ułamek dziesiętny). Ułamek zwykły można krócej nazywać po prostu ułamkiem. ",
+      "cards": [
+        {
+          "title": "Ułamki zwykłe",
+          "content": " Każdy ułamek zwykły składa się z trzech elementów - licznika, mianownika i kreski ułamkowej. Kreska ułamkowa symbolizuje znak dzielenia.    Zatem ułamek \\(\\frac{9}{4}\\) oznacza tę samą liczbę co działanie \\(9 : 4\\).   Dzięki ułamkom możemy zapisywać liczby, które nie są całkowite.   Liczbę jabłek na dwóch poniższych rysunkach zapiszemy z wykorzystaniem ułamków.    Pod każdym prostokątem zapisano jaka jego część jest koloru szarego.    Pod każdym kołem zapisano jaka jego część jest koloru szarego.    Kwadrat podzielono na 16 równych części i każdą pomalowano jakimś kolorem. Określ jaką część dużego kwadratu pomalowano każdym z kolorów.   Kolorem zielonym pomalowano \\(5\\) małych obszarów, czyli \\(\\frac{5}{16}\\) dużego kwadratu.   Kolorem czerwonym pomalowano \\(4\\) małe obszary, czyli \\(\\frac{4}{16}\\) dużego kwadratu.   Równoważnie można powiedzieć, że kolorem czerwonym zamalowano \\(\\frac{1}{4}\\) powierzchni dużego kwadratu.   Kolorem niebieskim pomalowano \\(5\\) małych obszarów, czyli \\(\\frac{5}{16}\\) dużego kwadratu.   Kolorem szarym pomalowano \\(2\\) małe obszary, czyli \\(\\frac{2}{16}\\) dużego kwadratu.   Równoważnie można powiedzieć, że kolorem szarym zamalowano \\(\\frac{1}{8}\\) powierzchni dużego kwadratu.  ",
+          "children": [
+            {
+              "title": "Miejsce ułamka na osi liczbowej",
+              "content": "Zaznaczając ułamki na osi liczbowej warto jest przyjąć dobre jednostki. Przykładowo, jeżeli chcemy zaznaczyć na osi ułamki o mianowniku \\(2\\), to za jedną jednostkę przyjmiemy \\(2\\) kratki.  Jeżeli chcemy zaznaczyć na osi ułamki o mianowniku \\(3\\), to za jedną jednostkę przyjmiemy \\(3\\) kratki:  Jeżeli chcemy zaznaczyć na osi ułamki o różnych mianownikach, np.: \\(2\\) i \\(3\\), to za jedną jednostkę przyjmiemy najmniejszą wspólną wielokrotność tych mianowników (sprowadzanie ułamków do wspólnego mianownika). ",
+              "id": "157e76da-004c-483a-97d6-787cfaedf780"
+            },
+            {
+              "title": "Zamiana liczby mieszanej na ułamek niewłaściwy",
+              "content": "Liczba mieszana składa się z części całkowitej i ułamkowej:  Możemy taką liczbę zamienić na ułamek zwykły w następujący sposób: \\[5\\frac{3}{4}=\\frac{4\\cdot 5+3}{4}=\\frac{23}{4}\\] Jak to zrobiliśmy? Mianownik pomnożyliśmy przez część całkowitą i dodaliśmy do licznika. Sam mianownik pozostał bez zmian.  \\[7\\frac{3}{5}=\\frac{5\\cdot 7+3}{5}=\\frac{38}{5}\\]   \\[2\\frac{7}{11}=\\frac{11\\cdot 2+7}{11}=\\frac{29}{11}\\]   \\[1\\frac{3}{4}=\\frac{4\\cdot 1+3}{4}=\\frac{7}{4}\\]   \\[8\\frac{2}{7}=\\frac{7\\cdot 8+2}{7}=\\frac{58}{7}\\]   \\[3\\frac{1}{9}=\\frac{9\\cdot 3+1}{9}=\\frac{28}{9}\\]   \\[2\\frac{1}{2}=\\frac{2\\cdot 2+1}{2}=\\frac{5}{2}\\]   Większość działań wykonuje się łatwiej na ułamkach zwykłych, niż na ułamkach mieszanych, dlatego warto nauczyć się tej prostej zamiany.  ",
+              "id": "be40b3be-465c-4e69-a321-864449a9cc5b"
+            },
+            {
+              "title": "Dodawanie i odejmowanie ułamków o wspólnym mianowniku",
+              "content": "Ułamki o takim samym mianowniki dodajemy sumując jedynie ich liczniki. Podobnie przy odejmowaniu - odejmujemy tylko liczniki.  \\[\\frac{1}{2}+\\frac{1}{2}=\\frac{1+1}{2}=\\frac{2}{2}=1\\]   \\[\\frac{1}{3}+\\frac{1}{3}=\\frac{1+1}{3}=\\frac{2}{3}\\]   \\[\\frac{1}{4}+\\frac{1}{4}=\\frac{1+1}{4}=\\frac{2}{4}=\\frac{1}{2}\\]   \\[\\frac{1}{4}-\\frac{1}{4}=\\frac{1-1}{4}=\\frac{0}{4}=0\\]   \\[\\frac{1}{5}+\\frac{1}{5}=\\frac{1+1}{5}=\\frac{2}{5}\\]   \\[\\frac{2}{5}+\\frac{1}{5}=\\frac{2+1}{5}=\\frac{3}{5}\\]   \\[\\frac{2}{5}-\\frac{1}{5}=\\frac{2-1}{5}=\\frac{1}{5}\\]   \\[\\frac{13}{17}+\\frac{6}{17}=\\frac{13+6}{17}=\\frac{19}{17}\\]   \\[\\frac{13}{17}-\\frac{6}{17}=\\frac{13-6}{17}=\\frac{7}{17}\\]   \\[\\frac{7}{5}+\\frac{3}{5}+\\frac{4}{5}=\\frac{7+3+4}{5}=\\frac{14}{5}\\]   \\[\\frac{7}{5}+\\frac{3}{5}-\\frac{4}{5}=\\frac{7+3-4}{5}=\\frac{6}{5}\\] ",
+              "id": "cd5616e9-9326-4473-b5db-dee4aeb0bdd5"
+            },
+            {
+              "title": "Rozszerzanie ułamków",
+              "content": " Ułamek rozszerzamy mnożąc jego licznik i mianownik przez liczbę różną od zera.   Mnożąc licznik i mianownik ułamka \\(\\frac{1}{2}\\) przez \\(5\\) otrzymamy następujące rozszerzenie: \\[\\frac{1}{2}=\\frac{1\\cdot 5}{2\\cdot 5}=\\frac{5}{10}\\] Zatem ułamek \\(\\frac{5}{10}\\) to inny sposób zapisania ułamka \\(\\frac{1}{2}\\). Każdy ułamek możemy rozszerzać na dowolnie wiele sposobów. Oto kolejne przykłady rozszerzeń ułamka \\(\\frac{1}{2}\\):  \\(\\frac{1}{2}=\\frac{1\\cdot 2}{2\\cdot 2}=\\frac{2}{4}\\) \\(\\frac{1}{2}=\\frac{1\\cdot 7}{2\\cdot 7}=\\frac{7}{14}\\) \\(\\frac{1}{2}=\\frac{1\\cdot 10}{2\\cdot 10}=\\frac{10}{20}\\) \\(\\frac{1}{2}=\\frac{1\\cdot 50}{2\\cdot 50}=\\frac{50}{100}\\)    Rozszerzanie nie zmienia wartości ułamka, tylko pozwala zapisać go w inny sposób. Każdy ułamek można zapisać na nieskończenie wiele sposobów.   Kilka sposobów na zapisanie ułamka \\(\\frac{1}{3}\\): \\[\\frac{1}{3}=\\frac{2}{6}=\\frac{3}{9}=\\frac{10}{30}=\\frac{12}{36}\\]   Kilka sposobów na zapisanie ułamka \\(\\frac{2}{5}\\): \\[\\frac{2}{5}=\\frac{4}{10}=\\frac{6}{15}=\\frac{14}{35}=\\frac{100}{250}\\]   Rozszerzanie jest szczególnie przydatne podczas sprowadzania ułamków do wspólnego mianownika. ",
+              "id": "d65b5d1a-b0a3-4491-a612-295f20b894f7"
+            },
+            {
+              "title": "Sprowadzanie ułamków do wspólnego mianownika",
+              "content": " Ułamki sprowadzamy do wspólnego mianownika odpowiednio je rozszerzając. Spójrzmy na poniższe przykłady.  Ułamki \\(\\frac{1}{2}\\) oraz \\(\\frac{1}{3}\\) rozszerz w taki sposób, aby doprowadzić je do wspólnego mianownika.  Ułamek \\(\\frac{1}{2}\\) rozszerzamy przez mianownik drugiego ułamka: \\[\\frac{1}{2}=\\frac{1\\cdot 3}{2\\cdot 3}=\\frac{3}{6}\\] Ułamek \\(\\frac{1}{3}\\)rozszerzamy przez mianownik pierwszego ułamka: \\[\\frac{1}{3}=\\frac{1\\cdot 2}{3\\cdot 2}=\\frac{2}{6}\\] W ten sposób oba ułamki rozszerzyliśmy na ułamki o tym samym mianowniku równym \\(6\\).   Ułamki \\(\\frac{2}{5}\\) oraz \\(\\frac{3}{7}\\) rozszerz w taki sposób, aby doprowadzić je do wspólnego mianownika.  Ułamek \\(\\frac{2}{5}\\) rozszerzamy przez mianownik drugiego ułamka: \\[\\frac{2}{5}=\\frac{2\\cdot 7}{5\\cdot 7}=\\frac{14}{35}\\] Ułamek \\(\\frac{3}{7}\\)rozszerzamy przez mianownik pierwszego ułamka: \\[\\frac{3}{7}=\\frac{3\\cdot 5}{7\\cdot 5}=\\frac{15}{35}\\] Oba ułamki doprowadziliśmy do wspólnego mianownika równego \\(35\\).    Uwaga! Dowolne dwa ułamki możemy sprowadzić do wspólnego mianownika na wiele różnych sposobów! Spójrzmy na poniższy przykład.  Ułamki \\(\\frac{1}{6}\\) oraz \\(\\frac{3}{4}\\) sprowadź do wspólnego mianownika.  Ułamek \\(\\frac{1}{6}\\) rozszerzamy przez mianownik drugiego ułamka: \\[\\frac{1}{6}=\\frac{1\\cdot 4}{6\\cdot 4}=\\frac{4}{24}\\] Ułamek \\(\\frac{3}{4}\\)rozszerzamy przez mianownik pierwszego ułamka: \\[\\frac{3}{4}=\\frac{3\\cdot 6}{4\\cdot 6}=\\frac{18}{24}\\] Oba ułamki doprowadziliśmy do wspólnego mianownika równego \\(24\\). W tym przypadku można jednak uzyskać mniejszy wspólny mianownik, stosując następujące rozszerzenia: \\[\\frac{1}{6}=\\frac{1\\cdot 2}{6\\cdot 2}=\\frac{2}{12}\\] oraz \\[\\frac{3}{4}=\\frac{3\\cdot 3}{4\\cdot 3}=\\frac{9}{12}\\]  Tym razem oba ułamki doprowadziliśmy do mianownika równego \\(12\\). Generalnie opłaca się doprowadzać ułamki do jak najmniejszego mianownika, ponieważ na małych liczbach łatwiej wykonuje się rachunki.     Uwaga! Żeby znaleźć najmniejszy wspólny mianownik dla dwóch ułamków, to wystarczy obliczyć NWW ich mianowników.  ",
+              "id": "f5ee846b-42c9-4d71-a76a-49a5de13bb76"
+            },
+            {
+              "title": "Dodawanie i odejmowanie ułamków zwykłych",
+              "content": " Jeżeli dwa ułamki mają ten sam mianownik, to wtedy dodajemy je sumując liczniki. Jeżeli ułamki mają różne mianowniki, to żeby je dodać lub odjąć, to należy je wcześniej sprowadzić do wspólnego mianownika.  ",
+              "id": "78a06976-e113-430b-b716-a8e35be47228"
+            },
+            {
+              "title": "Mnożenie ułamków zwykłych",
+              "content": "Ułamki zwykłe mnożymy w taki sposób: \\[\\frac{a}{b}\\cdot \\frac{c}{d}=\\frac{a\\cdot c}{b\\cdot d}\\] Czyli licznik mnożymy razy licznik, mianownik razy mianownik. Wykonaj mnożenie ułamków:  \\(\\frac{2}{5}\\cdot \\frac{3}{7}\\) \\(\\frac{3}{4}\\cdot \\frac{2}{5}\\) \\(\\frac{1}{2}\\cdot \\frac{2}{3}\\cdot \\frac{3}{4}\\)    \\(\\frac{2}{5}\\cdot \\frac{3}{7}=\\frac{2\\cdot 3}{5\\cdot 7}=\\frac{6}{35}\\) \\(\\frac{3}{4}\\cdot \\frac{2}{5}=\\frac{3\\cdot 2}{4\\cdot 5}=\\frac{6}{20}=\\frac{3}{10}\\)  Na końcu wykonaliśmy skrócenie ułamka (podzieliliśmy licznik i mianownik przez \\(2\\)). Ułamek można skrócić również wcześniej - przed wykonaniem mnożenia:  \\[\\frac{3\\cdot 2}{4\\cdot 5}=\\frac{3\\cdot 1}{2\\cdot 5}=\\frac{3}{10}\\]  \\(\\frac{1}{2}\\cdot \\frac{2}{3}\\cdot \\frac{3}{4}=\\frac{1\\cdot 2\\cdot 3}{2\\cdot 3\\cdot 4}=\\frac{1}{4}\\)  W tym przykładzie skróciliśmy ułamek dzieląc licznik i mianownik przez \\(2\\) oraz przez \\(3\\).      Kolejne przykłady mnożenia ułamków zwykłych:   ",
+              "id": "75836aba-9bb8-4272-8d0f-fe7e5cda250d"
+            },
+            {
+              "title": "Dzielenie ułamków zwykłych",
+              "content": " Kiedy musimy podzielić jeden ułamek przez drugi, to zamieniamy dzielenie na mnożenie. Mnożymy wówczas pierwszy ułamek przez odwrotność drugiego ułamka.     ",
+              "id": "d75c967d-c4ab-4c38-916a-6f3e039a1184"
+            },
+            {
+              "title": "Skracanie ułamków zwykłych",
+              "content": " Skracanie ułamków polega na dzieleniu licznika i mianownika przez tę samą liczbę (jest to działanie odwrotne do rozszerzania). W wyniku skracania doprowadzamy ułamek do prostszej postaci.      Często nie widać od razu najlepszego (największego) możliwego skrócenia. Wtedy skracamy ułamek kilka razy, aż doprowadzimy go do najprostszej postaci.     ",
+              "id": "5eadecc0-8f6e-4500-83f5-c62c29c64da2"
+            }
+          ],
+          "id": "f96253e4-dd04-45c3-8c42-1642986905cd"
+        },
+        {
+          "title": "Ułamki dziesiętne",
+          "content": "",
+          "children": [
+            {
+              "title": "Ułamki dziesiętne - wprowadzenie",
+              "content": " Ułamki dziesiętne zapisujemy przy pomocy cyfr i przecinka.    \\(0{,}1\\) \\(2{,}34\\) \\(-5{,}107\\)    Każdy skończony ułamek dziesiętny można zapisać w postaci ułamka zwykłego, z mianownikiem równym potędze liczby 10.    \\(0{,}1=\\frac{1}{10}\\) \\(2{,}34=\\frac{234}{100}\\) \\(-5{,}107=-\\frac{5107}{1000}\\)    Po zamianie ułamka dziesiętnego na zwykły, często ułamek zwykły można jeszcze skrócić.    \\(0{,}5=\\frac{5}{10}=\\frac{1}{2}\\) \\(1{,}25=\\frac{125}{100}=\\frac{5}{4}\\) \\(2{,}2=\\frac{22}{10}=\\frac{11}{5}\\)    Jak czytamy ułamki dziesiętne? Gdy po przecinku występuje jedna cyfra, to czytamy \"dziesiątych\", jeśli dwie, to \"setnych\", jeśli trzy, to \"tysięcznych\".     \\(0{,}1\\) czytamy \"jedna dziesiąta\"  \\(2{,}34\\) czytamy \"dwa i trzydzieści cztery setne\"  \\(-5{,}107\\) czytamy \"minus pięć i sto siedem tysięcznych\"  ",
+              "id": "355115fd-01c5-44d9-8b8c-d276791fd5c5"
+            },
+            {
+              "title": "Dodawanie i odejmowanie ułamków dziesiętnych",
+              "content": " Proste działania na ułamkach dziesiętnych można wykonywać w głowie. Wystarczy dodać oddzielnie części całkowite i oddzielnie części ułamkowe.     \\(0{,}1 + 0{,}3 = 0{,}4\\)  \\(1{,}4 + 2{,}5 = 3{,}9\\)  \\(11{,}7 - 0{,}3 = 11{,}4\\)  \\(6{,}9 - 3{,}5 = 3{,}4\\)    Bardziej skomplikowane działania można wykonać pisemnie. W tym celu zapisujemy dwa ułamki w słupku w taki sposób, aby przecinek jednego ułamka znalazł się pod przecinkiem drugiego ułamka. Jeżeli ułamki mają różną liczbę cyfr po przecinku, to do \"krótszego\" ułamka dopisujemy tyle zer, żeby części ułamkowe były równej długości. W wyniku końcowym przecinek przepisujemy w tym samym miejscu, w którym występował w liczbach dodawanych.     \\(1{,}8 + 3{,}9 = 5{,}7\\) Teraz to samo działanie wykonamy w sposób pisemny:    \\(5{,}317 + 2{,}42 = 7{,}737\\) Teraz dodamy te dwa ułamki w sposób pisemny:    \\(3{,}1 + 9{,}523 = 12{,}623\\) Teraz dodamy te dwa ułamki w sposób pisemny:    \\(0{,}2 + 12{,}998 = 13{,}198\\) Teraz dodamy te dwa ułamki w sposób pisemny:    \\(15{,}3 - 7{,}211 = 8{,}089\\) Teraz odejmiemy te dwa ułamki w sposób pisemny:    ",
+              "id": "334a5bd6-5bab-4b8b-81c1-b71a31a1af5a"
+            },
+            {
+              "title": "Mnożenie ułamków dziesiętnych",
+              "content": " Ułamki dziesiętne można mnożyć pisemnie. W tym celu:  Zapisujemy dwa ułamki w słupku, jeden pod drugim, tak aby były wyrównane do prawego marginesu. Na przecinek nie zwracamy na razie uwagi. Wykonujemy mnożenie. W otrzymanym wyniku przecinek wstawiamy odliczając tyle cyfr od końca, ile łącznie stoi w obu dodawanych ułamkach po przecinku.      \\(1,8 \\cdot 3,9 = 7,02\\) Teraz to samo mnożenie wykonamy w sposób pisemny:    \\(12,4 \\cdot 3,892 = 48,2608\\) Teraz to samo mnożenie wykonamy w sposób pisemny:    ",
+              "id": "ef48f32b-d451-47a1-9823-560d3a7358b8"
+            },
+            {
+              "title": "Dzielenie ułamków dziesiętnych",
+              "content": " Przed rozpoczęciem nauki dzielenia pisemnego ułamków, trzeba nauczyć się dzielić pisemnie liczby całkowite.   Dzielenie pisemne ułamków dziesiętnych omówimy na następującym przykładzie.  Podziel pisemnie ułamki \\(124{,}28 : 5{,}2\\).  Na początku w obu ułamkach przesuwamy przecinek w prawo o tyle miejsc, aby z dzielnika zrobiła się liczba całkowita:  Nad dzielną rysujemy kreskę i wykonujemy zwykłe dzielenie pisemne liczb (tak jakby nie było przecinka).  W ostatecznym wyniku stawiamy przecinek dokładnie nad przecinkiem z dzielnej.  ",
+              "id": "9448b282-371a-4eff-910f-7b72508c18fb"
+            }
+          ],
+          "id": "acf1cc1c-e258-479e-b34f-2a864eddcbea"
+        },
+        {
+          "title": "Różne zadania z ułamków",
+          "content": "",
+          "id": "76cda879-267e-441c-9db2-45040a820498"
+        }
+      ]
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "3314a220-b387-44c0-8282-12d49c444220",
+      "title": "Cechy podzielności liczb",
+      "description": "Liczba \\(a\\) jest podzielna przez liczbę \\(b\\), jeżeli dzieląc liczbę \\(a\\) przez liczbę \\(b\\) otrzymamy wynik całkowity (bez reszty). Mówimy wtedy, że liczba \\(b\\) jest dzielnikiem liczby \\(a\\).  Cecha podzielności przez \\(2\\) Liczba jest podzielna przez \\(2\\), jeżeli jej ostatnią cyfrą jest: \\(0,2,4,6,8\\). Liczby parzyste, to liczby podzielne przez \\(2\\)   Przykłady liczb podzielnych przez \\(2\\): \\(2, 8, 24, 50, 3264276\\)   Cecha podzielności przez \\(3\\) Liczba jest podzielna przez \\(3\\), jeżeli suma jej cyfr tworzy liczbę podzielną przez \\(3\\).    Liczba \\(452172\\) jest podzielna przez \\(3\\), ponieważ suma jej cyfr jest podzielna przez \\(3\\): \\[4+5+2+1+7+2=21\\] Liczba \\(21\\) jest podzielna przez \\(3\\).  Liczba \\(331\\) nie jest podzielna przez \\(3\\), ponieważ suma jej cyfr nie jest podzielna przez \\(3\\): \\[3+3+1=7\\] Liczba \\(10\\) nie jest podzielna przez \\(3\\).   Cecha podzielności przez \\(4\\) Liczba jest podzielna przez \\(4\\), jeśli jej dwie ostatnie cyfry tworzą liczbę podzielną przez \\(4\\).   Liczba \\(33172\\) jest podzielna przez \\(4\\), ponieważ liczba \\(72\\) jest podzielna przez \\(4\\): \\[72:4=18\\] Liczba \\(422\\) nie jest podzielna przez \\(4\\), ponieważ liczba \\(22\\) nie jest podzielna przez \\(4\\): \\[22:4=5\\ r. 2\\]   Cecha podzielności przez \\(5\\) Liczba jest podzielna przez \\(5\\), jeśli jej ostatnią cyfrą jest \\(0\\) lub \\(5\\).   Liczba \\(4235\\) jest podzielna przez \\(5\\), ponieważ jej ostatnia cyfra to \\(5\\). Liczba \\(670\\) jest podzielna przez \\(5\\), ponieważ jej ostatnia cyfra to \\(0\\). Liczba \\(866\\) nie jest podzielna przez \\(5\\), ponieważ jej ostatnia cyfra (\\(6\\)) nie jest równa \\(0\\) ani \\(5\\).   Cecha podzielności przez \\(6\\) Liczba jest podzielna przez \\(6\\), jeśli jest podzielna przez \\(2\\) i przez \\(3\\). Zatem liczba podzielna przez \\(6\\) musi być parzysta i mieć sumę cyfr podzielną przez \\(3\\).   Liczba \\(318\\) jest podzielna przez \\(6\\), ponieważ jest parzysta (podzielna przez \\(2\\)) i suma jej cyfr: \\(3+1+8=12\\) jest podzielna przez \\(3\\). Liczba \\(10002\\) jest podzielna przez \\(6\\), ponieważ jest parzysta i suma jej cyfr: \\(1+0+0+0+2=3\\) jest podzielna przez \\(3\\). Liczba \\(447\\) nie jest podzielna przez \\(6\\), ponieważ nie jest parzysta. Liczba \\(60002\\) nie jest podzielna przez \\(6\\), ponieważ suma jej cyfr: \\(6+0+0+0+2=8\\) nie jest podzielna przez \\(3\\).   Cecha podzielności przez \\(7\\) Liczba jest podzielna przez \\(7\\), jeśli różnica między liczbą składającą się z trzech ostatnich cyfr liczby, a liczbą wyrażoną pozostałymi cyframi tej liczby (lub odwrotnie) dzieli się przez \\(7\\).  W praktyce podzielność liczby przez \\(7\\) najłatwiej sprawdzać wykorzystując rozdzielność dzielenia względem dodawania. Metoda ta polega na zapisaniu badanej liczby w postaci sumy dwóch lub więcej liczb, których podzielność przez \\(7\\) łatwo ustalić.    liczba \\(721\\) jest podzielna przez \\(7\\) ponieważ \\(7\\) dzieli liczbę \\(700\\) oraz \\(21\\). Z takiego rozumowania dodatkowo łatwo możemy znaleźć wynik dzielenia: \\[721:7=700:7+21:7=100+3=103\\]   Liczba \\(42315\\) jest podzielna przez \\(7\\) ponieważ \\(7\\) dzieli liczbę \\(42000\\) oraz \\(315\\). Liczba \\(42000\\) jest podzielna przez \\(7\\), ponieważ liczba \\(42\\) jest podzielna przez \\(7\\). Liczba \\(315\\) jest podzielna przez \\(7\\), ponieważ \\(315=280+35\\), a liczby \\(280\\) oraz \\(35\\) oczywiście dzielą się przez 7.   Cecha podzielności przez \\(8\\) Liczba jest podzielna przez \\(8\\), jeśli jej trzy ostatnie cyfry tworzą liczbę podzielną przez \\(8\\).   Liczba \\(371864\\) jest podzielna przez \\(8\\), ponieważ liczba \\(864\\) jest podzielna przez \\(8\\). podzielność liczby \\(864\\) przez \\(8\\) łatwo ustalić zapisując liczbę \\(864\\) w postaci sumy: \\[864=800+64\\] Oczywiście obie liczby \\(800\\) oraz \\(64\\) są podzielne przez \\(8\\), zatem cała liczba \\(864\\) także jest podzielna przez \\(8\\).   Cecha podzielności przez \\(9\\) Liczba jest podzielna przez \\(9\\), jeśli suma jej cyfr tworzy liczbę podzielną przez \\(9\\).   Liczba \\(5571\\) jest podzielna przez \\(9\\), ponieważ suma cyfr tej liczby: \\(5+5+7+1=18\\) jest podzielna przez \\(9\\).   Cecha podzielności przez \\(11\\) Liczba jest podzielna przez \\(11\\), jeśli różnica sumy cyfr stojących na miejscach parzystych i sumy cyfr stojących na miejscach nieparzystych jest podzielna przez \\(11\\).   Liczba \\(10835\\) jest podzielna przez \\(11\\), ponieważ różnica: \\((1+8+5)-(0+3)=14-3=11\\) jest podzielna przez \\(11\\). "
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "0557ea02-4890-46f5-9185-cc8dd30651d8",
+      "title": "Potęgowanie i pierwiastkowanie",
+      "description": " W tym miejscu znajduje się zestawienie najważniejszych wzorów z działań na potęgach i pierwiastkach. Przykłady zastosowania tych wzorów znajdziesz w kolejnych rozdziałach.   Definicja potęgi o wykładniku naturalnym \\[a^n=\\underbrace{a\\cdot a\\cdot a\\cdot...\\cdot a}_{n \\text{ razy}}\\]   Wzory na potęgi o wykładnikach wymiernych \\[ a^{-n}=\\frac{1}{a^n}\\quad (\\text{dla }a\\ne 0)\\\\[16pt] a^{\\tfrac{1}{n}}=\\sqrt[n]{a}\\quad (\\text{dla }a\\ge 0)\\\\[16pt] a^{\\tfrac{k}{n}}=\\sqrt[n]{a^k}\\quad (\\text{dla }a\\ge 0)\\\\[16pt] a^{-\\tfrac{k}{n}}=\\frac{1}{\\sqrt[n]{a^k}}\\quad (\\text{dla }a\\gt 0)\\\\[16pt] \\]   Wzory działań na potęgach \\[ a^m\\cdot a^n=a^{m+n}\\\\[16pt] \\frac{a^m}{a^n}=a^{m-n}\\\\[16pt] a^n\\cdot b^n=(a\\cdot b)^n\\\\[16pt] \\frac{a^n}{b^n}=\\left (\\frac{a}{b}\\right )^n\\\\[16pt] \\left(a^m \\right)^n=a^{m\\cdot n} \\]   Wzory działań na pierwiastkach \\[ \\sqrt{a}\\cdot \\sqrt{b}=\\sqrt{a\\cdot b}\\\\[16pt] \\frac{\\sqrt{a}}{\\sqrt{b}}=\\sqrt{\\frac{a}{b}} \\] Działania na bardziej skomplikowanych pierwiastkach wykonujemy najczęściej zamieniając pierwiastki na potęgi. \\[ \\sqrt[n]{a}=a^{\\tfrac{1}{n}}\\\\[16pt] \\sqrt[n]{a}\\cdot \\sqrt[m]{a}=a^{\\tfrac{1}{n}}\\cdot a^{\\tfrac{1}{m}}=a^{\\tfrac{1}{n}+\\tfrac{1}{m}}\\\\[16pt] \\frac{\\sqrt[n]{a}}{\\sqrt[m]{a}} =\\frac{a^{\\tfrac{1}{n}}}{a^{\\tfrac{1}{m}}} =a^{\\tfrac{1}{n}-\\tfrac{1}{m}}\\\\[16pt] \\]   Inne wzory \\[ a^0=1\\quad (\\text{dla }a\\ne 0)\\\\[16pt] \\sqrt{a^2}=|a| \\]  ",
+      "cards": [
+        {
+          "title": "Potęgowanie - wprowadzenie",
+          "content": "Potęgi zapisujemy tak:   Definicja potęgi o wykładniku naturalnym \\[a^n=\\underbrace{a\\cdot a\\cdot a\\cdot...\\cdot a}_{n \\text{ razy}}\\]   Oto przykłady stosowania definicji i zamieniania potęg na iloczyny:  \\(5^3 = 5 \\cdot 5 \\cdot 5\\)  \\(5^7 = 5 \\cdot 5 \\cdot 5 \\cdot 5 \\cdot 5 \\cdot 5 \\cdot 5\\)  \\(2^4 = 2 \\cdot 2 \\cdot 2 \\cdot 2\\)  \\(3^2 = 3 \\cdot 3\\)  \\(3^{10} = 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3\\) \\(3^{11} = 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3\\) \\(3^{12} = 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 3\\) \\(x^3 = x \\cdot x \\cdot x\\) \\(x^4 = x \\cdot x \\cdot x \\cdot x\\)  \\((5x)^4 = (5x) \\cdot (5x) \\cdot (5x) \\cdot (5x)\\)  \\((5x)^6 = (5x) \\cdot (5x) \\cdot (5x) \\cdot (5x) \\cdot (5x) \\cdot (5x)\\)  \\((5x - 2)^2 = (5x - 2) \\cdot (5x - 2) \\)     Za pomocą potęg możemy w prosty sposób zapisywać długie iloczyny takich samych liczb (co widać na powyższych przykładach).   Na potęgach można wykonywać różne działania, które zostaną omówione w kolejnych rozdziałach. ",
+          "id": "67631c5a-aa0f-4b98-b997-5183a4cdc777"
+        },
+        {
+          "title": "Mnożenie potęg o tej samej podstawie",
+          "content": "Potęgi o tej samej podstawie mnożymy według wzoru: \\[a^m\\cdot a^n=a^{m+n}\\] Uzasadnienie wzoru: \\[a^m\\cdot a^n=\\underbrace{\\underbrace{a\\cdot a\\cdot a\\cdot...\\cdot a}_{m \\text{ razy}}\\cdot \\underbrace{a\\cdot a\\cdot a\\cdot...\\cdot a}_{n \\text{ razy}}}_{m+n \\text{ razy}}=a^{m+n}\\]  \\[5^3\\cdot 5^4=5^{3+4}=5^7\\]   \\[5^9\\cdot 5^{17}=5^{9+17}=5^{26}\\]   \\[3^6\\cdot 3=3^6\\cdot 3^1=3^{6+1}=3^7\\]   \\[\\left(\\frac{1}{2}\\right)^2\\cdot \\left(\\frac{1}{2}\\right)^3=\\left(\\frac{1}{2}\\right)^{2+3}=\\left(\\frac{1}{2}\\right)^5\\]   \\[\\left(\\frac{7}{4}\\right)^{10}\\cdot \\left(\\frac{7}{4}\\right)^{32}=\\left(\\frac{7}{4}\\right)^{10+32}=\\left(\\frac{7}{4}\\right)^{42}\\]   \\[\\left(\\sqrt{2}\\right)^5\\cdot \\left(\\sqrt{2}\\right)^3=\\left(\\sqrt{2}\\right)^{5+3}=\\left(\\sqrt{2}\\right)^8\\]   \\[\\pi^3\\cdot \\pi^{-4}=\\pi^{3+(-4)}=\\pi^{3-4}=\\pi^{-1}\\]   \\[2^{\\tfrac{1}{2}}\\cdot 2^{\\tfrac{1}{3}}=2^{\\tfrac{1}{2}+\\tfrac{1}{3}}=2^{\\tfrac{5}{6}}\\]   Gdy mnożymy kilka potęg o tej samej podstawie, to również dodajemy wykładniki.   \\[5^3\\cdot 5^4\\cdot 5^7=5^{3+4+7}=5^{14}\\]   \\[3^6\\cdot 3^2\\cdot 3^{11}=3^{6+2+11}=3^{19}\\]   \\[\\left(\\frac{1}{5}\\right)^2\\cdot \\left(\\frac{1}{5}\\right)^3\\cdot \\left(\\frac{1}{5}\\right)^4=\\left(\\frac{1}{5}\\right)^{2+3+4}=\\left(\\frac{1}{5}\\right)^9\\] ",
+          "id": "24c0eccd-ab18-463b-8c5b-c87ed63a2869"
+        },
+        {
+          "title": "Dzielenie potęg o tej samej podstawie",
+          "content": "Potęgi o tej samej podstawie dzielimy według wzoru: \\[a^m:a^n=a^{m-n}\\] lub równoważnie: \\[\\frac{a^m}{a^n}=a^{m-n}\\]  \\[3^6:3^2=3^{6-2}=3^4\\] Można to rozpisać tak: \\[\\require{cancel} 3^6:3^2=\\frac{3^6}{3^2}=\\frac{\\cancel{3}\\cdot \\cancel{3}\\cdot 3\\cdot 3\\cdot 3\\cdot 3}{\\cancel{3}\\cdot \\cancel{3}}=3\\cdot 3\\cdot 3\\cdot 3=3^4\\]   \\[\\frac{5^7}{5^3}=5^{7-3}=5^4\\]   \\[\\frac{\\left(\\frac{1}{2}\\right)^{10}}{\\left(\\frac{1}{2}\\right)^4}=\\left(\\frac{1}{2}\\right)^{10-4}=\\left(\\frac{1}{2}\\right)^6\\]   \\[\\frac{10^{100}}{10^{300}}=10^{100-300}=10^{-200}\\]   \\[\\frac{2^{\\tfrac{2}{3}}}{2^\\tfrac{3}{2}}=2^{\\tfrac{2}{3}-\\tfrac{3}{2}}=2^{\\tfrac{4-9}{6}}=2^{-\\tfrac{5}{6}}\\]   \\[\\frac{3^7\\cdot 3^8\\cdot 3^9}{3^4\\cdot 3^5}=\\frac{3^{7+8+9}}{3^{4+5}}=\\frac{3^{24}}{3^9}=3^{24-9}=3^{15}\\] ",
+          "id": "5844b245-254b-484c-9639-a79f28c25e1f"
+        },
+        {
+          "title": "Mnożenie potęg o tym samym wykładniku",
+          "content": "Potęgi o tym samym wykładniku mnożymy według wzoru: \\[ a^n\\cdot b^n=(a\\cdot b)^n \\] Uzasadnienie: \\[ \\begin{split} a^n\\cdot b^n &=\\underbrace{a\\cdot a\\cdot a\\cdot...\\cdot a}_{n \\text{ razy}}\\cdot \\underbrace{b\\cdot b\\cdot b\\cdot...\\cdot b}_{n \\text{ razy}}=\\\\[6pt] &=\\underbrace{(a\\cdot b)\\cdot (a\\cdot b)\\cdot (a\\cdot b)\\cdot...\\cdot (a\\cdot b)}_{n \\text{ razy}}=\\\\[6pt] &=(a\\cdot b)^n \\end{split} \\]  \\[3^2\\cdot 5^2=(3\\cdot 5)^2=15^2\\] Rozpisując: \\[\\begin{split} 3^2\\cdot 5^2 &=3\\cdot 3\\cdot 5\\cdot 5=\\\\[6pt] &=(3\\cdot 5)\\cdot (3\\cdot 5)=\\\\[6pt] &=(3\\cdot 5)^2=15^2 \\end{split}\\]   \\[5^7\\cdot 6^7=(5\\cdot 6)^7=30^7\\]   \\[\\pi^7\\cdot 2^7=(\\pi \\cdot 2)^7=(2\\pi)^7\\]   \\[\\left(\\frac{1}{2}\\right)^{100}\\cdot 8^{100}=\\left(\\frac{1}{2}\\cdot 8\\right)^{100}=4^{100}\\]   \\[\\left(\\sqrt{2}\\right)^7\\cdot \\left(\\sqrt{3}\\right)^7=\\left(\\sqrt{2}\\cdot \\sqrt{3}\\right)^7=\\left(\\sqrt{6}\\right)^7\\] Można jeszcze dalej uprościć to wyrażenie: \\[ \\left(\\sqrt{6}\\right)^7=\\left(\\sqrt{6}\\right)^6\\cdot \\sqrt{6}=6^3\\cdot \\sqrt{6}=216\\sqrt{6} \\] ",
+          "id": "77add408-de34-4372-8a50-ca37f85af341"
+        },
+        {
+          "title": "Dzielenie potęg o tym samym wykładniku",
+          "content": "Potęgi o tym samym wykładniku dzielimy według wzoru: \\[a^n:b^n=\\left(\\frac{a}{b}\\right)^n\\] Lub równoważnie \\[\\frac{a^n}{b^n}=\\left(\\frac{a}{b}\\right)^n\\]  \\[10^3:5^3=\\frac{10^3}{5^3}=\\frac{10\\cdot 10\\cdot 10}{5\\cdot 5\\cdot 5}=2\\cdot 2\\cdot 2=2^3\\] Zapisując krócej: \\[10^3:5^3=\\left(\\frac{10}{5}\\right)^3=2^3\\]   \\[\\frac{21^5}{3^5}=\\left(\\frac{21}{3}\\right)^5=7^5\\]   \\[\\frac{3^6}{2^6}=\\left(\\frac{3}{2}\\right)^6\\]   \\[\\frac{12^{200}}{3^{200}}=\\left(\\frac{12}{3}\\right)^{200}=4^{200}\\] ",
+          "id": "eaedb7a2-d6fd-4663-8dee-681583d80248"
+        },
+        {
+          "title": "Podnoszenie potęgi do potęgi",
+          "content": "Potęgę podnosimy do potęgi według wzoru: \\[{\\left(a^m\\right)}^n=a^{m\\cdot n}\\]  \\[\\begin{split} {\\left(2^3\\right)}^4 &=(2\\cdot 2\\cdot 2)^4=\\\\[6pt] &=(2\\cdot 2\\cdot 2)\\cdot (2\\cdot 2\\cdot 2)\\cdot (2\\cdot 2\\cdot 2)\\cdot (2\\cdot 2\\cdot 2)=\\\\[6pt] &=2^{12} \\end{split}\\] Albo krócej ze wzoru: \\[{\\left(2^3\\right)}^4=2^{3\\cdot 4}=2^{12}\\]   \\[{\\left(2^5\\right)}^7=2^{5\\cdot 7}=2^{35}\\]   \\[{\\left(6^{11}\\right)}^5=6^{11\\cdot 5}=6^{55}\\]   \\[{\\left(3^{\\tfrac{1}{2}}\\right)}^8=3^{\\tfrac{1}{2}\\cdot 8}=3^4\\]   \\[{\\left(2^{\\sqrt{2}}\\right)}^{\\sqrt{5}}=2^{\\sqrt{2}\\cdot \\sqrt{5}}=2^{\\sqrt{10}}\\] ",
+          "id": "bdb67f7b-a59f-42e1-b7a5-d9170586e896"
+        },
+        {
+          "title": "Potęga o wykładniku 0",
+          "content": " Dla dowolnej liczby \\(a\\) różnej od zera zachodzi wzór: \\[a^0=1\\]     \\(2^0 = 1\\)   \\(34^0 = 1\\)   \\((-3{,}7)^0 = 1\\)   \\(1^0 = 1\\)   \\((\\sqrt{2} + 7)^0 = 1\\)   ",
+          "id": "46caafdf-f53c-4f2e-9ec9-d1b0ae94b35b"
+        },
+        {
+          "title": "Potęga o wykładniku ujemnym",
+          "content": "Ujemy wykładnik odwraca liczbę potęgowaną: \\[a^{-n}=\\left(\\frac{1}{a}\\right)^n\\] Równoważnie możemy zapisać, że: \\[a^{-n}=\\frac{1}{a^n}\\] W przypadku gdy ułamek podnosimy do potęgi ujemnej, to po prostu go odwracamy: \\[\\left(\\frac{p}{q}\\right)^{-n}=\\left(\\frac{q}{p}\\right)^n\\]  \\[3^{-1}=\\frac{1}{3}\\]   \\[8^{-1}=\\frac{1}{8}\\]   \\[8^{-2}=\\frac{1}{8^2}=\\frac{1}{64}\\]   \\[8^{-3}=\\frac{1}{8^3}=\\frac{1}{512}\\]   \\[\\left(\\frac{5}{7}\\right)^{-4}=\\left(\\frac{7}{5}\\right)^4=\\frac{7^4}{5^4}\\]   \\[\\left(\\frac{1}{2}\\right)^{-3}=\\left(\\frac{2}{1}\\right)^3=2^3=8\\]   \\[{(\\sqrt{2})}^{-2}=\\frac{1}{{(\\sqrt{2})}^2}=\\frac{1}{2}\\] ",
+          "id": "0735beda-415e-4a38-8923-60de3829d49d"
+        },
+        {
+          "title": "Pierwiastkowanie",
+          "content": " Pierwiastek oznaczamy symbolem: \\[\\sqrt{\\ \\ \\ \\ \\ \\ \\ }\\] Pierwiastek z liczby obliczamy tak, że szukamy liczby, która podniesiona do drugiej potęgi da liczbę pod pierwiastkiem.    \\(\\sqrt{4}=2\\), ponieważ \\(2^2=4\\) \\(\\sqrt{9}=3\\), ponieważ \\(3^2=9\\) \\(\\sqrt{49}=7\\), ponieważ \\(7^2=49\\) \\(\\sqrt{\\frac{1}{16}}=\\frac{1}{4}\\), ponieważ \\(\\left(\\frac{1}{4}\\right )^2=\\frac{1}{16}\\) \\(\\sqrt{\\frac{25}{81}}=\\frac{5}{9}\\), ponieważ \\(\\left(\\frac{5}{9}\\right )^2=\\frac{25}{81}\\)    Zauważmy że, wynikiem pierwiastkowania jest zawsze liczba dodatnia!. Tak samo pod pierwiastkiem - zawsze może stać tylko liczba dodatnia.    \\(\\sqrt{-4}\\) nie istnieje w liczbach rzeczywistych \\(\\sqrt{-\\frac{1}{9}}\\) nie istnieje w liczbach rzeczywistych  ",
+          "id": "c4d0edb3-2360-4c80-a6ad-2dab432a1f04"
+        },
+        {
+          "title": "Potęga o wykładniku wymiernym",
+          "content": "Potęgę o wykładniku wymiernym można zapisać za pomocą pierwiastka: \\[{a}^{\\tfrac{1}{n}}=\\sqrt[n]{a}\\] oraz: \\[{a}^{\\tfrac{k}{n}}=\\sqrt[n]{a^k}\\] W praktyce dużo częściej zamieniamy pierwiastki na potęgi: \\[\\sqrt[n]{a}={a}^{\\tfrac{1}{n}}\\] Na potęgach łatwiej jest wykonywać działania niż na pierwiastkach. W tym nagraniu wideo pokazuję jak wykonywać działania na potęgach o wykładniku wymiernym. Przez pierwsze 8 minut nagrania przypominam również zasady wykonywania działań na potęgach o wykładniku całkowitym.Czas nagrania: 30 min.  \\[ \\sqrt[3]{2}\\cdot \\sqrt[5]{2}=2^{\\tfrac{1}{3}}\\cdot 2^{\\tfrac{1}{5}}= 2^{\\tfrac{1}{3}+\\tfrac{1}{5}}=2^{\\tfrac{8}{15}}=\\sqrt[15]{2^8} \\]   \\[ \\sqrt[3]{2}\\cdot \\sqrt{2}=2^{\\tfrac{1}{3}}\\cdot 2^{\\tfrac{1}{2}}= 2^{\\tfrac{1}{3}+\\tfrac{1}{2}}=2^{\\tfrac{5}{6}}=\\sqrt[6]{2^5} \\]   \\[ \\frac{\\sqrt[3]{3}}{\\sqrt{9}}= \\frac{3^{\\tfrac{1}{3}}}{3}=\\frac{3^{\\tfrac{1}{3}}}{3^1}=3^{\\tfrac{1}{3}-1}=3^{-\\tfrac{2}{3}} ={\\left(\\frac{1}{3}\\right)}^{\\tfrac{2}{3}}=\\sqrt[3]{{\\left(\\frac{1}{3}\\right)}^2} =\\sqrt[3]{\\frac{1}{9}} \\] ",
+          "id": "107de7ec-f288-445b-81ce-c61ac701f5c8"
+        },
+        {
+          "title": "Zadania z potęgowania i pierwiastkowania",
+          "content": "",
+          "id": "d14c9f98-7560-4597-a24c-b9ba7ca24b79"
+        }
+      ]
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "a9595d84-0f0e-476f-b025-f671645cf0a9",
+      "title": "Notacja wykładnicza",
+      "description": "Liczba zapisana w notacji wykładniczej to: \\[a\\cdot 10^n\\] gdzie: \\(a\\) - to liczba rzeczywista z przedziału \\([1,10)\\), \\(n\\) - to liczba całkowita.  Notację wykładniczą stosuje się zazwyczaj do zapisu bardzo dużych lub bardzo małych liczb.   Przykłady dużych liczb zapisanych w postaci wykładniczej:  \\(10000=10^4\\) \\(5000=5\\cdot 10^3\\) \\(7200000=7{,}2\\cdot 10^6\\) \\(15400=1{,}54\\cdot 10^4\\)    Przykłady małych liczb zapisanych w postaci wykładniczej:  \\(0{,}001=10^{-3}\\) \\(0{,}0003=3\\cdot 10^{-4}\\) \\(0{,}00431=4{,}31\\cdot 10^{-3}\\) \\(\\frac{51}{10000}=5{,}1\\cdot 10^{-5}\\)  "
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "194e1ae8-50c6-40f9-bdea-4ceb03befbe6",
+      "title": "Dzielenie pisemne liczb",
+      "description": "Oto przykład pisemnego dzielenia dwóch liczb:  Wynik dzielenia pisemnego zapisujemy nad kreską, narysowaną nad dzielną. Jest to tak zwana część całkowita ilorazu (tyle razy mieści się dzielnik w dzielnej). Liczba, którą otrzymujemy na dole słupka dzielenia pisemnego, to reszta. Reszta zawsze musi być mniejsza od dzielnika. Po wykonaniu powyższego rachunku możemy teraz zapisać, że: \\[8357 = 12 \\cdot 696 + 5\\] W poniższym nagraniu wideo objaśniam sposób pisemnego dzielenia liczb na konkretnym przykładzie.  Za pomocą poniższego programu możesz wykonać dzielenie pisemne dwóch dowolnych liczb całkowitych. Program jest również źródłem niewyczerpanej liczby przykładów, które możesz wykorzystać do ćwiczenia tego typu rachunków.    Program do dzielenia pisemnego liczb Za pomocą tego programu możesz podzielić w sposób pisemny dwie liczby całkowite. Wpisz w poniższe pola liczby, a następnie kliknij przycisk \"Oblicz\".   :     =  ?     "
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "abf2f28a-e617-4a2b-a7cb-6b848f048ca1",
+      "title": "Rozkładanie liczby na czynniki pierwsze",
+      "description": " Każda liczba naturalna większa od \\(1\\) jest liczbą pierwszą albo liczbą złożoną.   Liczby pierwsze, to np.: \\[2,3,5,7,11,13,17,97\\]   Liczba \\(4\\) jest złożona, ponieważ rozkłada się na iloczyn czynników: \\[4=2\\cdot 2\\]   Liczba \\(6\\) jest złożona, ponieważ rozkłada się na iloczyn czynników: \\[6=2\\cdot 3\\]   Liczba \\(8\\) jest złożona, ponieważ rozkłada się na iloczyn czynników: \\[8=2\\cdot 2\\cdot 2\\]   Liczba \\(9\\) jest złożona, ponieważ rozkłada się na iloczyn czynników: \\[9=3\\cdot 3\\]   Liczba \\(10\\) jest złożona, ponieważ rozkłada się na iloczyn czynników: \\[10=2\\cdot 5\\]  Definicja Rozłożenie liczby na czynniki pierwsze - to zapisanie jej w postaci iloczynu liczb pierwszych.  Rozłóż na iloczyn czynników liczbę \\(72\\).Wykonujemy kolejno dzielenia: \\[\\begin{matrix} \\begin{array}{c|c} 72 & 2 \\\\ 36 & 2 \\\\ 18 & 2 \\\\ 9 & 3 \\\\ 3 & 3 \\\\ 1 & \\end{array} \\end{matrix} \\] Zatem rozkład liczby \\(72\\) na czynniki jest następujący: \\[72 = 2 \\cdot 2 \\cdot 2 \\cdot 3 \\cdot 3\\] Rozłóż na iloczyn czynników liczbę \\(228\\).Wykonujemy kolejno dzielenia: \\[\\begin{matrix} \\begin{array}{c|c} 228 & 2 \\\\ 114 & 2 \\\\ 57 & 3 \\\\ 19 & 19 \\\\ 1 & \\end{array} \\end{matrix} \\] Zatem rozkład liczby \\(228\\) na czynniki jest następujący: \\[228 = 2 \\cdot 2 \\cdot 3 \\cdot 19\\]   Program do rozkładu liczby na czynniki  Program nie posiada ograniczenia co do wielkości rozkładanej liczby. Możesz zatem próbować rozłożyć tak dużą liczbę jak tylko chcesz. Należy jednak pamiętać o tym, że dla dużych liczb, czyli dla przeciętnego komputera większych od ok 1016, czas rozkładu może być bardzo długi.  Podaj liczbę:    "
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "665d4dce-6af3-48fe-8f88-b9f6243ae411",
+      "title": "Najmniejsza wspólna wielokrotność (NWW)",
+      "description": "Definicja Wspólna wielokrotność liczb naturalnych \\(n\\) i \\(m\\) - to każda liczba naturalna, która dzieli się bez reszty przez \\(n\\) oraz przez \\(m\\).  Wyznacz wspólną wielokrotność liczb \\(2\\) i \\(3\\).Szukamy liczby, którą można podzielić bez reszty przez \\(2\\) oraz przez \\(3\\). Dobrą liczbą jest np. liczba \\(6\\), ale również \\(12\\), \\(18\\), \\(60\\), \\(300\\) i wiele innych. Wyznacz wspólną wielokrotność liczb \\(5\\) i \\(10\\).Szukamy liczby, którą można podzielić bez reszty przez \\(5\\) oraz przez \\(10\\). Dobrymi liczbami są np.: \\(10\\), \\(20\\), \\(30\\), \\(100\\). Definicja  Najmniejsza wspólna wielokrotność (NWW) liczb naturalnych \\(n\\) i \\(m\\) - to najmniejsza liczba różna od zera, która jest jednocześnie wielokrotnością liczby \\(n\\) i liczby \\(m\\).  Najmniejszą wspólną wielokrotność liczb \\(n\\) i \\(m\\) zapisujemy tak: \\[\\operatorname{NWW}(n, m)\\]   Najmniejsza wspólna wielokrotność liczb \\(2\\) i \\(3\\) to: \\[\\operatorname{NWW}(2, 3)=6\\]   Najmniejsza wspólna wielokrotność liczb \\(5\\) i \\(10\\) to: \\[\\operatorname{NWW}(5, 10)=10\\]  Wyznacz NWW liczb \\(6\\) i \\(8\\).Wielokrotności liczby \\(6\\), to: \\[6, 12, 18, 24, 30, 36, 42, 48,...\\] Wielokrotności liczby \\(8\\), to: \\[8, 16, 24, 32, 40, 48, 56, 64,...\\] Zatem najmniejszą wspólną wielokrotnością liczb \\(6\\) i \\(8\\) jest liczba \\(24\\). Zapisujemy to w taki sposób: \\[\\operatorname{NWW}(6, 8) = 24\\].",
+      "cards": [
+        {
+          "title": "Algorytm wyznaczania NWW",
+          "content": "W przypadku małych liczb, najmniejszą wspólną wielokrotność można znaleźć wypisując wielokrotności podanych liczb. Dla dużych liczb znajdowanie NWW tą metodą byłoby bardzo czasochłonne. W takim przypadku należy skorzystać z poniższego algorytmu.  Algorytm NWW  Rozkładamy obie liczby na iloczyn czynników pierwszych, Dla każdego czynnika pierwszego sprawdzamy w którym rozkładzie wystąpił większą liczbę razy i wypisujemy go taką liczbę razy  Wymnażamy wszystkie wypisane liczby, otrzymując w rezultacie szukaną NWW.   Wyznacz najmniejszą wspólną wielokrotność liczb \\(54\\) i \\(76\\).Rozkładamy obie liczby na iloczyn czynników pierwszych: \\[ 54 = 2 \\cdot 3 \\cdot 3 \\cdot 3\\\\[6pt] 76 = 2 \\cdot 2 \\cdot 19 \\] Teraz patrzymy ile razy wystąpiły poszczególne liczby pierwsze w każdym z rozkładów:  Liczba \\(2\\) wystąpiła raz w I rozkładzie i dwa razy w II rozkładzie. Zatem wypisujemy ją dwa razy. Liczba \\(3\\) wystąpiła trzy w I rozkładzie i ani razu w II rozkładzie. Zatem wypisujemy ją trzy razy. Liczba \\(19\\) nie wystąpiła w I rozkładzie i wystąpiła raz w II rozkładzie. Zatem wypisujemy ją jeden raz.  Zatem nasze wypisane kolejno liczby, to: \\[2, 2, 3, 3, 3, 19.\\] Czyli NWW obliczmy licząc ich iloczyn: \\[\\operatorname{NWW}(54, 76) = 2 \\cdot 2 \\cdot 3 \\cdot 3 \\cdot 3 \\cdot 19 = 2052\\] ",
+          "id": "3da8d4f1-2119-45cd-9a37-8b37c8ab9ac1"
+        },
+        {
+          "title": "Program do obliczania NWW",
+          "content": "Za pomocą poniższego programu możesz wyznaczyć najmniejszą wspólną wielokrotność dwóch liczb naturalnych.  Program Liczba 1 =  Liczba 2 =     ",
+          "id": "f0656452-5ec1-4801-bd81-92ca7022d3a3"
+        }
+      ]
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "25fcfc94-e974-4a65-8549-f3834442b21d",
+      "title": "Największy wspólny dzielnik (NWD)",
+      "description": "Definicja Największy wspólny dzielnik (NWD) dwóch liczb całkowitych - to największa liczba naturalna, która dzieli obie te liczby bez reszty.   Największym wspólnym dzielnikiem liczb \\(10\\) i \\(6\\) jest liczba \\(2\\).   Największym wspólnym dzielnikiem liczb \\(15\\) i \\(5\\) jest liczba \\(5\\).   Największym wspólnym dzielnikiem liczb \\(24\\) i \\(18\\) jest liczba \\(6\\).   Największym wspólnym dzielnikiem liczb \\(75\\) i \\(100\\) jest liczba \\(25\\).   Sposób zapisu Największy wspólny dzielnik liczb \\(n\\) i \\(m\\) zapisujemy tak: \\[\\operatorname{NWD}(n, m)\\] ",
+      "cards": [
+        {
+          "title": "Algorytm Euklidesa",
+          "content": "Algorytm Euklidesa służy do obliczania NWD (największego wspólnego dzielnika) dwóch liczb całkowitych.  Algorytm Aby obliczyć \\(\\operatorname{NWD} (a, b)\\), wykonujemy kolejno następujące kroki:  Dzielimy z resztą liczbę \\(a\\) przez liczbę \\(b\\)  jeżeli reszta jest równa \\(0\\), to \\(\\operatorname{NWD}(a, b) = b\\) jeżeli reszta jest różna od \\(0\\), to przypisujemy liczbie \\(a\\) wartość liczby \\(b\\), liczbie \\(b\\) wartość otrzymanej reszty, a następnie wykonujemy ponownie punkt 1.     Wyznacz największy wspólny dzielnik liczb \\(282\\) i \\(78\\).Zaczynamy od podzielenia liczby \\(282\\) przez liczbę \\(78\\) z resztą: \\[282 : 78 = 3, \\text{ reszty }48\\] Otrzymaliśmy resztę różną od zera, zatem teraz podzielimy liczbę \\(78\\) przez resztę \\(48\\). Ten schemat będziemy powtarzać do momentu otrzymania reszty równej \\(0\\). \\[ 78 : 48 = 1, \\text{ reszty }30\\\\[6pt] 48 : 30 = 1, \\text{ reszty }18\\\\[6pt] 30 : 18 = 1, \\text{ reszty }12\\\\[6pt] 18 : 12 = 1, \\text{ reszty }6\\\\[6pt] 12 : 6 = 2, \\text{ reszty }0 \\] Otrzymaliśmy resztę równą zero, zatem szukany NWD będzie równy ostatniej niezerowej reszcie: \\[\\operatorname{NWD}(282, 78) = 6\\]  Jako generator nieskończonej liczby analogicznych przykładów możesz wykorzystać poniższy program.    Program do wyznaczania NWD za pomocą algorytmu Euklidesa Podaj liczby dla których chcesz wyznaczyć NWD: Liczba 1 =  Liczba 2 =    ",
+          "id": "2a0189f1-7285-4018-8033-ebd635e0f7a6"
+        }
+      ]
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "e17a363a-6c2a-4f67-b4cd-069f7d5ace7f",
+      "title": "Usuwanie niewymierności z mianownika",
+      "description": " Usuwanie niewymierności z mianownika - to usuwanie pierwiastków z mianownika ułamka.   Usuwanie niewymierności z mianownika najczęściej wykonujemy mnożąc licznik i mianownik ułamka przez tę samą liczbę. Takie mnożenie nie zmienia wartości ułamka, a często pozwala pozbyć się pierwiastków, np.: \\[\\frac{5}{\\sqrt{2}}=\\frac{5\\cdot \\sqrt{2}}{\\sqrt{2}\\cdot \\sqrt{2}}=\\frac{5\\sqrt{2}}{2}\\]  Usuń niewymierność z mianownika ułamka: \\(\\frac{2}{\\sqrt{3}}\\).  Mnożymy licznik i mianownik przez \\(\\sqrt{3}\\): \\[\\frac{2}{\\sqrt{3}}=\\frac{2\\cdot \\sqrt{3}}{\\sqrt{3}\\cdot \\sqrt{3}}=\\frac{2\\sqrt{3}}{3}\\]  "
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "d07b8167-2d07-4a01-89da-53811b297583",
+      "title": "Jednostki długości",
+      "description": "Podstawową jednostką długości jest \\(1\\) metr. Miary większe lub mniejsze od \\(1\\) metra otrzymują określone przedrostki np. centy-metr, kilo-metr. Najważniejsze jednostki długości \\(1\\) kilometr (km) = \\(1000\\) metrów (m) \\(1\\) metr (m) = \\(100\\) centymetrów (cm) \\(1\\) decymetr (dm) = \\(10\\) centymetrów (cm) \\(1\\) centymetr (cm) = \\(10\\) milimetrów (mm)   Pamiętając powyższe zależności możemy zamieniać jednostki w dowolnych konfiguracjach.   Oto wszystkie możliwe zamiany pomiędzy powyższymi jednostkami: \\(1\\ \\text{km}=1000\\ \\text{m}=10000\\ \\text{dm}=100000\\ \\text{cm}=1000000\\ \\text{mm}\\) \\(1\\ \\text{m}=0{,}001\\ \\text{km}=10\\ \\text{dm}=100\\ \\text{cm}=1000\\ \\text{mm}\\) \\(1\\ \\text{dm}=0{,}0001\\ \\text{km}=0{,}1\\ \\text{m}=10\\ \\text{cm}=100\\ \\text{mm}\\) \\(1\\ \\text{cm}=0{,}00001\\ \\text{km}=0{,}01\\ \\text{m}=0{,}1\\ \\text{dm}=10\\ \\text{mm}\\) \\(1\\ \\text{mm}=0{,}000001\\ \\text{km}=0{,}001\\ \\text{m}=0{,}01\\ \\text{dm}=0{,}1\\ \\text{cm}\\)   Zamień na centymetry i kilometry \\(62\\ \\text{dm}\\).  \\(62\\ \\text{dm}=62\\cdot 10\\ \\text{cm}=62\\ \\text{cm}\\) \\(62\\ \\text{dm}=62\\cdot \\frac{1}{10}\\ \\text{m}=62\\cdot \\frac{1}{10} \\cdot \\frac{1}{1000}\\ \\text{km}=\\frac{62}{10000}\\ \\text{cm}=0,0062\\ \\text{cm}\\)    Ile milimetrów to \\(12{,}5\\) metra?  \\(12{,}5\\ \\text{m}=12{,}5\\cdot 1000\\ \\text{mm}=12500\\ \\text{mm}\\)   Pozostałe jednostki długości \\(1\\) mikron [μ] = \\(10^{-6}\\) metra \\(1\\) cal [in] = \\(2{,}54\\) centymetra \\(1\\) stopa [ft] = \\(30{,}48\\) centymetrów = \\(12\\) cali \\(1\\) jard [yd] = \\(91{,}44\\) centymetra = \\(3\\) stopy \\(1\\) sążeń [fm] = \\(1{,}8288\\) metra = \\(6\\) stóp \\(1\\) mila [M] = \\(1609{,}344\\) metrów \\(1\\) mila morska [Mn] = \\(1852\\) metrów \\(1\\) kabel = \\(0{,}1\\) mili morskiej = \\(185{,}2\\) metra \\(1\\) jednostka astronomiczna [au] = \\(149597870700\\) metrów (około \\(150\\) mln kilometrów) \\(1\\) rok świetlny = \\(9{,}4607\\cdot 10^{15}\\) metrów = \\(63241\\) jednostek astronomicznych "
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "d2ffa2da-0f97-41d2-9a21-db6fd2508c9d",
+      "title": "Jednostki pola powierzchni",
+      "description": " Podstawową jednostką pola powierzchni jest \\(1\\) metr kwadratowy (\\(1 \\text{m}^2\\)), który odpowiada polu kwadratu o boku \\(1\\) metra.   Wśród mniej typowych jednostek pól powierzchni możemy wyróżnić ary (a) oraz hektary (ha): \\[1\\ \\text{a}=100\\ \\text{m}^2\\] \\[1\\ \\text{ha}=100\\ \\text{a}=10000\\ \\text{m}^2\\]   Ponadto często stosowane są kilometry kwadratowe (km\\(^2\\)), decymetry kwadratowe (dm\\(^2\\)) oraz centymetry kwadratowe (cm\\(^2\\)).  Przeliczenia najważniejszych jednostek powierzchni \\(1\\ \\text{km}^2=1000000\\ \\text{m}^2=100\\ \\text{ha}=10000\\ \\text{a}\\) \\(1\\ \\text{m}^2=100\\ \\text{dm}^2=10000\\ \\text{cm}^2=1000000\\ \\text{mm}^2\\) \\(1\\ \\text{dm}^2=100\\ \\text{cm}^2=10000\\ \\text{mm}^2\\) \\(1\\ \\text{cm}^2=100\\ \\text{mm}^2\\) \\(1\\ \\text{ha}=100\\ \\text{a}=10000\\ \\text{m}^2\\) \\(1\\ \\text{a}=100\\ \\text{m}^2\\)   Powyższe przeliczenia można łatwo wyprowadzić znając przeliczenia jednostek długości. Wiedząc np. że \\(1\\) metr = \\(100\\) centymetrów można obliczyć, że: \\[1\\ \\text{m}^2= 100\\ \\text{cm}\\cdot 100\\ \\text{cm} = 10000\\ \\text{cm}^2\\] Co ilustruje poniższy rysunek.    Ile centymetrów kwadratowych jest w \\(3\\) kilometrach kwadratowych?  Wiemy, że \\[1\\ \\text{km}=10^3\\ \\text{m}=10^5\\ \\text{cm}\\] Zatem \\(1\\ \\text{km}^2\\), to kwadrat o bokach długości \\(10^5 \\ \\text{cm}\\), czyli: \\[3\\ \\text{km}^2=3\\cdot 10^5\\cdot 10^5 \\ \\text{cm}^2=3\\cdot 10^{10}\\ \\text{cm}^2\\]  "
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "50a8a7e4-3446-47a0-88e7-66a46c4788d8",
+      "title": "Zadania z różnych działań na liczbach rzeczywistych",
+      "description": ""
+    },
+    {
+      "parentId": "e51a8dd4-2bd0-4d31-9420-5ef733409043",
+      "id": "b16288d1-b4ab-4566-8645-129568a911b4",
+      "title": "Liczba e",
+      "description": "Liczbę Eulera (zwaną również pod nazwą liczby Nepera) oznaczamy krótko literą \\(e\\). Wartość tej liczby można określić w przybliżeniu: \\[e = 2,71828182845904523536028747135266249775724709369995...\\] Liczbę \\(e\\) można definiować na wiele różnych sposobów. Najczęściej spotykana jest definicja wykorzystująca następującą granicę: \\[\\lim_{n \\to \\infty} \\left(1+\\frac{1}{n}\\right)^n=e\\] Równie często definiuje się liczbę \\(e\\) jako sumę szeregu: \\[e=\\sum_{n=0}^{\\infty }\\frac{1}{n!}=1+\\frac{1}{1!}+\\frac{1}{2!}+\\frac{1}{3!}+... \\] Powyższy wzór można z powodzeniem wykorzystywać do obliczania wartości liczby \\(e\\) z dużą dokładnością. Suma zaledwie \\(10\\) pierwszych wyrazów tego szeregu, daje całkiem niezłe oszacowanie liczby Eulera. Zaprezentowane powyżej przedstawienie liczby e w postaci szeregu jest szczególnym przypadkiem rozwinięcia funkcji wykładniczej \\(f(x) = e^x\\) w tzw. szereg Maclaurina: \\[e^x=\\sum_{n=0}^{\\infty }\\frac{x^n}{n!}\\] "
+    }
+  ]
+}

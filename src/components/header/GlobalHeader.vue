@@ -136,6 +136,8 @@ export default defineComponent({
     transform: translateX(-75%);
     opacity: 0;
 
+    pointer-events: none;
+
     &__arrow {
       fill: black;
       height: 100%;
@@ -143,12 +145,13 @@ export default defineComponent({
     }
 
     &__text {
-      opacity: 1;
+      opacity: 0;
       transition: 200ms ease-in-out opacity;
       will-change: opacity;
     }
 
     &--visible {
+      pointer-events: all;
       transform: translateX(0);
       opacity: 1;
     }
@@ -159,7 +162,7 @@ export default defineComponent({
   .header {
     &__back {
       &__text {
-        opacity: 0;
+        opacity: 1;
       }
     }
   }

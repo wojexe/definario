@@ -1,7 +1,7 @@
 <template>
   <main>
     <Section section-title="Definicja dnia">
-      <Card :definition-id="2115" />
+      <Card :definition-id="'2115'" />
     </Section>
 
     <Section
@@ -13,21 +13,9 @@
 
     <Section
       section-title="Tablice maturalne"
-      section-subtitle="aby wrócić swipenij z lewej"
+      section-subtitle="zostaniesz przeniesiony do tablic"
     >
-      <!-- TODO: ADD PROPER NAVIGATION HERE -->
-      <router-link
-        to="/home/mathematical_tables"
-        custom
-        v-slot="{ href, navigate }"
-      >
-        <Button
-          :arrow="true"
-          content="OTWÓRZ"
-          :href="href"
-          @click="navigate()"
-        />
-      </router-link>
+      <Button :arrow="true" content="OTWÓRZ" @click="openTables" />
     </Section>
   </main>
 </template>
@@ -48,14 +36,21 @@ export default defineComponent({
     DefinitionCarousel
   },
   setup() {
-    const carouselDefinitionList = ref<number[]>();
+    const carouselDefinitionList = ref<string[]>();
 
-    const tempArr: number[] = [];
-    for (let i = 0; i < 15; i++) tempArr.push(i + 1);
+    const tempArr: string[] = [];
+    for (let i = 0; i < 15; i++) tempArr.push(`${i + 1}`);
 
     carouselDefinitionList.value = tempArr;
 
-    return { carouselDefinitionList };
+    // uhhhhhh
+    const openTables = function() {
+      window.open(
+        "https://cke.gov.pl/images/_EGZAMIN_MATURALNY_OD_2015/Informatory/2015/MATURA_2015_Wybrane_wzory_matematyczne.pdf"
+      );
+    };
+
+    return { carouselDefinitionList, openTables };
   }
 });
 </script>

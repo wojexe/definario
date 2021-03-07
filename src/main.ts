@@ -4,6 +4,8 @@ import "./registerServiceWorker"; // PWA
 import router from "./router"; // Routing
 import { store, key } from "./store"; // Vuex
 
+store.dispatch("initialFetch");
+
 createApp(App)
   .use(store, key)
   .use(router)

@@ -11,6 +11,10 @@ module.exports = {
     manifestOptions: {
       mobileWebAppCapable: "yes",
       backgroundColor: "#e389f0"
+    },
+    workboxOptions: {
+      skipWaiting: true,
+      clientsClaim: true
     }
   }
 };

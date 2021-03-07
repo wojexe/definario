@@ -18,24 +18,21 @@ export default defineComponent({
   props: {
     definitionId: {
       required: true,
-      type: Number
+      type: String
     }
   },
   setup(props) {
     const store = useStore();
 
-    // const definee = ref(`definee no. ${props.definitionId}`);
-    // const definition = ref(`definition no. ${props.definitionId}`);
-
-    store.dispatch("modalUpdate", props.definitionId);
-    const definee = computed(() => store.state.modal.definee);
-    const definition = computed(() => store.state.modal.definition);
+    store.dispatch("featuredUpdate", props.definitionId);
+    const definee = computed(() => store.state.homePage.featured.definee);
+    const definition = computed(() => store.state.homePage.featured.definition);
 
     const modalVisible = ref(false);
 
     function openModal() {
       modalVisible.value = true;
-      store.dispatch("openModal");
+      store.dispatch("openModal", props.definitionId);
     }
 
     watchEffect(() => {
@@ -63,7 +60,9 @@ export default defineComponent({
   padding: 2ch;
   padding-top: 1.5ch;
 
-  max-height: 22ch;
+  width: var(--width);
+
+  box-sizing: border-box;
 
   text-decoration: none;
   cursor: pointer;
@@ -98,6 +97,11 @@ export default defineComponent({
   }
   &__content {
     font-size: var(--text-size--S);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+    padding-bottom: 0.8px;
+    overflow: hidden;
   }
   p {
     margin: 0;
