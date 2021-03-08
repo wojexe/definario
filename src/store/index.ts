@@ -85,6 +85,10 @@ export interface State {
     data?: manifestData;
     map?: Map<string, object>;
   };
+  animated: {
+    carousel: boolean;
+    saved: boolean;
+  };
 }
 
 // Define injection key
@@ -150,6 +154,10 @@ export const store = createStore<State>({
     manifest: {
       data: undefined,
       map: undefined
+    },
+    animated: {
+      carousel: false,
+      saved: false
     }
   },
   mutations: {
@@ -213,6 +221,12 @@ export const store = createStore<State>({
       // );
       // store.manifest.map = new Map(...deckIds, ...cardIds);
       // console.log(store.manifest.map);
+    },
+    updateAnimatedCarousel(store) {
+      store.animated.carousel = true;
+    },
+    updateAnimatedSaved(store) {
+      store.animated.saved = true;
     }
   },
   actions: {

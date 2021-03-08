@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="startFlashcards" tabindex="0">
+  <div class="card" tabindex="0">
     <span class="card__text">POWTARZAJ</span>
   </div>
 </template>
@@ -8,16 +8,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "LearnCard",
-  setup() {
-    const startFlashcards = function() {
-      console.log("startFlashcards");
-    };
-
-    return {
-      startFlashcards
-    };
-  }
+  name: "LearnCard"
 });
 </script>
 

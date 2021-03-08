@@ -6,7 +6,11 @@
 
     <Section
       section-title="Ostatnie"
-      section-subtitle="aby zobaczyć więcej swipeuj poziomo"
+      :section-subtitle="
+        carouselDefinitionList.lenght
+          ? 'aby zobaczyć więcej swipeuj poziomo'
+          : null
+      "
     >
       <DefinitionCarousel :definition-list="carouselDefinitionList" />
     </Section>

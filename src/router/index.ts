@@ -22,7 +22,8 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: createTitle("strona główna"),
       navbar: { visible: true, active: "Home" },
-      header: { visible: true, landing: false }
+      header: { visible: true, landing: false },
+      animate: true
     },
     component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue")
   },
@@ -32,7 +33,8 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: createTitle("nauka"),
       navbar: { visible: true, active: "Learn" },
-      header: { visible: true, landing: false }
+      header: { visible: true, landing: false },
+      animate: true
     },
     component: () =>
       import(/* webpackChunkName: "learn" */ "../views/Learn.vue")

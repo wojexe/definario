@@ -17,10 +17,13 @@ import {
   watch,
   ref,
   computed,
-  onMounted
+  onMounted,
+  nextTick
 } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "./store/index";
+
+import anime from "animejs";
 
 import Skeleton from "@/components/TheSkeleton.vue";
 

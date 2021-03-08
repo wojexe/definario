@@ -1,5 +1,9 @@
 <template>
-  <div class="carousel" :style="getGridTemplateColumns">
+  <div
+    v-if="definitionList.length"
+    class="carousel"
+    :style="getGridTemplateColumns"
+  >
     <CarouselCard
       v-for="definitionId in definitionList"
       :key="definitionId"
@@ -7,11 +11,15 @@
       tabindex="0"
     />
   </div>
+  <em v-else>brak definicji do pokazania</em>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, computed, onMounted, nextTick } from "vue";
 import { useStore } from "../store/index";
+
+import anime from "animejs";
+
 import CarouselCard from "@/components/cards/CarouselCard.vue";
 
 export default defineComponent({
@@ -37,6 +45,17 @@ export default defineComponent({
     // Heavily inspired by https://htmldom.dev/drag-to-scroll/
     onMounted(() => {
       nextTick(() => {
+        if (!store.state.animated.carousel)
+          anime({
+            targets: ".carousel__card",
+            delay: anime.stagger(50, { start: 200 }),
+            duration: 500,
+            easing: "easeOutQuart",
+            translateX: [100, 0],
+            opacity: [0, 1],
+            complete: () => store.commit("updateAnimatedCarousel")
+          });
+
         const slider: HTMLElement | null = document.querySelector(".carousel");
 
         // Momentum
