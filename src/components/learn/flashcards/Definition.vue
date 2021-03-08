@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="flashcards__definition">definee</div>
 </template>
 
 <script lang="ts">
@@ -9,4 +9,10 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.flashcards {
+  &__definition {
+    background: green;
+  }
+}
+</style>

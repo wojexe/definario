@@ -74,6 +74,13 @@ export default defineComponent({
 <style lang="scss" scoped>
 .wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  width: clamp(
+    14ch,
+    calc(100vw - calc(calc(var(--sar) + var(--sab)) + 10ch)),
+    36ch
+  );
   .delete-button {
     justify-self: center;
     right: -2ch;

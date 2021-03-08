@@ -46,7 +46,6 @@ span {
 
 .navigation {
   position: fixed;
-  backdrop-filter: blur(20px);
 
   padding-top: 1rem;
   padding-bottom: max(var(--sab), 1rem);
@@ -66,9 +65,14 @@ span {
   }
 
   will-change: opacity;
-  transition: 100ms ease-in-out opacity;
+  transition: 150ms ease-in-out all;
+  transform: translateY(100%);
+  backdrop-filter: blur(0);
   opacity: 0;
+
   &--visible {
+    transform: translateY(0);
+    backdrop-filter: blur(20px);
     opacity: 1;
   }
 }

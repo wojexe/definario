@@ -41,14 +41,14 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/learn/:id",
-    name: "Flashcard",
+    name: "Flashcards",
     meta: {
       title: createTitle("fiszki"),
       navbar: { visible: false, active: "Learn" },
       header: { visible: true, landing: false, backArrow: true }
     },
     component: () =>
-      import(/* webpackChunkName: "learn" */ "../views/Learn.vue")
+      import(/* webpackChunkName: "flashcards" */ "../views/Flashcards.vue")
   },
   {
     path: "/search",

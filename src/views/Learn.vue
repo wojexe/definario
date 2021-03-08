@@ -1,7 +1,7 @@
 <template>
   <main>
     <Section section-title="Wybierz zakres">
-      <LearnCard @click="startFlashcards" />
+      <LearnCard @click="startRevision" />
     </Section>
     <Section class="section__picker">
       <LearnItemPicker @selected-changed="handleSelectedChange" />
@@ -31,7 +31,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref } from "vue";
+import { defineComponent, ref, Ref, onMounted, nextTick } from "vue";
+import { useRouter } from "vue-router";
+
+import anime from "animejs";
 
 import Section from "@/components/TheSection.vue";
 import LearnCard from "@/components/cards/LearnCard.vue";
@@ -53,6 +56,17 @@ export default defineComponent({
     Button
   },
   setup() {
+    onMounted(() =>
+      nextTick(() => {
+        anime.set("main", {
+          opacity: 1,
+          translateY: 0
+        });
+      })
+    );
+
+    const router = useRouter();
+
     const loadMoreProgress = function() {
       console.log("loadMoreProgress");
     };
@@ -104,9 +118,16 @@ export default defineComponent({
       }
     ];
 
-    const startFlashcards = function() {
-      // TODO: route to flashcards
-      console.log("startFlashcards");
+    const startRevision = function() {
+      anime({
+        targets: "main",
+        duration: 250,
+        easing: "easeInOutExpo",
+        translateY: [0, 20],
+        opacity: [1, 0],
+        complete: () =>
+          router.push({ name: "Flashcards", params: { id: "revision" } })
+      });
     };
 
     return {
@@ -114,7 +135,7 @@ export default defineComponent({
       selectedValues,
       handleSelectedChange,
       categories,
-      startFlashcards,
+      startRevision,
       savedSessions
     };
   }

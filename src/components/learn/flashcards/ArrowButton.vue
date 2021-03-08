@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="flashcards__action-picker__arrow-button">arrow button</div>
 </template>
 
 <script lang="ts">
@@ -9,4 +9,12 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.flashcards {
+  &__action-picker {
+    &__arrow-button {
+      color: inherit;
+    }
+  }
+}
+</style>
