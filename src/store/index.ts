@@ -34,6 +34,11 @@ type manifestData = {
   }>;
 };
 
+enum flashcardState {
+  Think = 0,
+  Rate
+}
+
 // Define your typings for the store state
 export interface State {
   modal: {
@@ -66,6 +71,8 @@ export interface State {
     }>;
   };
   flashcards: {
+    state: flashcardState;
+
     currentDefinee: string;
     currentDefinition: string;
     currentDefinitionId: string;
@@ -134,6 +141,8 @@ export const store = createStore<State>({
       ]
     },
     flashcards: {
+      state: flashcardState.Think,
+
       currentDefinee: "flashcard",
       currentDefinition: "flashcard definition",
       currentDefinitionId: "",
@@ -227,6 +236,9 @@ export const store = createStore<State>({
     },
     updateAnimatedSaved(store) {
       store.animated.saved = true;
+    },
+    updateFlashcardState(store, s: flashcardState) {
+      store.flashcards.state = s;
     }
   },
   actions: {

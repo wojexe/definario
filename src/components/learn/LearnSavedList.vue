@@ -45,8 +45,8 @@ export default defineComponent({
 
     const customStyle = `--gradient: linear-gradient(99deg, rgba(255, 166, 0, 1) 14.7%, rgb(255, 133, 63) 73%); --shadow: rgba(255, 133, 63, 1)`;
 
-    const saveSession = function() {
-      console.log("saveSession");
+    const deleteSession = function() {
+      console.log("deleteSession");
     };
 
     onMounted(() => {
@@ -58,13 +58,14 @@ export default defineComponent({
           easing: "easeOutQuart",
           translateY: [100, 0],
           opacity: [0, 1],
+          zIndex: [-100, 0],
           complete: () => store.commit("updateAnimatedSaved")
         });
     });
 
     return {
       customStyle,
-      saveSession,
+      deleteSession,
       wrapper
     };
   }
@@ -129,7 +130,6 @@ export default defineComponent({
     color: #fff;
     font-size: var(--text-size--S);
     font-weight: bold;
-    cursor: pointer;
     background-image: var(--theme-gradient);
     border-radius: 35px;
 
@@ -145,6 +145,11 @@ export default defineComponent({
         text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
       }
     }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
     // Shadows
     &::after,
     &::before,

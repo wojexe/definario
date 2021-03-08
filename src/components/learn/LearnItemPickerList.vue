@@ -43,7 +43,6 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      console.log(list.value);
       anime({
         targets: list.value,
         duration: 1000,

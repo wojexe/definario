@@ -1,7 +1,7 @@
 <template>
   <div class="flashcards__action-picker">
-    <ArrowButton />
     <LevelSelector />
+    <ArrowButton />
   </div>
 </template>
 
@@ -26,6 +26,7 @@ export default defineComponent({
     display: flex;
     flex-direction: row;
     gap: 4ch;
+    color: white;
     background: aquamarine;
     & > * {
       background: blue;

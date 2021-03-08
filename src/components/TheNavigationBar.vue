@@ -65,7 +65,7 @@ span {
   }
 
   will-change: opacity;
-  transition: 150ms ease-in-out all;
+  transition: 200ms ease-out all;
   transform: translateY(100%);
   backdrop-filter: blur(0);
   opacity: 0;
