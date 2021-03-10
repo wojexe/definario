@@ -2,41 +2,11 @@
 import { InjectionKey } from "vue";
 import { createStore, useStore as baseUseStore, Store } from "vuex";
 
-type manifestCard = {
-  title: string;
-  content: string;
-  children?: Array<manifestCard>;
-  id: string;
-};
-
-type manifestData = {
-  version: number;
-  categories: Array<{
-    id: string;
-    title: string;
-    description: string;
-  }>;
-  decks: Array<{
-    parentId: string;
-    id: string;
-    title: string;
-    description: string;
-    cards?: Array<{
-      title: string;
-      content: string;
-      children?: Array<{
-        title: string;
-        content: string;
-        id: string;
-      }>;
-      id: string;
-    }>;
-  }>;
-};
-
 enum flashcardState {
   Think = 0,
-  Rate
+  Rate,
+  WillChange,
+  NextFlashcard
 }
 
 // Define your typings for the store state
@@ -70,17 +40,20 @@ export interface State {
       value: number;
     }>;
   };
+
   flashcards: {
     state: flashcardState;
 
+    currentDefinitionId: string;
+
     currentDefinee: string;
     currentDefinition: string;
-    currentDefinitionId: string;
-    currentDefinitionUserKnowledge: number;
+    currentUserChoice: number;
     definitionIdScore: number;
 
-    gameHistory: Array<object>;
+    gameHistory: Record<string, Array<string>>;
   };
+
   saved: {
     definitions: Array<{
       id: string;
@@ -88,10 +61,7 @@ export interface State {
       definition: string;
     }>;
   };
-  manifest: {
-    data?: manifestData;
-    map?: Map<string, object>;
-  };
+
   animated: {
     carousel: boolean;
     saved: boolean;
@@ -140,17 +110,22 @@ export const store = createStore<State>({
         }
       ]
     },
+
     flashcards: {
       state: flashcardState.Think,
 
-      currentDefinee: "flashcard",
-      currentDefinition: "flashcard definition",
       currentDefinitionId: "",
-      currentDefinitionUserKnowledge: 0,
+
+      currentDefinee: "",
+      currentDefinition: "",
+      currentUserChoice: 0,
       definitionIdScore: 0,
 
-      gameHistory: [{}]
+      gameHistory: {
+        "": [""]
+      }
     },
+
     saved: {
       definitions: [
         {
@@ -160,10 +135,7 @@ export const store = createStore<State>({
         }
       ]
     },
-    manifest: {
-      data: undefined,
-      map: undefined
-    },
+
     animated: {
       carousel: false,
       saved: false
@@ -206,31 +178,6 @@ export const store = createStore<State>({
     updateLastVisited(store, n: string) {
       store.homePage.lastVisited.unshift(n);
     },
-    // updateManifest(store, data: manifestData) {
-    updateManifest() {
-      // const x = Object.fromEntries(
-      //   data.decks
-      //     .filter(d => !!d.cards)
-      //     .flatMap(d => d.cards.map(c => [c.id, c]))
-      // );
-      // store.manifest.data = data;
-      // const deckIds = Object.fromEntries(data.decks.map(d => [d.id, d]));
-      // console.log(deckIds);
-      // let c = 0;
-      // const cardIds: [string, any] = Object.fromEntries(
-      //   data.decks.map(d =>
-      //     d.cards ? d.cards.flatMap(c => [c.id, c]) : ["none", { c: c++ }]
-      //   )
-      // );
-      // console.log(cardIds);
-      // store.manifest.map = Object.fromEntries(
-      //   data.decks
-      //     .filter(d => !!d.cards)
-      //     .flatMap(d => d.cards.map(c => [c.id, c]))
-      // );
-      // store.manifest.map = new Map(...deckIds, ...cardIds);
-      // console.log(store.manifest.map);
-    },
     updateAnimatedCarousel(store) {
       store.animated.carousel = true;
     },
@@ -239,6 +186,9 @@ export const store = createStore<State>({
     },
     updateFlashcardState(store, s: flashcardState) {
       store.flashcards.state = s;
+    },
+    updateCurrentUserChoice(store, n: number) {
+      store.flashcards.currentUserChoice = n;
     }
   },
   actions: {
@@ -249,10 +199,11 @@ export const store = createStore<State>({
           console.log(err);
           throw Error(err);
         });
-
+      data;
+      commit;
       // console.log(data);
 
-      commit("updateManifest", data);
+      // commit("updateManifest", data);
     },
     async modalUpdate({ commit }, id: string) {
       const fetch = async function(id: string) {
@@ -303,6 +254,15 @@ export const store = createStore<State>({
     },
     carouselStopBlocking({ commit }) {
       commit("carouselUpdateBlock", false);
+    },
+    startLearningSession({ commit }, sessionId: string) {
+      sessionId;
+      commit("updateFlashcardState", 0);
+      console.log("a");
+    },
+    endLearningSession({ commit }) {
+      commit;
+      console.log("end");
     }
   }
 });

@@ -2,18 +2,27 @@
   <main class="flashcards">
     <Definee definee="Granica ciągu" />
     <Definition
-      v-if="1"
+      image-alt="Granica ciągu - obraz"
       :definition="definition"
       definition-source="matemaks.pl"
       image="/img/definitions/granica.png"
       image-source="matemaks.pl"
+      v-if="flashcardState"
     />
-    <ActionPicker />
+    <ActionPicker @buttonClick="handleClick" />
   </main>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, nextTick } from "vue";
+import {
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  nextTick,
+  ref,
+  computed,
+  watch
+} from "vue";
 import { useStore } from "../store/index";
 
 import anime from "animejs";
@@ -30,27 +39,63 @@ export default defineComponent({
     ActionPicker
   },
   setup() {
-    onMounted(() =>
-      nextTick(() => {
-        anime({
-          targets: "main",
-          duration: 250,
-          translateY: [20, 0],
-          opacity: [0, 1],
-          easing: "easeInOutExpo"
-        });
-      })
-    );
+    const definition = `zbiór wszystkich punktów płaszczyzny, których odległość od ustalonego punktu na tej płaszczyźnie, nazywanego środkiem koła, jest mniejsza lub równa długości promienia koła.\n
+          Równoważna definicja: część płaszczyzny ograniczona przez pewien okrąg; okrąg ten zawiera się w kole i jest zarazem jego brzegiem.`;
+
+    const definitionRef = ref();
 
     const store = useStore();
 
-    const flashcardState = store.state.flashcards.state;
+    const flashcardState = computed(() => store.state.flashcards.state);
 
-    const definition = `zbiór wszystkich punktów płaszczyzny, których odległość od ustalonego punktu na tej płaszczyźnie, nazywanego środkiem koła, jest mniejsza lub równa długości promienia koła.\n
-          Równoważna definicja: część płaszczyzny ograniczona przez pewien okrąg; okrąg ten zawiera się w kole i jest zarazem jego brzegiem.`;
+    const handleClick = function() {
+      anime({
+        targets: "main",
+        duration: 300,
+        translateY: [0, 20],
+        opacity: [1, 0],
+        easing: "easeOutExpo",
+        complete: () =>
+          store.commit("updateFlashcardState", flashcardState.value + 1)
+      });
+    };
+
+    const slideUp = function() {
+      anime({
+        targets: "main",
+        duration: 300,
+        translateY: [20, 0],
+        opacity: [0, 1],
+        easing: "easeOutExpo"
+      });
+    };
+
+    // Slideup after stateChange
+    watch(flashcardState, async s => {
+      console.log(`flashcardState: ${flashcardState.value}`);
+      if (s === 2) {
+        await console.log("fetch definitions");
+        store.commit("updateFlashcardState", 0);
+      }
+      slideUp();
+    });
+
+    // Slideup animation on load
+    onMounted(() =>
+      nextTick(() => {
+        slideUp();
+      })
+    );
+
+    onUnmounted(() => {
+      store.dispatch("endLearningSession");
+    });
+
     return {
       definition,
-      flashcardState
+      definitionRef,
+      flashcardState,
+      handleClick
     };
   }
 });
@@ -58,13 +103,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .flashcards {
-  display: flex;
+  display: grid;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
   overflow: hidden;
-  justify-content: center;
+  justify-items: center;
   align-items: center;
+  align-self: center;
 
   padding-top: max(calc(var(--sat) + calc(60px + 2rem)), calc(60px + 2rem));
   padding-right: max(calc(var(--sar) + 5%), 5%);

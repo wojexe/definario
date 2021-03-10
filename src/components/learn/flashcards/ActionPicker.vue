@@ -1,21 +1,37 @@
 <template>
   <div class="flashcards__action-picker">
-    <LevelSelector />
-    <ArrowButton />
+    <LevelSelector v-if="flashcardState === 1" />
+    <ArrowButton :state="flashcardState" @click="emitClick" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "../../../store/index";
 
 import ArrowButton from "@/components/learn/flashcards/ArrowButton.vue";
 import LevelSelector from "@/components/learn/flashcards/LevelSelector.vue";
 
 export default defineComponent({
-  name: "",
+  name: "FlashcardActionPicker",
   components: {
     ArrowButton,
     LevelSelector
+  },
+  emits: ["buttonClick"],
+  setup(_, { emit }) {
+    const store = useStore();
+
+    const flashcardState = computed(() => store.state.flashcards.state);
+
+    const emitClick = function() {
+      emit("buttonClick");
+    };
+
+    return {
+      emitClick,
+      flashcardState
+    };
   }
 });
 </script>
@@ -25,11 +41,14 @@ export default defineComponent({
   &__action-picker {
     display: flex;
     flex-direction: row;
-    gap: 4ch;
     color: white;
-    background: aquamarine;
     & > * {
-      background: blue;
+      grid-area: a;
+      color: rgb(var(--text-color__normal));
+      background: rgb(var(--theme-color__card--background));
+      box-shadow: var(--theme-shadow__card);
+
+      height: calc(var(--text-size--L) * 2.5);
     }
   }
 }

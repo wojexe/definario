@@ -33,6 +33,7 @@
 <script lang="ts">
 import { defineComponent, ref, Ref, onMounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "../store/index";
 
 import anime from "animejs";
 
@@ -66,6 +67,7 @@ export default defineComponent({
     );
 
     const router = useRouter();
+    const store = useStore();
 
     const loadMoreProgress = function() {
       console.log("loadMoreProgress");
@@ -125,8 +127,10 @@ export default defineComponent({
         easing: "easeInOutExpo",
         translateY: [0, 20],
         opacity: [1, 0],
-        complete: () =>
-          router.push({ name: "Flashcards", params: { id: "revision" } })
+        complete: () => {
+          store.dispatch("startLearningSession", "revision");
+          router.push({ name: "Flashcards", params: { id: "revision" } });
+        }
       });
     };
 

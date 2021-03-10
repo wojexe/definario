@@ -17,13 +17,13 @@ import {
   watch,
   ref,
   computed,
-  onMounted,
-  nextTick
+  onMounted
+  // nextTick
 } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "./store/index";
 
-import anime from "animejs";
+// import anime from "animejs";
 
 import Skeleton from "@/components/TheSkeleton.vue";
 
@@ -93,6 +93,8 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
 
   -webkit-tap-highlight-color: transparent;
+
+  min-height: 100vh;
 }
 
 ::selection {
@@ -162,6 +164,9 @@ body {
   background: rgb(var(--theme-color__background));
 
   min-height: 100vh;
+
+  /* Disables pull-to-refresh but allows overscroll glow effects. */
+  overscroll-behavior-y: none;
 
   &[modal-open] {
     overflow: hidden;

@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watchEffect, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import { useStore } from "../../store/index";
 
 export default defineComponent({
@@ -25,18 +25,11 @@ export default defineComponent({
     const definee = ref(`definee no. ${props.definitionId}`);
     const definition = ref(`definition no. ${props.definitionId}`);
 
-    const modalVisible = ref(false);
-
     function openModal() {
       if (!store.state.homePage.carousel.blockModal) {
         store.dispatch("openModal", props.definitionId);
       }
     }
-
-    watchEffect(() => {
-      if (!store.state.modal.visible)
-        modalVisible.value = store.state.modal.visible;
-    });
 
     /*  Now using -webkit-line-clamp ❤️
       Calculate abbreviation
@@ -70,8 +63,7 @@ export default defineComponent({
     return {
       definee,
       definition,
-      openModal,
-      modalVisible
+      openModal
     };
   }
 });

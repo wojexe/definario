@@ -7,7 +7,7 @@
       <img
         v-show="image"
         :src="image"
-        :alt="definee"
+        :alt="imageAlt"
         class="flashcards__definition__content__image"
       />
       <div
@@ -33,11 +33,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "",
+  name: "FlashcardDefinition",
   props: {
     definition: String,
     definitionSource: String,
     image: String,
+    imageAlt: String,
     imageSource: String
   }
 });
@@ -61,6 +62,8 @@ export default defineComponent({
 
     overflow: auto;
 
+    box-sizing: border-box;
+
     &__content {
       display: grid;
       flex-direction: column;
@@ -78,6 +81,7 @@ export default defineComponent({
       }
       &__image {
         width: clamp(26ch, 50%, 70vw);
+        box-sizing: border-box;
         margin: auto;
         display: block;
         user-select: none;
