@@ -28,20 +28,13 @@ export default defineComponent({
     MultiSelect
   },
   emits: ["selectedChanged"],
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const pickerOptions = ref([
       { id: "a", label: "Koło" },
       { id: "b", label: "Granica ciągu" },
       { id: "c", label: "Liczby pierwsze" },
       { id: "d", label: "Wzory redukcyjne" }
     ]);
-
-    // const pickerOptions = ref([
-    //   "Koło",
-    //   "Granica ciągu",
-    //   "Liczby pierwsze",
-    //   "Wzory redukcyjne"
-    // ]);
 
     const multipleLabel = function(v: Array<string>) {
       if (v.length === 1) return "Wybrano 1 element";
@@ -89,7 +82,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   min-height: 4ch;
-  border-radius: 100px;
+  border-radius: var(--pill__border-radius);
   background-color: rgb(var(--theme-color__card--background));
   box-shadow: var(--theme-shadow__card);
   box-sizing: border-box;

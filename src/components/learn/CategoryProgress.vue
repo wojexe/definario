@@ -56,7 +56,7 @@ export default defineComponent({
       background: #fff;
       grid-area: progress;
       height: 2ch;
-      border-radius: 100px;
+      border-radius: var(--pill__border-radius);
       box-shadow: var(--theme-shadow__card);
       overflow: hidden;
       position: relative;
@@ -67,7 +67,7 @@ export default defineComponent({
         height: 100%;
         width: var(--percentage);
         background: linear-gradient(150deg, #227e22 10%, #a8fb3c 90%);
-        border-radius: 100px;
+        border-radius: var(--pill__border-radius);
         box-shadow: var(--theme-shadow__card);
       }
     }

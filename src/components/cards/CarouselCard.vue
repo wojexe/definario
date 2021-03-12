@@ -26,7 +26,7 @@ export default defineComponent({
     const definition = ref(`definition no. ${props.definitionId}`);
 
     function openModal() {
-      if (!store.state.homePage.carousel.blockModal) {
+      if (!store.state.homepage.carousel.blockModal) {
         store.dispatch("openModal", props.definitionId);
       }
     }
@@ -81,7 +81,7 @@ p {
       1fr;
     gap: 1ch;
     width: 100%;
-    border-radius: 30px;
+    border-radius: var(--card__border-radius);
     padding: 1.5ch;
 
     background: white;

@@ -1,6 +1,9 @@
 // store.ts
 import { InjectionKey } from "vue";
 import { createStore, useStore as baseUseStore, Store } from "vuex";
+import VuexPersistence from "vuex-persist";
+
+import { DefinitionObject } from "../../types/definition.d";
 
 enum flashcardState {
   Think = 0,
@@ -9,21 +12,38 @@ enum flashcardState {
   NextFlashcard
 }
 
+interface CurrentFlashcard extends DefinitionObject {
+  id: string;
+  state: flashcardState;
+  userChoice: number;
+  idScore: number;
+}
+
+function isEqual(b: string[], a: string[]) {
+  for (const e of b) if (!a.includes(e)) return false;
+  return true;
+}
+
+function exists(
+  obj: Record<string, Array<{ id: string; label: string }>>,
+  arr: Array<{ id: string; label: string }>
+) {
+  const sets = Object.values(obj).map(set => set.map(x => x.id));
+  const newSet = arr.map(x => x.id);
+  return sets.some(set => isEqual(set, newSet));
+}
+
 // Define your typings for the store state
 export interface State {
   modal: {
     visible: boolean;
-    definee: string;
-    definition: string;
-    definitionSource: string;
-    modalImage: string;
-    modalImageSource: string;
+
+    content: DefinitionObject;
   };
-  homePage: {
+
+  homepage: {
     featured: {
-      id: string;
-      definee: string;
-      definition: string;
+      content: DefinitionObject;
       endsAt: Date;
     };
     carousel: {
@@ -31,10 +51,9 @@ export interface State {
     };
     lastVisited: Array<string>;
   };
+
   learn: {
-    savedSessions: Array<{
-      categories: Array<string>;
-    }>;
+    savedSessions: Record<string, Array<{ id: string; label: string }>>;
     progress: Array<{
       name: string;
       value: number;
@@ -42,50 +61,71 @@ export interface State {
   };
 
   flashcards: {
-    state: flashcardState;
-
-    currentDefinitionId: string;
-
-    currentDefinee: string;
-    currentDefinition: string;
-    currentUserChoice: number;
-    definitionIdScore: number;
-
-    gameHistory: Record<string, Array<string>>;
+    current: CurrentFlashcard;
   };
 
   saved: {
-    definitions: Array<{
-      id: string;
-      definee: string;
-      definition: string;
-    }>;
+    definitions: Array<DefinitionObject>;
   };
 
   animated: {
-    carousel: boolean;
-    saved: boolean;
+    homepage: {
+      carousel: boolean;
+    };
+    learn: {
+      saved: boolean;
+    };
+    search: {
+      results: boolean;
+    };
+    saved: {
+      items: boolean;
+    };
   };
+
+  latest: Set<DefinitionObject>;
 }
 
 // Define injection key
 export const key: InjectionKey<Store<State>> = Symbol();
 
+// Persist some states
+const vuexLocal = new VuexPersistence<State>({
+  storage: window.localStorage,
+  reducer: state => ({
+    homepage: {
+      featured: state.homepage.featured,
+      lastVisited: state.homepage.lastVisited
+    },
+    learn: state.learn,
+    // flashcards: {
+    //   gameHistory: state.flashcards.gameHistory
+    // },
+    saved: state.saved,
+    latest: state.latest
+  })
+});
+
 export const store = createStore<State>({
   state: {
     modal: {
       visible: false,
-      definee: "",
-      definition: "",
-      definitionSource: "",
-      modalImage: "",
-      modalImageSource: ""
-    },
-    homePage: {
-      featured: {
+      content: {
         id: "",
         definee: "",
-        definition: "",
+        definition: [{ type: "", value: "" }],
+        definitionSource: ""
+      }
+    },
+
+    homepage: {
+      featured: {
+        content: {
+          id: "",
+          definee: "",
+          definition: [{ type: "", value: "" }],
+          definitionSource: ""
+        },
         endsAt: new Date()
       },
       carousel: {
@@ -93,12 +133,9 @@ export const store = createStore<State>({
       },
       lastVisited: []
     },
+
     learn: {
-      savedSessions: [
-        {
-          categories: []
-        }
-      ],
+      savedSessions: {},
       progress: [
         {
           name: "trygonometria",
@@ -112,17 +149,17 @@ export const store = createStore<State>({
     },
 
     flashcards: {
-      state: flashcardState.Think,
+      current: {
+        id: "",
 
-      currentDefinitionId: "",
+        state: flashcardState.Think,
 
-      currentDefinee: "",
-      currentDefinition: "",
-      currentUserChoice: 0,
-      definitionIdScore: 0,
+        definee: "",
+        definition: [{ type: "", value: "" }],
+        definitionSource: "",
 
-      gameHistory: {
-        "": [""]
+        idScore: 0,
+        userChoice: 0
       }
     },
 
@@ -130,68 +167,140 @@ export const store = createStore<State>({
       definitions: [
         {
           id: "",
-          definee: "saved",
-          definition: "saved:)"
+          definee: "",
+          definition: [{ type: "", value: "" }],
+          definitionSource: ""
         }
       ]
     },
 
     animated: {
-      carousel: false,
-      saved: false
-    }
+      homepage: {
+        carousel: false
+      },
+      learn: {
+        saved: false
+      },
+      saved: {
+        items: false
+      },
+      search: {
+        results: false
+      }
+    },
+
+    latest: new Set<DefinitionObject>().add({
+      id: `21`,
+      definee: `Koło 21`,
+      definition: [
+        {
+          type: "block-image",
+          value: "id.svg"
+          // value:
+          //   "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
+        },
+        {
+          type: "string",
+          value:
+            "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
+        },
+        {
+          type: "inline-image",
+          value: "long.svg"
+        },
+        {
+          type: "string",
+          value: "koło koło koło koło koło"
+        }
+      ],
+      definitionSource: "matemaks.pl"
+    })
   },
   mutations: {
+    // Featured
     featuredUpdateId(store, id: string) {
-      store.homePage.featured.id = id;
+      store.homepage.featured.content.id = id;
     },
     featuredUpdateDefinee(store, s: string) {
-      store.homePage.featured.definee = s;
+      store.homepage.featured.content.definee = s;
     },
-    feturedUpdateDefinition(store, s: string) {
-      store.homePage.featured.definition = s;
+    feturedUpdateDefinition(
+      store,
+      content: Array<{ type: string; value: string }>
+    ) {
+      store.homepage.featured.content.definition = content;
+    },
+    feturedUpdateDefinitionSource(store, s: string) {
+      store.homepage.featured.content.definitionSource = s;
     },
     feturedUpdateEndsAt(store, s: Date) {
-      store.homePage.featured.endsAt = s;
+      store.homepage.featured.endsAt = s;
     },
+
+    // Modal
     modalUpdateVisibility(store, b: boolean) {
       store.modal.visible = b;
     },
     modalUpdateDefinee(store, s: string) {
-      store.modal.definee = s;
+      store.modal.content.definee = s;
     },
-    modalUpdateDefinition(store, s: string) {
-      store.modal.definition = s;
+    modalUpdateDefinition(
+      store,
+      content: Array<{ type: string; value: string }>
+    ) {
+      store.modal.content.definition = content;
     },
     modalUpdateDefinitionSource(store, s: string) {
-      store.modal.definitionSource = s;
+      store.modal.content.definitionSource = s;
     },
-    modalUpdateImage(store, s: string) {
-      store.modal.modalImage = s;
-    },
-    modalUpdateImageSource(store, s: string) {
-      store.modal.modalImageSource = s;
-    },
-    carouselUpdateBlock(store, b: boolean) {
-      store.homePage.carousel.blockModal = b;
+
+    // Carousel
+    updateCarouselBlock(store, b: boolean) {
+      store.homepage.carousel.blockModal = b;
     },
     updateLastVisited(store, n: string) {
-      store.homePage.lastVisited.unshift(n);
+      store.homepage.lastVisited.unshift(n);
     },
-    updateAnimatedCarousel(store) {
-      store.animated.carousel = true;
+
+    // Animations - once
+    updateAnimatedHomepageCarousel(store) {
+      store.animated.homepage.carousel = true;
     },
-    updateAnimatedSaved(store) {
-      store.animated.saved = true;
+    updateAnimatedLearnSaved(store) {
+      store.animated.learn.saved = true;
     },
+
+    // Flashcards
     updateFlashcardState(store, s: flashcardState) {
-      store.flashcards.state = s;
+      store.flashcards.current.state = s;
     },
     updateCurrentUserChoice(store, n: number) {
-      store.flashcards.currentUserChoice = n;
+      store.flashcards.current.userChoice = n;
+    },
+
+    // Learning sessions
+    addLearningSession(
+      store,
+      s: { uuid: string; arr: Array<{ id: string; label: string }> }
+    ) {
+      console.log(store.learn.savedSessions);
+      if (!exists(store.learn.savedSessions, s.arr)) {
+        store.learn.savedSessions[s.uuid] = s.arr;
+      }
+    },
+    deleteLearningSession(store, uuid: string) {
+      delete store.learn.savedSessions[uuid];
+    },
+
+    // Latest session
+    pushLatest(store: State, d: DefinitionObject) {
+      // store.latest.add(d);
+      d;
+      console.log(store.latest);
     }
   },
   actions: {
+    // Initial data fetch
     async initialFetch({ commit }) {
       const data = await (await fetch(`/definitions/manif.json`))
         .json()
@@ -201,46 +310,9 @@ export const store = createStore<State>({
         });
       data;
       commit;
-      // console.log(data);
-
-      // commit("updateManifest", data);
     },
-    async modalUpdate({ commit }, id: string) {
-      const fetch = async function(id: string) {
-        return {
-          visible: true,
-          definee: `Koło ${id}`,
-          definition: `zbiór wszystkich punktów płaszczyzny, których odległość od ustalonego punktu na tej płaszczyźnie, nazywanego środkiem koła, jest mniejsza lub równa długości promienia koła.\n
-          Równoważna definicja: część płaszczyzny ograniczona przez pewien okrąg; okrąg ten zawiera się w kole i jest zarazem jego brzegiem.`,
-          definitionSource: "matemaks.pl",
-          modalImage: "granica.png",
-          modalImageSource: "matemaks.pl"
-        };
-      };
-      const data = await fetch(id);
-      commit("modalUpdateDefinee", data.definee ?? "BŁĄD");
-      commit("modalUpdateDefinition", data.definition ?? "BŁĄD");
-      commit("modalUpdateDefinitionSource", data.definitionSource ?? null);
-      commit("modalUpdateImage", `/img/definitions/${data.modalImage}` ?? null);
-      commit("modalUpdateImageSource", data.modalImageSource ?? null);
-    },
-    async featuredUpdate({ commit }, id: string) {
-      const fetchDefinition = async function(id: string) {
-        return {
-          definee: `Koło ${id}`,
-          definition: `zbiór wszystkich punktów płaszczyzny, których odległość od ustalonego punktu na tej płaszczyźnie, nazywanego środkiem koła, jest mniejsza lub równa długości promienia koła.\n
-          Równoważna definicja: część płaszczyzny ograniczona przez pewien okrąg; okrąg ten zawiera się w kole i jest zarazem jego brzegiem.`,
-          endsAt: new Date()
-        };
-      };
 
-      const data = await fetchDefinition(id);
-
-      commit("featuredUpdateId", id);
-      commit("featuredUpdateDefinee", data.definee);
-      commit("feturedUpdateDefinition", data.definition);
-      commit("feturedUpdateEndsAt", new Date());
-    },
+    // Modal
     openModal({ commit, dispatch }, id: string) {
       dispatch("modalUpdate", id).then(() =>
         commit("modalUpdateVisibility", true)
@@ -249,22 +321,107 @@ export const store = createStore<State>({
     closeModal({ commit }) {
       commit("modalUpdateVisibility", false);
     },
+    async modalUpdate({ commit }, id: string) {
+      const fetch = async function(id: string) {
+        return {
+          id: `2115`,
+          definee: `Koło ${id}`,
+          definition: [
+            {
+              type: "block-image",
+              value: "id.svg"
+              // value:
+              //   "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
+            },
+            {
+              type: "string",
+              value:
+                "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
+            },
+            {
+              type: "inline-image",
+              value: "long.svg"
+            },
+            {
+              type: "string",
+              value: "koło koło koło koło koło"
+            }
+          ],
+          definitionSource: "matemaks.pl"
+        };
+      };
+      const data = await fetch(id);
+      commit("pushLatest", data);
+      commit("modalUpdateDefinee", data.definee ?? "BŁĄD");
+      commit("modalUpdateDefinition", data.definition ?? "BŁĄD");
+      commit("modalUpdateDefinitionSource", data.definitionSource ?? null);
+    },
+
+    // Homepage featured
+    async featuredUpdate({ commit }, id: string) {
+      const fetch = async function(id: string) {
+        return {
+          id: `2115`,
+          definee: `Koło ${id}`,
+          definition: [
+            {
+              type: "block-image",
+              value: "id.svg"
+              // value:
+              //   "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
+            },
+            {
+              type: "string",
+              value:
+                "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
+            },
+            {
+              type: "inline-image",
+              value: "long.svg"
+            },
+            {
+              type: "string",
+              value: "koło koło koło koło koło"
+            }
+          ],
+          definitionSource: "matemaks.pl"
+        };
+      };
+
+      const data = await fetch(id);
+
+      commit("featuredUpdateId", id);
+      commit("featuredUpdateDefinee", data.definee);
+      commit("feturedUpdateDefinition", data.definition);
+      commit("feturedUpdateDefinitionSource", data.definitionSource);
+      commit("feturedUpdateEndsAt", new Date().setHours(23, 59, 59, 999));
+    },
+
+    // Carousel
     carouselStartBlocking({ commit }) {
-      commit("carouselUpdateBlock", true);
+      commit("updateCarouselBlock", true);
     },
     carouselStopBlocking({ commit }) {
-      commit("carouselUpdateBlock", false);
+      commit("updateCarouselBlock", false);
     },
+
+    // Flashcards
     startLearningSession({ commit }, sessionId: string) {
       sessionId;
       commit("updateFlashcardState", 0);
-      console.log("a");
     },
     endLearningSession({ commit }) {
       commit;
       console.log("end");
+    },
+    saveLearningSession({ commit }, s: { uuid: string; arr: string[] }) {
+      commit("addLearningSession", s);
+    },
+    deleteLearningSession({ commit }, uuid: string) {
+      commit("deleteLearningSession", uuid);
     }
-  }
+  },
+  plugins: [vuexLocal.plugin]
 });
 
 // Define your own `useStore` composition function

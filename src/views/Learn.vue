@@ -4,20 +4,21 @@
       <LearnCard @click="startRevision" />
     </Section>
     <Section class="section__picker">
-      <LearnItemPicker @selected-changed="handleSelectedChange" />
+      <LearnItemPicker @selected-changed="handleSelectedChange" ref="picker" />
       <LearnItemList
         v-if="selectedValues.length"
         style="margin-top: 1rem"
         :selected="selectedValues"
         :add="true"
+        @saved-session="clearSelectedItems"
       />
     </Section>
     <Section section-title="Zapisane">
       <!-- TODO: vuex-persist; adjust these to be saved -->
-      <LearnSavedList v-if="savedSessions" :saved-sessions="savedSessions" />
-      <em>
+      <LearnSavedList />
+      <!-- <em>
         {{ savedSessions ? null : "tu pojawią się zapisane przez ciebe sesje" }}
-      </em>
+      </em> -->
     </Section>
     <Section section-title="Postępy w nauce">
       <CategoryProgress :categories="categories" />
@@ -40,7 +41,7 @@ import anime from "animejs";
 import Section from "@/components/TheSection.vue";
 import LearnCard from "@/components/cards/LearnCard.vue";
 import LearnItemPicker from "@/components/learn/LearnItemPicker.vue";
-import LearnItemList from "@/components/learn/LearnItemPickerList.vue";
+import LearnItemList from "@/components/learn/LearnItemList.vue";
 import LearnSavedList from "@/components/learn/LearnSavedList.vue";
 import CategoryProgress from "@/components/learn/CategoryProgress.vue";
 import Button from "@/components/TheActionButton.vue";
@@ -75,32 +76,38 @@ export default defineComponent({
 
     const selectedValues: Ref<Array<string>> = ref([]);
 
-    const savedSessions: Ref<Array<{
-      sessionId: string;
-      children: Array<string>;
-    }>> = ref([
-      {
-        sessionId: "abc",
-        children: [
-          "Geometria analityczna",
-          "Geometria płaska",
-          "Wyrażenia algebraiczne",
-          "Liczby rzeczywiste"
-        ]
-      },
-      {
-        sessionId: "dfg",
-        children: [
-          "Ułamki zwykłe",
-          "Stereometria",
-          "Wzory skróconego mnożenia",
-          "Liczby rzeczywiste"
-        ]
-      }
-    ]);
+    // const savedSessions: Ref<Array<{
+    //   sessionId: string;
+    //   children: Array<string>;
+    // }>> = ref([
+    //   {
+    //     sessionId: "abc",
+    //     children: [
+    //       "Geometria analityczna",
+    //       "Geometria płaska",
+    //       "Wyrażenia algebraiczne",
+    //       "Liczby rzeczywiste"
+    //     ]
+    //   },
+    //   {
+    //     sessionId: "dfg",
+    //     children: [
+    //       "Ułamki zwykłe",
+    //       "Stereometria",
+    //       "Wzory skróconego mnożenia",
+    //       "Liczby rzeczywiste"
+    //     ]
+    //   }
+    // ]);
 
     const handleSelectedChange = function(v: Array<string>) {
       selectedValues.value = v;
+    };
+
+    const picker = ref();
+    const clearSelectedItems = function() {
+      picker.value.value = [];
+      selectedValues.value = [];
     };
 
     const categories: Array<{
@@ -138,9 +145,11 @@ export default defineComponent({
       loadMoreProgress,
       selectedValues,
       handleSelectedChange,
+      picker,
+      clearSelectedItems,
       categories,
-      startRevision,
-      savedSessions
+      startRevision
+      // savedSessions
     };
   }
 });

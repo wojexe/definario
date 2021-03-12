@@ -7,7 +7,7 @@
       <img
         v-show="image"
         :src="image"
-        :alt="imageAlt"
+        :alt="`zdjęcie - ${definee}`"
         class="flashcards__definition__content__image"
       />
       <div
@@ -19,12 +19,6 @@
           v-show="definitionSource"
           >Definicja: {{ definitionSource }}</span
         >
-        <span
-          class="flashcards__definition__content__credits__image"
-          v-show="imageSource"
-        >
-          Zdjęcie: {{ imageSource }}</span
-        >
       </div>
     </div>
   </div>
@@ -35,11 +29,11 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "FlashcardDefinition",
   props: {
+    definee: String,
     definition: String,
     definitionSource: String,
     image: String,
-    imageAlt: String,
-    imageSource: String
+    imageAlt: String
   }
 });
 </script>
@@ -55,7 +49,7 @@ export default defineComponent({
     max-width: 100%;
     padding: 2ch 2ch;
 
-    border-radius: 30px;
+    border-radius: var(--card__border-radius);
 
     box-shadow: var(--theme-shadow__card);
     background: rgb(var(--theme-color__card--background));
@@ -69,7 +63,7 @@ export default defineComponent({
       flex-direction: column;
       align-items: center;
       gap: 2ch;
-      max-height: 50vh;
+      max-height: 45vh;
       grid-auto-columns: auto;
       height: min-content;
       padding-bottom: 0.2ch;

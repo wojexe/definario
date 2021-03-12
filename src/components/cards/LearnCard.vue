@@ -30,7 +30,7 @@ export default defineComponent({
     rgba(255, 166, 0, 1) 14.7%,
     rgb(255, 133, 63) 73%
   );
-  border-radius: 35px;
+  border-radius: var(--card__border-radius);
 
   text-decoration: none;
 
@@ -71,7 +71,7 @@ export default defineComponent({
     height: 100%;
     box-shadow: 0 16px 26px rgba(255, 133, 63, 1);
     opacity: 0.3;
-    border-radius: 35px;
+    border-radius: var(--card__border-radius);
   }
 
   &::before {
@@ -83,7 +83,7 @@ export default defineComponent({
     height: 100%;
     box-shadow: 0 8px 26px rgba(255, 133, 63, 1);
     opacity: 0;
-    border-radius: 35px;
+    border-radius: var(--card__border-radius);
   }
 }
 </style>

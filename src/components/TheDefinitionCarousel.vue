@@ -45,7 +45,7 @@ export default defineComponent({
     // Heavily inspired by https://htmldom.dev/drag-to-scroll/
     onMounted(() => {
       nextTick(() => {
-        if (!store.state.animated.carousel)
+        if (!store.state.animated.homepage.carousel)
           anime({
             targets: ".carousel__card",
             delay: anime.stagger(50, { start: 200 }),
@@ -53,7 +53,7 @@ export default defineComponent({
             easing: "easeOutQuart",
             translateX: [100, 0],
             opacity: [0, 1],
-            complete: () => store.commit("updateAnimatedCarousel")
+            complete: () => store.commit("updateAnimatedHomepageCarousel")
           });
 
         const slider: HTMLElement | null = document.querySelector(".carousel");
@@ -143,7 +143,7 @@ export default defineComponent({
   grid-template-rows: 20ch;
   word-break: break-word;
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: var(--card__border-radius);
 
   filter: drop-shadow(
     0 0 32px

@@ -7,12 +7,14 @@ declare module "@vue/runtime-core" {
   export interface State {
     modal: {
       visible: boolean;
+
       definee: string;
       definition: string;
       definitionSource: string;
       modalImage: string;
       modalImageSource: string;
     };
+
     homePage: {
       featured: {
         id: string;
@@ -23,38 +25,43 @@ declare module "@vue/runtime-core" {
       carousel: {
         blockModal: boolean;
       };
-      lastVisited: string[];
+      lastVisited: Array<string>;
     };
+
     learn: {
-      lastChosen: [
-        {
-          categories: string[];
-        }
-      ];
-      progress: [
-        {
-          name: string;
-          value: number;
-        }
-      ];
+      savedSessions: Array<{
+        categories: Array<string>;
+      }>;
+      progress: Array<{
+        name: string;
+        value: number;
+      }>;
     };
+
     flashcards: {
+      state: flashcardState;
+
+      currentDefinitionId: string;
+
       currentDefinee: string;
       currentDefinition: string;
-      currentDefinitionId: string;
-      currentDefinitionUserKnowledge: number;
-      definitionIdScore: string;
+      currentUserChoice: number;
+      definitionIdScore: number;
 
-      gameHistory: [{}];
+      gameHistory: Record<string, Array<string>>;
     };
+
     saved: {
-      definitions: [
-        {
-          id: string;
-          definee: string;
-          definition: string;
-        }
-      ];
+      definitions: Array<{
+        id: string;
+        definee: string;
+        definition: string;
+      }>;
+    };
+
+    animated: {
+      carousel: boolean;
+      saved: boolean;
     };
   }
 

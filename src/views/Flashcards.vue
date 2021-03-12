@@ -3,6 +3,7 @@
     <Definee definee="Granica ciągu" />
     <Definition
       image-alt="Granica ciągu - obraz"
+      :definee="definee"
       :definition="definition"
       definition-source="matemaks.pl"
       image="/img/definitions/granica.png"
@@ -17,13 +18,14 @@
 import {
   defineComponent,
   onMounted,
-  onUnmounted,
+  onBeforeUnmount,
   nextTick,
   ref,
   computed,
   watch
 } from "vue";
 import { useStore } from "../store/index";
+import { useRouter } from "vue-router";
 
 import anime from "animejs";
 
@@ -39,6 +41,8 @@ export default defineComponent({
     ActionPicker
   },
   setup() {
+    const router = useRouter();
+
     const definition = `zbiór wszystkich punktów płaszczyzny, których odległość od ustalonego punktu na tej płaszczyźnie, nazywanego środkiem koła, jest mniejsza lub równa długości promienia koła.\n
           Równoważna definicja: część płaszczyzny ograniczona przez pewien okrąg; okrąg ten zawiera się w kole i jest zarazem jego brzegiem.`;
 
@@ -46,7 +50,7 @@ export default defineComponent({
 
     const store = useStore();
 
-    const flashcardState = computed(() => store.state.flashcards.state);
+    const flashcardState = computed(() => store.state.flashcards.current.state);
 
     const handleClick = function() {
       anime({
@@ -87,7 +91,8 @@ export default defineComponent({
       })
     );
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
+      console.log(router.currentRoute.value);
       store.dispatch("endLearningSession");
     });
 

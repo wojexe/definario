@@ -120,6 +120,9 @@ body {
   --theme-color__background: 245, 245, 245;
   --theme-color__card--background: 255, 255, 255;
 
+  --card__border-radius: 35px;
+  --pill__border-radius: 1000px;
+
   --theme-gradient: radial-gradient(
     60% 115% at 2% 14%,
     #3e85ee 2%,
@@ -131,7 +134,7 @@ body {
   --theme-shadow__card__opacity: 0.1;
   --theme-shadow__card__x: 0;
   --theme-shadow__card__y: 5px;
-  --theme-shadow__card__radius: 25px;
+  --theme-shadow__card__radius: 24px;
 
   --theme-shadow__card: var(--theme-shadow__card__x)
     var(--theme-shadow__card__y) var(--theme-shadow__card__radius)

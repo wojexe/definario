@@ -53,12 +53,12 @@ export default defineComponent({
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 100px;
+      border-radius: var(--pill__border-radius);
       width: calc(var(--text-size--L) * 2.5);
 
       cursor: pointer;
 
-      transition: 200ms ease-in-out all;
+      transition: 200ms ease-in-out transform;
 
       &--next {
         border-radius: 20px 100px 100px 20px;

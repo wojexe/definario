@@ -1,15 +1,11 @@
 <template>
-  <div class="overlay" @click="overlayClick">
+  <div class="overlay" @click="overlayClick" v-once>
     <div class="modal" ref="modal">
       <span class="modal__title">{{ definee }}</span>
       <div class="modal__content">
-        <p class="modal__content__definition">{{ definition }}</p>
-        <img
-          v-show="image"
-          :src="image"
-          :alt="definee"
-          class="modal__content__image"
-        />
+        <p class="modal__content__definition">
+          <ContentRenderer :content="definition" />
+        </p>
         <div
           class="modal__content__credits"
           v-if="definitionSource || imageSource"
@@ -19,11 +15,22 @@
             v-show="definitionSource"
             >Definicja: {{ definitionSource }}</span
           >
-          <span class="modal__content__credits__image" v-show="imageSource">
-            Zdjęcie: {{ imageSource }}</span
-          >
         </div>
       </div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        class="modal__save-button"
+        tabindex="0"
+        @click="saveDefinition"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+          clip-rule="evenodd"
+        />
+      </svg>
     </div>
   </div>
 </template>
@@ -32,20 +39,32 @@
 import { defineComponent, ref, computed, onMounted } from "vue";
 import { useStore } from "../store/index";
 
+import ContentRenderer from "@/components/TheContentRenderer.vue";
+
 import anime from "animejs";
 
 export default defineComponent({
   name: "Modal",
+  components: {
+    ContentRenderer
+  },
   setup() {
     const store = useStore();
 
     const isVisible = computed(() => store.state.modal.visible);
-    const definee = computed(() => store.state.modal.definee);
-    const definition = computed(() => store.state.modal.definition);
-    const definitionSource = computed(() => store.state.modal.definitionSource);
-    const image = computed(() => store.state.modal.modalImage);
-    const imageSource = computed(() => store.state.modal.modalImageSource);
 
+    const definee = computed(() => store.state.modal.content.definee);
+    const definition = computed(() => store.state.modal.content.definition);
+    const definitionSource = computed(
+      () => store.state.modal.content.definitionSource
+    );
+
+    const saveDefinition = function() {
+      console.log("saveDefinition");
+      store.dispatch("saveDefinition", store.state.modal.content.id);
+    };
+
+    // Animations (+ escape close)
     const tl = ref(
       anime.timeline({
         easing: "easeInOutExpo"
@@ -86,8 +105,7 @@ export default defineComponent({
       definee,
       definition,
       definitionSource,
-      image,
-      imageSource
+      saveDefinition
     };
   },
   methods: {
@@ -118,6 +136,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 100;
@@ -131,6 +150,7 @@ export default defineComponent({
   .modal {
     display: flex;
     flex-direction: column;
+    position: relative;
 
     // width: calc(100% - 4ch);
     width: 100%;
@@ -145,7 +165,7 @@ export default defineComponent({
     box-shadow: var(--theme-shadow__card);
     background: rgb(var(--theme-color__card--background));
 
-    border-radius: 30px;
+    border-radius: var(--card__border-radius);
 
     margin: var(--sat) var(--sar) var(--sab) var(--sal);
 
@@ -213,7 +233,31 @@ export default defineComponent({
         flex-wrap: wrap;
       }
     }
+
+    &__save-button {
+      position: absolute;
+      justify-self: center;
+      align-self: center;
+      bottom: calc(-1.25 * var(--text-size--XL));
+      height: var(--text-size--XL);
+      color: white;
+      cursor: pointer;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+      transition: 150ms all ease-in-out;
+      opacity: 0.7;
+      &:hover {
+        opacity: 1;
+        transform: scale(1.1);
+        filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.6));
+      }
+      &:focus-visible {
+        opacity: 1;
+        transform: scale(1.1);
+        filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.6));
+      }
+    }
   }
+
   @media screen and (min-width: 768px) {
     .modal {
       width: clamp(10ch, 80%, 76ch);

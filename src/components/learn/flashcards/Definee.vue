@@ -23,7 +23,7 @@ export default defineComponent({
     background: rgb(var(--theme-color__card--background));
 
     box-shadow: var(--theme-shadow__card);
-    border-radius: 100px;
+    border-radius: var(--pill__border-radius);
     @media screen and (min-width: 768px) {
       font-size: var(--text-size--XL);
     }

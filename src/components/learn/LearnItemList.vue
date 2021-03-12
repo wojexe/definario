@@ -24,8 +24,11 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, watchEffect } from "vue";
+import { defineComponent, ref, onMounted, computed } from "vue";
+import { useStore } from "@/store/index";
+
 import anime from "animejs";
+import { v4 as uuidv4 } from "uuid";
 
 export default defineComponent({
   name: "LearnItemList",
@@ -33,19 +36,28 @@ export default defineComponent({
     selected: Array,
     add: Boolean
   },
-  setup() {
+  emits: ["savedSession"],
+  setup(props, { emit }) {
+    const store = useStore();
+
     const list = ref(null);
 
     const customStyle = `--gradient: linear-gradient(99deg, rgba(255, 166, 0, 1) 14.7%, rgb(255, 133, 63) 73%); --shadow: rgba(255, 133, 63, 1)`;
 
+    // const selectedIds = computed(() => props.selected?.flatMap(x => x.id));
     const saveSession = function() {
-      console.log("saveSession");
+      store.dispatch("saveLearningSession", {
+        uuid: uuidv4(),
+        arr: props.selected
+      });
+
+      emit("savedSession");
     };
 
     onMounted(() => {
       anime({
         targets: list.value,
-        duration: 1000,
+        duration: 500,
         scaleY: [0, 1],
         easing: "easeInOutExpo"
       });
@@ -108,7 +120,7 @@ export default defineComponent({
     font-weight: bold;
     cursor: pointer;
     background-image: var(--gradient);
-    border-radius: 35px;
+    border-radius: var(--card__border-radius);
 
     text-decoration: none;
 
@@ -160,7 +172,7 @@ export default defineComponent({
       height: 100%;
       box-shadow: 0 16px 26px var(--shadow);
       opacity: 0.3;
-      border-radius: 35px;
+      border-radius: var(--card__border-radius);
     }
 
     &::before {
@@ -172,7 +184,7 @@ export default defineComponent({
       height: 100%;
       box-shadow: 0 8px 26px var(--shadow);
       opacity: 0;
-      border-radius: 35px;
+      border-radius: var(--card__border-radius);
     }
   }
 }

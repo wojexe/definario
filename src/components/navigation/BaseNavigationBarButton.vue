@@ -49,7 +49,7 @@ nav {
       height: 0.25ch;
       width: 100%;
       background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 100px;
+      border-radius: var(--pill__border-radius);
       opacity: 0;
 
       will-change: opacity;

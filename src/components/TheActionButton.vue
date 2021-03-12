@@ -61,7 +61,7 @@ export default defineComponent({
   // padding: 0.25rem 3rem;
 
   border: none;
-  border-radius: 100px;
+  border-radius: var(--pill__border-radius);
 
   color: #fff;
   background: rgb(var(--theme-color__primary));

@@ -4,7 +4,7 @@
       {{ definee }}
     </span>
     <p class="card__content">
-      {{ definition }}
+      <ContentRenderer :content="definition" />
     </p>
   </div>
 </template>
@@ -12,6 +12,8 @@
 <script lang="ts">
 import { defineComponent, ref, watchEffect, computed } from "vue";
 import { useStore } from "../../store/index";
+
+import ContentRenderer from "@/components/TheContentRenderer.vue";
 
 export default defineComponent({
   name: "HomeCard",
@@ -21,12 +23,19 @@ export default defineComponent({
       type: String
     }
   },
+  components: {
+    ContentRenderer
+  },
   setup(props) {
     const store = useStore();
 
     store.dispatch("featuredUpdate", props.definitionId);
-    const definee = computed(() => store.state.homePage.featured.definee);
-    const definition = computed(() => store.state.homePage.featured.definition);
+    const definee = computed(
+      () => store.state.homepage.featured.content.definee
+    );
+    const definition = computed(
+      () => store.state.homepage.featured.content.definition
+    );
 
     const modalVisible = ref(false);
 
@@ -68,7 +77,7 @@ export default defineComponent({
   cursor: pointer;
   color: black;
   background-color: rgb(var(--theme-color__card--background));
-  border-radius: 35px;
+  border-radius: var(--card__border-radius);
   &__header {
     display: flex;
     justify-content: center;
@@ -89,7 +98,7 @@ export default defineComponent({
       height: 0.3ch;
 
       background-color: rgba(0, 0, 0, 0.2);
-      border-radius: 20px;
+      border-radius: var(--pill__border-radius);
     }
     &::before {
       transform: translateX(-75%);
@@ -126,7 +135,7 @@ export default defineComponent({
     width: 100%;
     height: 100%;
 
-    border-radius: 35px;
+    border-radius: var(--card__border-radius);
   }
 
   &::after {

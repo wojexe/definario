@@ -22,7 +22,7 @@ export default defineComponent({
   setup(_, { emit }) {
     const store = useStore();
 
-    const flashcardState = computed(() => store.state.flashcards.state);
+    const flashcardState = computed(() => store.state.flashcards.current.state);
 
     const emitClick = function() {
       emit("buttonClick");

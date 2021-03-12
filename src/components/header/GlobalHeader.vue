@@ -79,7 +79,7 @@ export default defineComponent({
     padding: 0.25ch 1ch;
     background: rgba(255, 0, 0, 1);
     box-shadow: 0 8px 32px rgba(255, 0, 0, 1);
-    border-radius: 100px;
+    border-radius: var(--pill__border-radius);
     z-index: 10000;
     opacity: 0;
     transition: opacity 200ms ease-in-out;

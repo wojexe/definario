@@ -53,6 +53,9 @@ main {
   width: 100%;
   box-sizing: content-box;
 
+  align-content: flex-start;
+  justify-content: center;
+
   padding-top: max(calc(var(--sat) + calc(60px + 2rem)), calc(60px + 2rem));
   padding-right: max(calc(var(--sar) + 5%), 5%);
   padding-bottom: max(calc(var(--sab) + calc(60px + 3rem)), calc(60px + 3rem));
