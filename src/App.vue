@@ -140,8 +140,7 @@ body {
     var(--theme-shadow__card__y) var(--theme-shadow__card__radius)
     rgba(var(--theme-shadow__card__color), var(--theme-shadow__card__opacity));
 
-  --text-color__normal: 0, 0, 0;
-  --text-color__paragraph: 40, 40, 40;
+  --text-color__normal: 0, 0, 0; 
 
   --text-size--XS: 0.75rem;
   --text-size--S: 0.9rem;
@@ -174,5 +173,11 @@ body {
   &[modal-open] {
     overflow: hidden;
   }
+}
+
+.placeholder {
+  color: rgba(var(--text-color__normal), 0.5);
+  font-style: italic;
+  font-weight: bold;
 }
 </style>

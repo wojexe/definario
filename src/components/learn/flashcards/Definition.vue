@@ -68,7 +68,6 @@ export default defineComponent({
       height: min-content;
       padding-bottom: 0.2ch;
       overflow: auto;
-      color: rgb(var(--text-color__paragraph));
       &__definition {
         margin: 0;
         font-size: var(--text-size--S);

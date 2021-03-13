@@ -14,11 +14,7 @@
       />
     </Section>
     <Section section-title="Zapisane">
-      <!-- TODO: vuex-persist; adjust these to be saved -->
       <LearnSavedList />
-      <!-- <em>
-        {{ savedSessions ? null : "tu pojawią się zapisane przez ciebe sesje" }}
-      </em> -->
     </Section>
     <Section section-title="Postępy w nauce">
       <CategoryProgress :categories="categories" />
@@ -32,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, onMounted, nextTick } from "vue";
+import { defineComponent, ref, Ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "../store/index";
 
@@ -58,15 +54,6 @@ export default defineComponent({
     Button
   },
   setup() {
-    onMounted(() =>
-      nextTick(() => {
-        anime.set("main", {
-          opacity: 1,
-          translateY: 0
-        });
-      })
-    );
-
     const router = useRouter();
     const store = useStore();
 
@@ -75,30 +62,6 @@ export default defineComponent({
     };
 
     const selectedValues: Ref<Array<string>> = ref([]);
-
-    // const savedSessions: Ref<Array<{
-    //   sessionId: string;
-    //   children: Array<string>;
-    // }>> = ref([
-    //   {
-    //     sessionId: "abc",
-    //     children: [
-    //       "Geometria analityczna",
-    //       "Geometria płaska",
-    //       "Wyrażenia algebraiczne",
-    //       "Liczby rzeczywiste"
-    //     ]
-    //   },
-    //   {
-    //     sessionId: "dfg",
-    //     children: [
-    //       "Ułamki zwykłe",
-    //       "Stereometria",
-    //       "Wzory skróconego mnożenia",
-    //       "Liczby rzeczywiste"
-    //     ]
-    //   }
-    // ]);
 
     const handleSelectedChange = function(v: Array<string>) {
       selectedValues.value = v;

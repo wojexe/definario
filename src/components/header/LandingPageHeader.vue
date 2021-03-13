@@ -24,6 +24,7 @@ export default defineComponent({
   height: 100%;
   max-height: 35vh;
   padding: 0 2ch;
+  padding-top: var(--sat);
 
   flex-direction: column;
   align-items: flex-start;
@@ -37,7 +38,7 @@ export default defineComponent({
     left: 0;
 
     height: 100%;
-    max-height: 25vmax;
+    max-height: calc(25vmax + var(--sat));
 
     z-index: 10;
     pointer-events: none;

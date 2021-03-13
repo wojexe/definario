@@ -1,18 +1,16 @@
 <template>
   <main>
     <Section section-title="Definicja dnia">
-      <Card :definition-id="'2115'" />
+      <HomeCard :definition-id="'2115'" />
     </Section>
 
     <Section
       section-title="Ostatnie"
       :section-subtitle="
-        carouselDefinitionList.lenght
-          ? 'aby zobaczyć więcej swipeuj poziomo'
-          : null
+        latestLength ? 'aby zobaczyć więcej swipeuj poziomo' : null
       "
     >
-      <DefinitionCarousel :definition-list="carouselDefinitionList" />
+      <DefinitionCarousel />
     </Section>
 
     <Section
@@ -25,8 +23,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import Card from "@/components/cards/HomeCard.vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "@/store/index";
+
+import HomeCard from "@/components/cards/HomeCard.vue";
 import Section from "@/components/TheSection.vue";
 import Button from "@/components/TheActionButton.vue";
 import DefinitionCarousel from "@/components/TheDefinitionCarousel.vue";
@@ -34,18 +34,15 @@ import DefinitionCarousel from "@/components/TheDefinitionCarousel.vue";
 export default defineComponent({
   name: "Home",
   components: {
-    Card,
+    HomeCard,
     Section,
     Button,
     DefinitionCarousel
   },
   setup() {
-    const carouselDefinitionList = ref<string[]>();
+    const store = useStore();
 
-    const tempArr: string[] = [];
-    for (let i = 0; i < 15; i++) tempArr.push(`${i + 1}`);
-
-    carouselDefinitionList.value = tempArr;
+    const latestLength = computed(() => store.state.latest.length);
 
     // uhhhhhh
     const openTables = function() {
@@ -54,7 +51,11 @@ export default defineComponent({
       );
     };
 
-    return { carouselDefinitionList, openTables };
+    // return { carouselDefinitionList, openTables };
+    return {
+      latestLength,
+      openTables
+    };
   }
 });
 </script>

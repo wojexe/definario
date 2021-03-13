@@ -65,7 +65,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/saved",
     name: "Saved",
     meta: {
-      title: createTitle("zapisne"),
+      title: createTitle("zapisane"),
       navbar: { visible: true, active: "Saved" },
       header: { visible: true, landing: false }
     },

@@ -1,7 +1,7 @@
 // store.ts
 import { InjectionKey } from "vue";
 import { createStore, useStore as baseUseStore, Store } from "vuex";
-import VuexPersistence from "vuex-persist";
+import createPersistedState from "vuex-persistedstate";
 
 import { DefinitionObject } from "../../types/definition.d";
 
@@ -19,18 +19,30 @@ interface CurrentFlashcard extends DefinitionObject {
   idScore: number;
 }
 
-function isEqual(b: string[], a: string[]) {
-  for (const e of b) if (!a.includes(e)) return false;
-  return true;
+function definitionIsEqual(a: DefinitionObject, b: DefinitionObject) {
+  return a.id == b.id;
 }
 
-function exists(
-  obj: Record<string, Array<{ id: string; label: string }>>,
-  arr: Array<{ id: string; label: string }>
+function sessionEquals(
+  a: Array<{ id: string; label: string }>,
+  b: Array<{ id: string; label: string }>
 ) {
-  const sets = Object.values(obj).map(set => set.map(x => x.id));
-  const newSet = arr.map(x => x.id);
-  return sets.some(set => isEqual(set, newSet));
+  if (a.length !== b.length) return false;
+  return a.every((a, i) => a.id === b[i].id);
+}
+
+function sessionExists(
+  savedSessions: Record<string, Array<{ id: string; label: string }>>,
+  newSession: Array<{ id: string; label: string }>
+) {
+  // Map saved sessions
+  const existingSessions = Object.values(savedSessions).map(session =>
+    session.map(categories => categories)
+  );
+
+  // Check if existingSessions contains exactly te same
+  // elements as newSession
+  return existingSessions.some(session => sessionEquals(session, newSession));
 }
 
 // Define your typings for the store state
@@ -46,10 +58,10 @@ export interface State {
       content: DefinitionObject;
       endsAt: Date;
     };
+
     carousel: {
       blockModal: boolean;
     };
-    lastVisited: Array<string>;
   };
 
   learn: {
@@ -83,28 +95,11 @@ export interface State {
     };
   };
 
-  latest: Set<DefinitionObject>;
+  latest: Array<DefinitionObject>;
 }
 
 // Define injection key
 export const key: InjectionKey<Store<State>> = Symbol();
-
-// Persist some states
-const vuexLocal = new VuexPersistence<State>({
-  storage: window.localStorage,
-  reducer: state => ({
-    homepage: {
-      featured: state.homepage.featured,
-      lastVisited: state.homepage.lastVisited
-    },
-    learn: state.learn,
-    // flashcards: {
-    //   gameHistory: state.flashcards.gameHistory
-    // },
-    saved: state.saved,
-    latest: state.latest
-  })
-});
 
 export const store = createStore<State>({
   state: {
@@ -113,7 +108,7 @@ export const store = createStore<State>({
       content: {
         id: "",
         definee: "",
-        definition: [{ type: "", value: "" }],
+        definition: [],
         definitionSource: ""
       }
     },
@@ -123,29 +118,19 @@ export const store = createStore<State>({
         content: {
           id: "",
           definee: "",
-          definition: [{ type: "", value: "" }],
+          definition: [],
           definitionSource: ""
         },
         endsAt: new Date()
       },
       carousel: {
         blockModal: false
-      },
-      lastVisited: []
+      }
     },
 
     learn: {
       savedSessions: {},
-      progress: [
-        {
-          name: "trygonometria",
-          value: 0
-        },
-        {
-          name: "trygonometria",
-          value: 0
-        }
-      ]
+      progress: []
     },
 
     flashcards: {
@@ -155,7 +140,7 @@ export const store = createStore<State>({
         state: flashcardState.Think,
 
         definee: "",
-        definition: [{ type: "", value: "" }],
+        definition: [],
         definitionSource: "",
 
         idScore: 0,
@@ -164,14 +149,7 @@ export const store = createStore<State>({
     },
 
     saved: {
-      definitions: [
-        {
-          id: "",
-          definee: "",
-          definition: [{ type: "", value: "" }],
-          definitionSource: ""
-        }
-      ]
+      definitions: []
     },
 
     animated: {
@@ -189,33 +167,14 @@ export const store = createStore<State>({
       }
     },
 
-    latest: new Set<DefinitionObject>().add({
-      id: `21`,
-      definee: `Koło 21`,
-      definition: [
-        {
-          type: "block-image",
-          value: "id.svg"
-          // value:
-          //   "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
-        },
-        {
-          type: "string",
-          value:
-            "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
-        },
-        {
-          type: "inline-image",
-          value: "long.svg"
-        },
-        {
-          type: "string",
-          value: "koło koło koło koło koło"
-        }
-      ],
-      definitionSource: "matemaks.pl"
-    })
+    latest: []
   },
+  /*
+
+
+
+
+  */
   mutations: {
     // Featured
     featuredUpdateId(store, id: string) {
@@ -241,25 +200,32 @@ export const store = createStore<State>({
     modalUpdateVisibility(store, b: boolean) {
       store.modal.visible = b;
     },
-    modalUpdateDefinee(store, s: string) {
-      store.modal.content.definee = s;
+    modalUpdateData(store, d: DefinitionObject) {
+      store.modal.content = d;
     },
-    modalUpdateDefinition(
-      store,
-      content: Array<{ type: string; value: string }>
-    ) {
-      store.modal.content.definition = content;
-    },
-    modalUpdateDefinitionSource(store, s: string) {
-      store.modal.content.definitionSource = s;
+    // modalUpdateDefinee(store, s: string) {
+    //   store.modal.content.definee = s;
+    // },
+    // modalUpdateDefinition(
+    //   store,
+    //   content: Array<{ type: string; value: string }>
+    // ) {
+    //   store.modal.content.definition = content;
+    // },
+    // modalUpdateDefinitionSource(state, s: string) {
+    //   state.modal.content.definitionSource = s;
+    // },
+    modalSaveDefinition(state) {
+      console.log(state.modal.content, state.saved.definitions);
+      state.saved.definitions = state.saved.definitions.filter(
+        el => !definitionIsEqual(el, state.modal.content)
+      );
+      state.saved.definitions.unshift(state.modal.content);
     },
 
     // Carousel
     updateCarouselBlock(store, b: boolean) {
       store.homepage.carousel.blockModal = b;
-    },
-    updateLastVisited(store, n: string) {
-      store.homepage.lastVisited.unshift(n);
     },
 
     // Animations - once
@@ -268,6 +234,9 @@ export const store = createStore<State>({
     },
     updateAnimatedLearnSaved(store) {
       store.animated.learn.saved = true;
+    },
+    updateAnimatedSaved(store) {
+      store.animated.saved.items = true;
     },
 
     // Flashcards
@@ -283,8 +252,11 @@ export const store = createStore<State>({
       store,
       s: { uuid: string; arr: Array<{ id: string; label: string }> }
     ) {
-      console.log(store.learn.savedSessions);
-      if (!exists(store.learn.savedSessions, s.arr)) {
+      // Sort to-insert array lexicographically
+      s.arr.sort((a, b) => a.label.localeCompare(b.label));
+
+      // Check if this exact set already exists
+      if (!sessionExists(store.learn.savedSessions, s.arr)) {
         store.learn.savedSessions[s.uuid] = s.arr;
       }
     },
@@ -293,12 +265,27 @@ export const store = createStore<State>({
     },
 
     // Latest session
-    pushLatest(store: State, d: DefinitionObject) {
-      // store.latest.add(d);
-      d;
-      console.log(store.latest);
+    pushLatest(state, d: DefinitionObject) {
+      state.latest = state.latest.filter(el => !definitionIsEqual(el, d));
+      state.latest.unshift(d);
+      if (state.latest.length > 20) state.latest.splice(20);
+    },
+
+    // Delete item from saved
+    deleteSavedItem(state, id: string) {
+      console.log(id);
+      console.log(state.saved.definitions);
+      state.saved.definitions = state.saved.definitions.filter(
+        el => el.id !== id
+      );
     }
   },
+  /*
+
+
+
+
+  */
   actions: {
     // Initial data fetch
     async initialFetch({ commit }) {
@@ -324,7 +311,7 @@ export const store = createStore<State>({
     async modalUpdate({ commit }, id: string) {
       const fetch = async function(id: string) {
         return {
-          id: `2115`,
+          id: id,
           definee: `Koło ${id}`,
           definition: [
             {
@@ -335,8 +322,7 @@ export const store = createStore<State>({
             },
             {
               type: "string",
-              value:
-                "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
+              value: "koło koło koło koło"
             },
             {
               type: "inline-image",
@@ -350,11 +336,16 @@ export const store = createStore<State>({
           definitionSource: "matemaks.pl"
         };
       };
-      const data = await fetch(id);
+      const data: DefinitionObject = await fetch(id);
       commit("pushLatest", data);
-      commit("modalUpdateDefinee", data.definee ?? "BŁĄD");
-      commit("modalUpdateDefinition", data.definition ?? "BŁĄD");
-      commit("modalUpdateDefinitionSource", data.definitionSource ?? null);
+      commit("modalUpdateData", data);
+      // commit("modalUpdateId", data.id ?? "BŁĄD");
+      // commit("modalUpdateDefinee", data.definee ?? "BŁĄD");
+      // commit("modalUpdateDefinition", data.definition ?? "BŁĄD");
+      // commit("modalUpdateDefinitionSource", data.definitionSource ?? null);
+    },
+    saveDefinition({ commit }) {
+      commit("modalSaveDefinition");
     },
 
     // Homepage featured
@@ -419,9 +410,18 @@ export const store = createStore<State>({
     },
     deleteLearningSession({ commit }, uuid: string) {
       commit("deleteLearningSession", uuid);
+    },
+
+    // Saved
+    deleteSavedDefinition({ commit }, id: string) {
+      commit("deleteSavedItem", id);
     }
   },
-  plugins: [vuexLocal.plugin]
+  plugins: [
+    createPersistedState({
+      paths: ["homepage.featured", "latest", "learn", "saved.definitions"]
+    })
+  ]
 });
 
 // Define your own `useStore` composition function

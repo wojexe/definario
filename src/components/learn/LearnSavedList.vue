@@ -32,13 +32,13 @@
       </svg>
     </div>
     <span v-if="isEmpty" class="list-container__row__empty">
-      brak zapisanych kart
+      brak zapisanych sesji
     </span>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, computed, watch } from "vue";
+import { defineComponent, ref, onMounted, computed } from "vue";
 import { useStore } from "@/store/index";
 import { useRouter } from "vue-router";
 
@@ -65,7 +65,6 @@ export default defineComponent({
     );
 
     const deleteSession = function(e: PointerEvent) {
-      console.log(e.target);
       const sId =
         (e.target as HTMLElement).parentElement?.getAttribute("session-id") ||
         (e.target as HTMLElement).parentElement?.parentElement?.getAttribute(
@@ -78,7 +77,7 @@ export default defineComponent({
       anime({
         targets: "main",
         duration: 250,
-        easing: "easeInOutExpo",
+        easing: "easeOutQuart",
         translateY: [0, 20],
         opacity: [1, 0],
         complete: () => {
@@ -151,11 +150,12 @@ export default defineComponent({
 
     &__delete-button {
       justify-self: center;
-      right: -2ch;
+      // right: -2ch;
+      right: 0;
       top: 50%;
       transform: translateY(-50%);
       position: absolute;
-      height: 1.5ch;
+      height: 1.75ch;
       font-size: var(--text-size--XL);
       color: rgba(255, 255, 255, 1);
       filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
@@ -206,7 +206,12 @@ export default defineComponent({
       color: #fff;
       font-size: var(--text-size--S);
       font-weight: bold;
-      background-image: var(--theme-gradient);
+      background-image: linear-gradient(
+        to right,
+        #3e85ee 2%,
+        #e389f0 50%,
+        #f3c07c 90%
+      );
       border-radius: var(--card__border-radius);
 
       text-decoration: none;

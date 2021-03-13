@@ -12,11 +12,13 @@
         :style="`--percentage: ${percentage}%`"
       ></div>
     </div>
+    <span v-if="!categories" class="placeholder">brak zapisanych postępów</span>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "CategoryProgress",
   props: {
@@ -31,6 +33,8 @@ export default defineComponent({
 <style lang="scss">
 .progress {
   display: grid;
+  align-items: center;
+  text-align: center;
   gap: 1rem;
   width: var(--width);
   &__item {

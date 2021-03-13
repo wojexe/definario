@@ -57,7 +57,7 @@ export default defineComponent({
     onMounted(() => {
       anime({
         targets: list.value,
-        duration: 500,
+        duration: 350,
         scaleY: [0, 1],
         easing: "easeInOutExpo"
       });

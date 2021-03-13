@@ -1,9 +1,9 @@
 <template>
-  <div class="search__definition-list__element" tabindex="0" @click="openModal">
-    <span class="search__definition-list__element__definee">
+  <div class="saved__section__row__content" tabindex="0" @click="openModal">
+    <span class="saved__section__row__content__definee">
       {{ definee }}
     </span>
-    <p class="search__definition-list__element__definition">
+    <p class="saved__section__row__content__definition">
       <ContentRenderer :content="definition" />
     </p>
   </div>
@@ -50,93 +50,94 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.search {
-  &__definition-list {
-    &__element {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 100%;
-      margin-bottom: 2rem;
-      padding: 2ch;
-      box-sizing: border-box;
-      border-radius: var(--card__border-radius);
-      background: rgb(var(--theme-color__card--background));
-      box-shadow: var(--theme-shadow__card);
-
-      cursor: pointer;
-
-      &__definee {
-        font-size: var(--text-size--MP);
-        font-weight: bold;
-      }
-      &__definition {
-        font-size: var(--text-size--S);
-        margin: 0;
-        overflow: hidden;
-      }
-
-      // Shadows
-      &::after,
-      &::before,
-      &:focus {
-        transition: 200ms all ease-in-out;
-        will-change: opacity;
-      }
-
-      &::after,
-      &::before {
-        content: "";
-
-        top: 0;
-        right: 0;
-        position: absolute;
-
+.saved {
+  &__section {
+    &__row {
+      &__content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         width: 100%;
-        height: 100%;
-
+        padding: 2ch;
+        box-sizing: border-box;
         border-radius: var(--card__border-radius);
-      }
+        background: rgb(var(--theme-color__card--background));
+        box-shadow: var(--theme-shadow__card);
 
-      &::after {
-        box-shadow: 0 16px 64px
-          rgba(
-            var(--theme-shadow__card__color),
-            var(--theme-shadow__card__opacity)
-          );
-        opacity: 1;
-      }
+        cursor: pointer;
 
-      &::before {
-        box-shadow: 0 8px 42px
-          rgba(
-            var(--theme-shadow__card__color),
-            calc(var(--theme-shadow__card__opacity) * 2)
-          );
-        opacity: 0;
-      }
-
-      &:hover {
-        &::after {
-          opacity: 0;
+        &__definee {
+          font-size: var(--text-size--MP);
+          font-weight: bold;
+        }
+        &__definition {
+          font-size: var(--text-size--S);
+          margin: 0;
+          overflow: hidden;
         }
 
-        &::before {
-          opacity: 1;
+        // Shadows
+        &::after,
+        &::before,
+        &:focus {
+          transition: 200ms all ease-in-out;
+          will-change: opacity;
         }
-      }
 
-      &:focus-visible {
         &::after,
         &::before {
+          content: "";
+
+          top: 0;
+          right: 0;
+          position: absolute;
+
+          width: 100%;
+          height: 100%;
+
+          border-radius: var(--card__border-radius);
+        }
+
+        &::after {
+          box-shadow: 0 16px 64px
+            rgba(
+              var(--theme-shadow__card__color),
+              var(--theme-shadow__card__opacity)
+            );
+          opacity: 1;
+        }
+
+        &::before {
+          box-shadow: 0 8px 42px
+            rgba(
+              var(--theme-shadow__card__color),
+              calc(var(--theme-shadow__card__opacity) * 2)
+            );
           opacity: 0;
         }
-        box-shadow: 0 16px 64px
-          rgba(
-            var(--theme-shadow__card__color),
-            calc(var(--theme-shadow__card__opacity) * 3)
-          );
+
+        &:hover {
+          &::after {
+            opacity: 0;
+          }
+
+          &::before {
+            opacity: 1;
+          }
+        }
+
+        &:focus-visible {
+          &::after,
+          &::before {
+            opacity: 0;
+          }
+          box-shadow: 0 16px 64px
+            rgba(
+              var(--theme-shadow__card__color),
+              calc(var(--theme-shadow__card__opacity) * 3)
+            );
+        }
       }
     }
   }

@@ -1,68 +1,84 @@
 <template>
-  <div class="carousel__card" @click="openModal">
+  <div class="carousel__card" @click="openModal" ref="card">
     <span class="carousel__card__title">{{ definee }}</span>
     <p class="carousel__card__definitionShort">
-      {{ definition }}
+      <ContentRenderer :content="definition" />
     </p>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  nextTick
+} from "vue";
 import { useStore } from "../../store/index";
+
+import anime from "animejs";
+
+import ContentRenderer from "@/components/TheContentRenderer.vue";
 
 export default defineComponent({
   name: "CarouselCard",
   props: {
-    definitionId: {
-      required: true,
-      type: String
-    }
+    id: String,
+    definee: String,
+    definition: Array
+  },
+  components: {
+    ContentRenderer
   },
   setup(props) {
-    const store = useStore();
+    const card = ref();
 
-    const definee = ref(`definee no. ${props.definitionId}`);
-    const definition = ref(`definition no. ${props.definitionId}`);
+    const store = useStore();
 
     function openModal() {
       if (!store.state.homepage.carousel.blockModal) {
-        store.dispatch("openModal", props.definitionId);
+        store.dispatch("openModal", props.id);
       }
     }
 
-    /*  Now using -webkit-line-clamp ❤️
-      Calculate abbreviation
-      const definitionAbbr = ref(``);
-      const calculateAbbr = function(maxCharacters: number) {
-        definitionAbbr.value = "";
-        let wordsToProvide = 0;
-        for (let i = 0; i < maxCharacters; i++) {
-          if (definition.value.split("")[i] === " ") wordsToProvide += 1;
-        }
-        for (const w in definition.value.split(" ")) {
-          definitionAbbr.value += definition.value.split(" ")[w] + " ";
-          if (wordsToProvide === 0) break;
-          wordsToProvide -= 1;
-        }
-        definitionAbbr.value = definitionAbbr.value.substr(
-          0,
-          definitionAbbr.value.length - 1
-        );
-        definitionAbbr.value += "...";
-      };
-      const textSizeQuery = window.matchMedia(
-        "(min-width: 350px) and (min-height: 650px)"
+    const animation = {
+      duration: 100,
+      easing: "easeOutCirc"
+    };
+
+    function focusEnterAnimation() {
+      anime({
+        targets: card.value,
+        duration: animation.duration,
+        easing: animation.easing,
+        scale: [1, 0.95]
+      });
+    }
+
+    function leaveAnimation() {
+      anime({
+        targets: card.value,
+        duration: animation.duration,
+        easing: animation.easing,
+        scale: [0.95, 1]
+      });
+    }
+
+    onMounted(() => {
+      (card.value as HTMLElement).addEventListener(
+        "mouseenter",
+        focusEnterAnimation
       );
-      textSizeQuery.matches ? calculateAbbr(70) : calculateAbbr(110);
-      textSizeQuery.addEventListener("change", e => {
-        e.matches ? calculateAbbr(70) : calculateAbbr(110);
-      })
-    */
+
+      (card.value as HTMLElement).addEventListener(
+        "mouseleave",
+        leaveAnimation
+      );
+    });
 
     return {
-      definee,
-      definition,
+      card,
       openModal
     };
   }
@@ -98,6 +114,8 @@ p {
     user-select: none;
     cursor: pointer;
 
+    transition: box-shadow 150ms ease-in-out;
+
     &__title {
       font-size: var(--text-size--L);
       font-weight: bold;
@@ -120,11 +138,7 @@ p {
     }
 
     &:focus-visible {
-      box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.4);
-    }
-
-    &:hover {
-      transform: scale(0.95);
+      box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.5);
     }
   }
 }

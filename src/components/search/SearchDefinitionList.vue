@@ -9,7 +9,7 @@
       :definee="definee"
       :definition="definition"
     />
-    <span v-show="isEmpty" class="search__definition-list__empty-message">
+    <span v-show="isEmpty" class="placeholder">
       brak definicji do pokazania
     </span>
   </div>
@@ -48,7 +48,7 @@ export default defineComponent({
         anime({
           targets: resultsContainer.value.children,
           delay: anime.stagger(50, { start: 200 }),
-          duration: 500,
+          duration: 350,
           easing: "easeOutQuart",
           translateY: [100, 0],
           opacity: [0, 1],

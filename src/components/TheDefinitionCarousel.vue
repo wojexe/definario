@@ -1,44 +1,92 @@
 <template>
   <div
-    v-if="definitionList.length"
+    v-if="latestDefinitions.length"
     class="carousel"
     :style="getGridTemplateColumns"
   >
     <CarouselCard
-      v-for="definitionId in definitionList"
-      :key="definitionId"
-      :definition-id="definitionId"
+      v-for="{ id, definee, definition } in latestDefinitions"
+      :key="id"
+      :id="id"
+      :definee="definee"
+      :definition="definition"
       tabindex="0"
     />
   </div>
-  <em v-else>brak definicji do pokazania</em>
+  <span class="placeholder" v-else>brak definicji do pokazania</span>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, onMounted, nextTick } from "vue";
+import { defineComponent, computed, onMounted, nextTick, watch } from "vue";
 import { useStore } from "../store/index";
 
 import anime from "animejs";
 
 import CarouselCard from "@/components/cards/CarouselCard.vue";
+import { DefinitionObject } from "types/definition";
 
 export default defineComponent({
   name: "DefinitionCarousel",
-  props: {
-    definitionList: {
-      type: Array as PropType<Array<string>>,
-      required: true
-    }
-  },
   components: {
     CarouselCard
   },
-  setup(props) {
+  setup() {
     const store = useStore();
+
+    const latestDefinitions = computed(() => store.state.latest);
 
     const getGridTemplateColumns = computed(
       () =>
-        `grid-template-columns: repeat(${props.definitionList.length}, 18ch);`
+        `grid-template-columns: repeat(${latestDefinitions.value.length}, 18ch);`
+    );
+
+    function isTouchDevice() {
+      return (
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0
+      );
+    }
+
+    // Animate carousel on addition
+    const detectChange = (a: DefinitionObject[], b: DefinitionObject[]) =>
+      a.length === b.length && a.every((v, i) => v.id === b[i].id);
+
+    watch(
+      () => latestDefinitions.value,
+      (curr, prev) => {
+        if (detectChange(curr, prev)) return;
+        nextTick(() => {
+          const carouselEl = document.getElementsByClassName("carousel")[0];
+          const firstElement = carouselEl.children[0];
+          anime.set(firstElement, { opacity: 0 });
+          anime.set(carouselEl, { overflow: "visible" });
+          anime
+            .timeline({
+              easing: "easeOutQuart",
+              duration: 500
+            })
+            .add({
+              targets: carouselEl,
+              translateX: ["-22ch", "0ch"],
+              complete: () => {
+                console.log("end");
+                anime.set(carouselEl, {
+                  overflow: isTouchDevice() ? "auto" : "hidden"
+                });
+              }
+            })
+            .add(
+              {
+                targets: firstElement,
+                duration: 100,
+                easing: "easeOutCirc",
+                opacity: [0, 1]
+              },
+              0
+            );
+        });
+      }
     );
 
     // Swiping mechanism for desktop
@@ -61,14 +109,6 @@ export default defineComponent({
         // Momentum
         let velX = 0;
         let momentumID: number;
-
-        function isTouchDevice() {
-          return (
-            "ontouchstart" in window ||
-            navigator.maxTouchPoints > 0 ||
-            navigator.msMaxTouchPoints > 0
-          );
-        }
 
         function cancelMomentumTracking() {
           cancelAnimationFrame(momentumID);
@@ -129,7 +169,7 @@ export default defineComponent({
       });
     });
 
-    return { getGridTemplateColumns };
+    return { latestDefinitions, getGridTemplateColumns };
   }
 });
 </script>

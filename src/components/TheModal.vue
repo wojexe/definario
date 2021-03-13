@@ -17,20 +17,23 @@
           >
         </div>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        class="modal__save-button"
-        tabindex="0"
-        @click="saveDefinition"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-          clip-rule="evenodd"
-        />
-      </svg>
+      <div class="modal__save-button">
+        <svg
+          class="modal__save-button__icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          tabindex="0"
+          @click="saveDefinition"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <span class="modal__save-button__text">zapisano!</span>
+      </div>
     </div>
   </div>
 </template>
@@ -58,11 +61,6 @@ export default defineComponent({
     const definitionSource = computed(
       () => store.state.modal.content.definitionSource
     );
-
-    const saveDefinition = function() {
-      console.log("saveDefinition");
-      store.dispatch("saveDefinition", store.state.modal.content.id);
-    };
 
     // Animations (+ escape close)
     const tl = ref(
@@ -98,6 +96,27 @@ export default defineComponent({
           });
         });
     });
+
+    const saveDefinition = function() {
+      store.dispatch("saveDefinition", store.state.modal.content.id).then(() =>
+        anime({
+          targets: ".modal__save-button__text",
+          duration: 500,
+          translateY: ["-2ch", "0ch"],
+          opacity: [0, 0.75],
+          easing: "easeOutQuart"
+        }).finished.then(() => {
+          anime({
+            targets: ".modal__save-button__text",
+            delay: 1000,
+            duration: 500,
+            translateY: ["0ch", "-2ch"],
+            opacity: [0.75, 0],
+            easing: "easeOutQuart"
+          });
+        })
+      );
+    };
 
     return {
       tl,
@@ -160,7 +179,7 @@ export default defineComponent({
 
     box-sizing: border-box;
 
-    z-index: 100;
+    z-index: 200;
 
     box-shadow: var(--theme-shadow__card);
     background: rgb(var(--theme-color__card--background));
@@ -212,7 +231,6 @@ export default defineComponent({
       height: min-content;
       padding-bottom: 0.2ch;
       overflow: auto;
-      color: rgb(var(--text-color__paragraph));
       &__definition {
         margin: 0;
         font-size: var(--text-size--S);
@@ -238,22 +256,43 @@ export default defineComponent({
       position: absolute;
       justify-self: center;
       align-self: center;
-      bottom: calc(-1.25 * var(--text-size--XL));
-      height: var(--text-size--XL);
-      color: white;
-      cursor: pointer;
-      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
-      transition: 150ms all ease-in-out;
-      opacity: 0.7;
-      &:hover {
-        opacity: 1;
-        transform: scale(1.1);
-        filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.6));
+      bottom: 0;
+      transform: translateY(calc(100% + 1ch));
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      &__icon {
+        height: var(--text-size--XL);
+        color: white;
+        cursor: pointer;
+        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+        z-index: 150;
+        transition: 150ms all ease-in-out;
+        opacity: 0.7;
+        &:hover {
+          opacity: 1;
+          transform: scale(1.1);
+          filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.6));
+        }
+        &:focus-visible {
+          opacity: 1;
+          transform: scale(1.1);
+          filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.6));
+        }
       }
-      &:focus-visible {
-        opacity: 1;
-        transform: scale(1.1);
-        filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.6));
+      &__text {
+        background: rgba(255, 255, 255, 1);
+        color: black;
+        padding: 0.5ch 1ch;
+        margin-top: 0.5ch;
+        opacity: 0;
+        z-index: 125;
+        pointer-events: none;
+        user-select: none;
+        border-radius: var(--pill__border-radius);
+        box-shadow: var(--theme-shadow__card);
       }
     }
   }

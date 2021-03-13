@@ -49,8 +49,8 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  margin-top: 50vh;
-  transform: translateY(-50%);
+  // margin-top: 50vh;
+  // transform: translateY(50%);
   background: rgb(var(--theme-color__background));
   .presentation {
     display: flex;
