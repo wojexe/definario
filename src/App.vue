@@ -140,7 +140,7 @@ body {
     var(--theme-shadow__card__y) var(--theme-shadow__card__radius)
     rgba(var(--theme-shadow__card__color), var(--theme-shadow__card__opacity));
 
-  --text-color__normal: 0, 0, 0; 
+  --text-color__normal: 0, 0, 0;
 
   --text-size--XS: 0.75rem;
   --text-size--S: 0.9rem;
@@ -179,5 +179,6 @@ body {
   color: rgba(var(--text-color__normal), 0.5);
   font-style: italic;
   font-weight: bold;
+  text-align: center;
 }
 </style>

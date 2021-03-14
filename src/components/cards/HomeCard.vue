@@ -17,19 +17,12 @@ import ContentRenderer from "@/components/TheContentRenderer.vue";
 
 export default defineComponent({
   name: "HomeCard",
-  props: {
-    definitionId: {
-      required: true,
-      type: String
-    }
-  },
   components: {
     ContentRenderer
   },
-  setup(props) {
+  setup() {
     const store = useStore();
 
-    store.dispatch("featuredUpdate", props.definitionId);
     const definee = computed(
       () => store.state.homepage.featured.content.definee
     );
@@ -41,7 +34,7 @@ export default defineComponent({
 
     function openModal() {
       modalVisible.value = true;
-      store.dispatch("openModal", props.definitionId);
+      store.dispatch("openModal", store.state.homepage.featured.content.id);
     }
 
     watchEffect(() => {
@@ -85,6 +78,7 @@ export default defineComponent({
     font-size: var(--text-size--MP);
     font-weight: 600;
     margin-bottom: 1.4ch;
+    text-align: center;
     &::after,
     &::before {
       display: block;
@@ -106,6 +100,7 @@ export default defineComponent({
   }
   &__content {
     font-size: var(--text-size--S);
+    max-width: 100%;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 10;

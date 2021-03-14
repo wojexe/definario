@@ -6,6 +6,7 @@
     :is="getComponentType(type)"
     :src="getComponentType(type) === 'img' ? getSourcePath(value) : null"
     :class="type"
+    class="definition-part"
     v-text="value"
   />
 </template>
@@ -46,6 +47,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.definition-part {
+  word-break: break-word;
+}
 .block-image {
   display: block;
   margin: 0.5ch auto;

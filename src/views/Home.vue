@@ -1,7 +1,7 @@
 <template>
   <main>
     <Section section-title="Definicja dnia">
-      <HomeCard :definition-id="'2115'" />
+      <HomeCard />
     </Section>
 
     <Section

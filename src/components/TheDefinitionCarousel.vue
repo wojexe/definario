@@ -13,7 +13,9 @@
       tabindex="0"
     />
   </div>
-  <span class="placeholder" v-else>brak definicji do pokazania</span>
+  <span class="placeholder" v-else>
+    tutaj pojawią się ostatnio otwarte definicje
+  </span>
 </template>
 
 <script lang="ts">
@@ -23,7 +25,7 @@ import { useStore } from "../store/index";
 import anime from "animejs";
 
 import CarouselCard from "@/components/cards/CarouselCard.vue";
-import { DefinitionObject } from "types/definition";
+import { Card, Deck } from "types/definitions";
 
 export default defineComponent({
   name: "DefinitionCarousel",
@@ -49,7 +51,7 @@ export default defineComponent({
     }
 
     // Animate carousel on addition
-    const detectChange = (a: DefinitionObject[], b: DefinitionObject[]) =>
+    const detectChange = (a: Array<Card | Deck>, b: Array<Card | Deck>) =>
       a.length === b.length && a.every((v, i) => v.id === b[i].id);
 
     watch(
@@ -61,6 +63,7 @@ export default defineComponent({
           const firstElement = carouselEl.children[0];
           anime.set(firstElement, { opacity: 0 });
           anime.set(carouselEl, { overflow: "visible" });
+          console.log(isTouchDevice());
           anime
             .timeline({
               easing: "easeOutQuart",
@@ -70,7 +73,6 @@ export default defineComponent({
               targets: carouselEl,
               translateX: ["-22ch", "0ch"],
               complete: () => {
-                console.log("end");
                 anime.set(carouselEl, {
                   overflow: isTouchDevice() ? "auto" : "hidden"
                 });

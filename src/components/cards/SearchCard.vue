@@ -58,6 +58,7 @@ export default defineComponent({
       flex-direction: column;
       justify-content: center;
       width: 100%;
+      max-width: 100%;
       margin-bottom: 2rem;
       padding: 2ch;
       box-sizing: border-box;
@@ -70,10 +71,20 @@ export default defineComponent({
       &__definee {
         font-size: var(--text-size--MP);
         font-weight: bold;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        -webkit-box-pack: end;
+        overflow: hidden;
       }
       &__definition {
         font-size: var(--text-size--S);
         margin: 0;
+        width: 100%;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 6;
+        -webkit-box-pack: end;
         overflow: hidden;
       }
 

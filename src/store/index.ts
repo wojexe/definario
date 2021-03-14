@@ -3,7 +3,7 @@ import { InjectionKey } from "vue";
 import { createStore, useStore as baseUseStore, Store } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
-import { DefinitionObject } from "../../types/definition.d";
+import { Card, Deck, UniResponse } from "../../types/definitions.d";
 
 enum flashcardState {
   Think = 0,
@@ -12,14 +12,14 @@ enum flashcardState {
   NextFlashcard
 }
 
-interface CurrentFlashcard extends DefinitionObject {
+interface CurrentFlashcard extends Card {
   id: string;
   state: flashcardState;
   userChoice: number;
   idScore: number;
 }
 
-function definitionIsEqual(a: DefinitionObject, b: DefinitionObject) {
+function definitionIsEqual(a: Card | Deck, b: Card | Deck) {
   return a.id == b.id;
 }
 
@@ -50,13 +50,13 @@ export interface State {
   modal: {
     visible: boolean;
 
-    content: DefinitionObject;
+    content: Card | Deck;
   };
 
   homepage: {
     featured: {
-      content: DefinitionObject;
-      endsAt: Date;
+      content: Card;
+      expires: Date;
     };
 
     carousel: {
@@ -67,6 +67,7 @@ export interface State {
   learn: {
     savedSessions: Record<string, Array<{ id: string; label: string }>>;
     progress: Array<{
+      id: string;
       name: string;
       value: number;
     }>;
@@ -77,7 +78,7 @@ export interface State {
   };
 
   saved: {
-    definitions: Array<DefinitionObject>;
+    definitions: Array<Card | Deck>;
   };
 
   animated: {
@@ -95,7 +96,7 @@ export interface State {
     };
   };
 
-  latest: Array<DefinitionObject>;
+  latest: Array<Card | Deck>;
 }
 
 // Define injection key
@@ -121,7 +122,7 @@ export const store = createStore<State>({
           definition: [],
           definitionSource: ""
         },
-        endsAt: new Date()
+        expires: new Date()
       },
       carousel: {
         blockModal: false
@@ -192,31 +193,19 @@ export const store = createStore<State>({
     feturedUpdateDefinitionSource(store, s: string) {
       store.homepage.featured.content.definitionSource = s;
     },
-    feturedUpdateEndsAt(store, s: Date) {
-      store.homepage.featured.endsAt = s;
+    feturedUpdateExpires(store, s: Date) {
+      store.homepage.featured.expires = s;
     },
 
     // Modal
     modalUpdateVisibility(store, b: boolean) {
       store.modal.visible = b;
     },
-    modalUpdateData(store, d: DefinitionObject) {
+    modalUpdateData(store, d: Card | Deck) {
       store.modal.content = d;
     },
-    // modalUpdateDefinee(store, s: string) {
-    //   store.modal.content.definee = s;
-    // },
-    // modalUpdateDefinition(
-    //   store,
-    //   content: Array<{ type: string; value: string }>
-    // ) {
-    //   store.modal.content.definition = content;
-    // },
-    // modalUpdateDefinitionSource(state, s: string) {
-    //   state.modal.content.definitionSource = s;
-    // },
     modalSaveDefinition(state) {
-      console.log(state.modal.content, state.saved.definitions);
+      // console.log(state.modal.content, state.saved.definitions);
       state.saved.definitions = state.saved.definitions.filter(
         el => !definitionIsEqual(el, state.modal.content)
       );
@@ -265,7 +254,7 @@ export const store = createStore<State>({
     },
 
     // Latest session
-    pushLatest(state, d: DefinitionObject) {
+    pushLatest(state, d: Card | Deck) {
       state.latest = state.latest.filter(el => !definitionIsEqual(el, d));
       state.latest.unshift(d);
       if (state.latest.length > 20) state.latest.splice(20);
@@ -273,8 +262,8 @@ export const store = createStore<State>({
 
     // Delete item from saved
     deleteSavedItem(state, id: string) {
-      console.log(id);
-      console.log(state.saved.definitions);
+      // console.log(id);
+      // console.log(state.saved.definitions);
       state.saved.definitions = state.saved.definitions.filter(
         el => el.id !== id
       );
@@ -288,15 +277,9 @@ export const store = createStore<State>({
   */
   actions: {
     // Initial data fetch
-    async initialFetch({ commit }) {
-      const data = await (await fetch(`/definitions/manif.json`))
-        .json()
-        .catch(err => {
-          console.log(err);
-          throw Error(err);
-        });
-      data;
-      commit;
+    async initialFetch({ dispatch }) {
+      if (new Date() > this.state.homepage.featured.expires)
+        dispatch("featuredUpdate");
     },
 
     // Modal
@@ -309,83 +292,30 @@ export const store = createStore<State>({
       commit("modalUpdateVisibility", false);
     },
     async modalUpdate({ commit }, id: string) {
-      const fetch = async function(id: string) {
-        return {
-          id: id,
-          definee: `Koło ${id}`,
-          definition: [
-            {
-              type: "block-image",
-              value: "id.svg"
-              // value:
-              //   "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
-            },
-            {
-              type: "string",
-              value: "koło koło koło koło"
-            },
-            {
-              type: "inline-image",
-              value: "long.svg"
-            },
-            {
-              type: "string",
-              value: "koło koło koło koło koło"
-            }
-          ],
-          definitionSource: "matemaks.pl"
-        };
-      };
-      const data: DefinitionObject = await fetch(id);
-      commit("pushLatest", data);
-      commit("modalUpdateData", data);
-      // commit("modalUpdateId", data.id ?? "BŁĄD");
-      // commit("modalUpdateDefinee", data.definee ?? "BŁĄD");
-      // commit("modalUpdateDefinition", data.definition ?? "BŁĄD");
-      // commit("modalUpdateDefinitionSource", data.definitionSource ?? null);
+      const res: { data: UniResponse } = await (
+        await fetch(`${process.env.VUE_APP_API_URL}/uni/${id}`)
+      ).json();
+
+      commit("pushLatest", res.data);
+      commit("modalUpdateData", res.data);
     },
     saveDefinition({ commit }) {
       commit("modalSaveDefinition");
     },
 
     // Homepage featured
-    async featuredUpdate({ commit }, id: string) {
-      const fetch = async function(id: string) {
-        return {
-          id: `2115`,
-          definee: `Koło ${id}`,
-          definition: [
-            {
-              type: "block-image",
-              value: "id.svg"
-              // value:
-              //   "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
-            },
-            {
-              type: "string",
-              value:
-                "koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło koło"
-            },
-            {
-              type: "inline-image",
-              value: "long.svg"
-            },
-            {
-              type: "string",
-              value: "koło koło koło koło koło"
-            }
-          ],
-          definitionSource: "matemaks.pl"
-        };
-      };
+    async featuredUpdate({ commit }) {
+      const res: Card = await (
+        await fetch(`${process.env.VUE_APP_API_URL}/featured`)
+      ).json();
 
-      const data = await fetch(id);
+      // console.log(res);
 
-      commit("featuredUpdateId", id);
-      commit("featuredUpdateDefinee", data.definee);
-      commit("feturedUpdateDefinition", data.definition);
-      commit("feturedUpdateDefinitionSource", data.definitionSource);
-      commit("feturedUpdateEndsAt", new Date().setHours(23, 59, 59, 999));
+      commit("featuredUpdateId", res.id);
+      commit("featuredUpdateDefinee", res.definee);
+      commit("feturedUpdateDefinition", res.definition);
+      commit("feturedUpdateDefinitionSource", res.definitionSource);
+      commit("feturedUpdateExpires", new Date().setHours(23, 59, 59, 999));
     },
 
     // Carousel
@@ -403,7 +333,7 @@ export const store = createStore<State>({
     },
     endLearningSession({ commit }) {
       commit;
-      console.log("end");
+      // console.log("end");
     },
     saveLearningSession({ commit }, s: { uuid: string; arr: string[] }) {
       commit("addLearningSession", s);

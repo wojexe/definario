@@ -8,13 +8,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  ref,
-  onMounted,
-  onBeforeUnmount,
-  nextTick
-} from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import { useStore } from "../../store/index";
 
 import anime from "animejs";
@@ -117,12 +111,17 @@ p {
     transition: box-shadow 150ms ease-in-out;
 
     &__title {
-      font-size: var(--text-size--L);
+      font-size: var(--text-size--MP);
       font-weight: bold;
       font-style: italic;
       line-height: 1.5ch;
       letter-spacing: -0.08ch;
       box-sizing: border-box;
+
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
     }
 
     &__definitionShort {

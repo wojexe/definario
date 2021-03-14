@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, computed } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import { useStore } from "@/store/index";
 
 import anime from "animejs";
@@ -44,7 +44,6 @@ export default defineComponent({
 
     const customStyle = `--gradient: linear-gradient(99deg, rgba(255, 166, 0, 1) 14.7%, rgb(255, 133, 63) 73%); --shadow: rgba(255, 133, 63, 1)`;
 
-    // const selectedIds = computed(() => props.selected?.flatMap(x => x.id));
     const saveSession = function() {
       store.dispatch("saveLearningSession", {
         uuid: uuidv4(),
@@ -75,6 +74,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .wrapper {
   position: relative;
+  max-width: 80%;
   .save-button {
     right: -2ch;
     top: 50%;

@@ -17,10 +17,11 @@
       <LearnSavedList />
     </Section>
     <Section section-title="Postępy w nauce">
-      <CategoryProgress :categories="categories" />
+      <CategoryProgress :categories="categoriesToShow" />
       <Button
         style="margin-top: 2rem;"
         content="POKAŻ WIĘCEJ"
+        v-if="categoriesToShow.length > 0"
         @click="loadMoreProgress"
       />
     </Section>
@@ -28,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref } from "vue";
+import { defineComponent, ref, Ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "../store/index";
 
@@ -57,10 +58,6 @@ export default defineComponent({
     const router = useRouter();
     const store = useStore();
 
-    const loadMoreProgress = function() {
-      console.log("loadMoreProgress");
-    };
-
     const selectedValues: Ref<Array<string>> = ref([]);
 
     const handleSelectedChange = function(v: Array<string>) {
@@ -73,22 +70,16 @@ export default defineComponent({
       selectedValues.value = [];
     };
 
-    const categories: Array<{
-      id: string;
-      title: string;
-      percentage: number;
-    }> = [
-      {
-        id: "a",
-        title: "Trygonometria",
-        percentage: 88
-      },
-      {
-        id: "b",
-        title: "Geometria analityczna",
-        percentage: 57
-      }
-    ];
+    const itemsToShow = ref(3);
+
+    const categoriesToShow = computed(() =>
+      store.state.learn.progress.slice(0, itemsToShow.value)
+    );
+
+    const loadMoreProgress = function() {
+      itemsToShow.value += 3;
+      console.log("loadMoreProgress", itemsToShow.value);
+    };
 
     const startRevision = function() {
       anime({
@@ -110,7 +101,7 @@ export default defineComponent({
       handleSelectedChange,
       picker,
       clearSelectedItems,
-      categories,
+      categoriesToShow,
       startRevision
       // savedSessions
     };

@@ -31,8 +31,8 @@
         />
       </svg>
     </div>
-    <span v-if="isEmpty" class="list-container__row__empty">
-      brak zapisanych sesji
+    <span v-if="isEmpty" class="placeholder">
+      tu pojawią się zapisane sesje
     </span>
   </div>
 </template>
@@ -64,12 +64,26 @@ export default defineComponent({
       () => Object.entries(savedSessions.value).length === 0
     );
 
-    const deleteSession = function(e: PointerEvent) {
+    const deleteSession = async function(e: PointerEvent) {
+      const tParent = (e.target as HTMLElement).parentElement;
+      const tdParent = (e.target as HTMLElement).parentElement?.parentElement;
+
       const sId =
-        (e.target as HTMLElement).parentElement?.getAttribute("session-id") ||
-        (e.target as HTMLElement).parentElement?.parentElement?.getAttribute(
-          "session-id"
-        );
+        tParent?.getAttribute("session-id") ||
+        tdParent?.getAttribute("session-id");
+
+      let animationTarget: HTMLElement;
+      if (tParent?.tagName === "div") animationTarget = tParent;
+      else animationTarget = tdParent as HTMLElement;
+
+      await anime({
+        targets: animationTarget,
+        duration: 500,
+        easing: "easeOutExpo",
+        translateX: [0, -30],
+        opacity: [1, 0]
+      }).finished;
+
       store.dispatch("deleteLearningSession", sId);
     };
 
@@ -107,7 +121,14 @@ export default defineComponent({
               translateX: [-50, 0],
               translateY: ["-50%", "-50%"],
               opacity: [0, 1],
-              complete: () => store.commit("updateAnimatedLearnSaved")
+              complete: () => {
+                store.commit("updateAnimatedLearnSaved");
+                Array.from(
+                  document.getElementsByClassName(
+                    "list-container__row__delete-button"
+                  )
+                ).forEach(el => el.removeAttribute("style"));
+              }
             });
           }
         });
@@ -132,6 +153,7 @@ export default defineComponent({
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: clamp(
     14ch,
     calc(100vw - calc(calc(var(--sar) + var(--sab)) + 10ch)),
@@ -150,16 +172,14 @@ export default defineComponent({
 
     &__delete-button {
       justify-self: center;
-      // right: -2ch;
-      right: 0;
+      right: -2ch;
       top: 50%;
       transform: translateY(-50%);
       position: absolute;
-      height: 1.75ch;
+      height: 1.5ch;
       font-size: var(--text-size--XL);
       color: rgba(255, 255, 255, 1);
       filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
-      border-radius: 100px;
       cursor: pointer;
 
       will-change: transform filter;
@@ -177,12 +197,6 @@ export default defineComponent({
       }
     }
 
-    &__empty {
-      text-align: center;
-      font-style: italic;
-      color: rgba(var(--text-color__normal), 0.5);
-    }
-
     &__item {
       position: relative;
 
@@ -194,7 +208,6 @@ export default defineComponent({
       padding-inline-start: 0;
 
       align-self: center;
-      min-width: 16ch;
 
       display: flex;
       flex-direction: column;

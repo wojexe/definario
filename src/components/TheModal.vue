@@ -58,8 +58,10 @@ export default defineComponent({
 
     const definee = computed(() => store.state.modal.content.definee);
     const definition = computed(() => store.state.modal.content.definition);
-    const definitionSource = computed(
-      () => store.state.modal.content.definitionSource
+    const definitionSource = computed(() =>
+      "definitionSource" in store.state.modal.content
+        ? store.state.modal.content.definitionSource
+        : "nie podano"
     );
 
     // Animations (+ escape close)

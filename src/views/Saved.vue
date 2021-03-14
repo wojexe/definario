@@ -29,7 +29,7 @@
         </svg>
       </div>
       <span v-if="isEmpty" class="placeholder">
-        brak definicji do pokazania
+        brak zapisanych definicji
       </span>
     </Section>
   </main>
@@ -57,12 +57,26 @@ export default defineComponent({
 
     const isEmpty = computed(() => savedDefinitions.value.length === 0);
 
-    const deleteSavedItem = function(e: PointerEvent) {
-      const Id =
-        (e.target as HTMLElement).getAttribute("id") ||
-        (e.target as HTMLElement).parentElement?.getAttribute("id");
+    const deleteSavedItem = async function(e: PointerEvent) {
+      const tParent = e.target as HTMLElement;
+      const tdParent = (e.target as HTMLElement).parentElement;
 
-      store.dispatch("deleteSavedDefinition", Id);
+      const id = tParent?.getAttribute("id") || tdParent?.getAttribute("id");
+
+      let animationTarget: HTMLElement;
+
+      if (tParent?.tagName === "div") animationTarget = tParent;
+      else animationTarget = tdParent as HTMLElement;
+
+      await anime({
+        targets: animationTarget,
+        duration: 500,
+        easing: "easeOutExpo",
+        translateX: [0, -30],
+        opacity: [1, 0]
+      }).finished;
+
+      store.dispatch("deleteSavedDefinition", id);
     };
 
     onMounted(() =>
@@ -101,6 +115,7 @@ export default defineComponent({
       display: flex;
       flex-direction: row;
       margin-bottom: 2rem;
+      max-width: 100%;
 
       &__delete-button {
         position: absolute;
@@ -115,6 +130,7 @@ export default defineComponent({
         color: rgb(var(--text-color__normal));
         border-radius: 100px;
         cursor: pointer;
+        background: #fff;
 
         will-change: transform filter;
         transition: 150ms all ease-in-out;

@@ -72,6 +72,9 @@ export default defineComponent({
           font-weight: bold;
         }
         &__definition {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 6;
           font-size: var(--text-size--S);
           margin: 0;
           overflow: hidden;

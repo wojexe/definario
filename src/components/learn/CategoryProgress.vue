@@ -12,20 +12,24 @@
         :style="`--percentage: ${percentage}%`"
       ></div>
     </div>
-    <span v-if="!categories" class="placeholder">brak zapisanych postępów</span>
+    <span v-if="isEmpty" class="placeholder">tu pojawią się twoje postępy</span>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "CategoryProgress",
   props: {
     categories: Array
   },
-  setup() {
-    return {};
+  setup(props) {
+    const isEmpty = ref(props.categories?.length === 0);
+
+    return {
+      isEmpty
+    };
   }
 });
 </script>

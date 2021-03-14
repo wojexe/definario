@@ -1,24 +1,46 @@
 <template>
+  <!-- <MultiSelect
+    v-model="value"
+    mode="multiple"
+    placeholder="Wyszukaj zagadnienie"
+    :searchable="true"
+    :minChars="3"
+    :options="
+      async function(query) {
+        console.log(query);
+        return await pickerOptions(query);
+      }
+    "
+    :caret="true"
+  ></MultiSelect> -->
   <MultiSelect
     v-model="value"
     mode="multiple"
+    placeholder="Wyszukaj zagadnienie"
+    noOptionsText="Nie znaleziono"
     noResultsText="Nie znaleziono"
-    placeholder="Wyszukaj działy"
-    noOptionsText="Lista jest pusta"
     :multipleLabel="multipleLabel"
-    :options="pickerOptions"
+    :filterResults="false"
+    :minChars="1"
+    :resolveOnLoad="false"
+    :delay="250"
+    :searchable="true"
+    :options="
+      async function(query) {
+        return await pickerOptions(query);
+      }
+    "
     :object="true"
     valueProp="id"
-    trackBy="label"
     label="label"
-    :caret="true"
-    :searchable="true"
     @change="emitValue"
   ></MultiSelect>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, Ref } from "vue";
+
+import { SearchResponse } from "@/../types/definitions";
 
 import MultiSelect from "@vueform/multiselect";
 
@@ -29,12 +51,28 @@ export default defineComponent({
   },
   emits: ["selectedChanged"],
   setup(props, { emit }) {
-    const pickerOptions = ref([
-      { id: "a", label: "Koło" },
-      { id: "b", label: "Granica ciągu" },
-      { id: "c", label: "Liczby pierwsze" },
-      { id: "d", label: "Wzory redukcyjne" }
-    ]);
+    // const pickerOptions = ref([
+    //   { id: "a", label: "Koło" },
+    //   { id: "b", label: "Granica ciągu" },
+    //   { id: "c", label: "Liczby pierwsze" },
+    //   { id: "d", label: "Wzory redukcyjne" }
+    // ]);
+
+    const pickerOptions = async (query: string) => {
+      const res: { data: SearchResponse[] } = await (
+        await fetch(`${process.env.VUE_APP_API_URL}/search?q=${query}`)
+      ).json();
+
+      console.log(
+        res.data.map(deck => {
+          return { id: deck.id, label: deck.title };
+        })
+      );
+
+      return res.data.map(deck => {
+        return { id: deck.id, label: deck.title };
+      });
+    };
 
     const multipleLabel = function(v: Array<string>) {
       if (v.length === 1) return "Wybrano 1 element";
