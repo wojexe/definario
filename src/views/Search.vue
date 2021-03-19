@@ -29,7 +29,7 @@ export default defineComponent({
 
     const targets = [".search__definition-list__element", ".placeholder"];
 
-    const waitTimeout = 1000;
+    const waitTimeout = 500;
 
     const outAnimation = async () =>
       anime({
@@ -43,27 +43,22 @@ export default defineComponent({
 
     async function doneTyping(s: string) {
       const res: { data: SearchResponse[] } = await (
-        await fetch(`${process.env.VUE_APP_API_URL}/search?q=${s}`)
+        await fetch(`${process.env.VUE_APP_API_URL}/search?q=${s}&c=1`)
       ).json();
 
-      // console.log(s, res.data);
+      console.log(s, res.data);
       // console.log(resultsContainer.value.$el);
 
       await outAnimation();
 
       searchResults.value.splice(0, searchResults.value.length);
 
-      res.data.forEach(obj =>
+      res.data.forEach(({ id, title, content, source }) =>
         searchResults.value.push({
-          id: obj.id,
-          definee: obj.title,
-          definition: [
-            {
-              type: "string",
-              value: obj.content
-            }
-          ],
-          definitionSource: "matemaks.pl"
+          id: id,
+          definee: title,
+          definition: content,
+          definitionSource: source ?? "BRAK"
         })
       );
 

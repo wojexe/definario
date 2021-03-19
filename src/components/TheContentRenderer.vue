@@ -7,7 +7,7 @@
     :src="getComponentType(type) === 'img' ? getSourcePath(value) : null"
     :class="type"
     class="definition-part"
-    v-text="value"
+    v-text="type === 'string' ? value : null"
   />
 </template>
 
@@ -35,7 +35,8 @@ export default defineComponent({
       else return "img";
     };
     const getSourcePath = function(s: string) {
-      return `/img/definitions/${s}`;
+      return `https://defi.rabulinski.com/img/definitions/${s}`;
+      // return `/img/definitions/${s}`;
     };
 
     return {
@@ -54,13 +55,17 @@ export default defineComponent({
   display: block;
   margin: 0.5ch auto;
   font-size: inherit;
+  min-height: 1ch;
   height: 2ch;
+  max-width: 100%;
 }
 .inline-image {
   display: inline;
   font-size: inherit;
-  height: 2ch;
+  min-height: 1ch;
+  height: 1.25ch;
   margin: 0 0.5ch;
-  vertical-align: sub;
+  vertical-align: middle;
+  max-width: 100%;
 }
 </style>

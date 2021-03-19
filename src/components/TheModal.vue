@@ -26,6 +26,7 @@
           tabindex="0"
           @click="saveDefinition"
         >
+          <title>Zapiszu</title>
           <path
             fill-rule="evenodd"
             d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
@@ -175,7 +176,7 @@ export default defineComponent({
 
     // width: calc(100% - 4ch);
     width: 100%;
-    max-height: 80vh;
+    max-height: 75vh;
     padding: 2ch;
     padding-top: 1.5ch;
 

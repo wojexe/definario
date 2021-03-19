@@ -24,7 +24,7 @@ import {
   watchEffect
 } from "vue";
 
-import { useStore } from "../../../store/index";
+import { useStore } from "@/store/index";
 
 export default defineComponent({
   name: "LevelSelector",
@@ -81,9 +81,13 @@ export default defineComponent({
         });
 
         const scrollContainerElement = scrollContainer.value as HTMLElement;
-        scrollContainerElement.addEventListener("wheel", e => {
-          e.preventDefault();
-        });
+        scrollContainerElement.addEventListener(
+          "wheel",
+          e => {
+            e.preventDefault();
+          },
+          { capture: true, passive: false }
+        );
       });
     });
 

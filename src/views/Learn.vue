@@ -9,7 +9,6 @@
         v-if="selectedValues.length"
         style="margin-top: 1rem"
         :selected="selectedValues"
-        :add="true"
         @saved-session="clearSelectedItems"
       />
     </Section>
@@ -32,8 +31,6 @@
 import { defineComponent, ref, Ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "../store/index";
-
-import anime from "animejs";
 
 import Section from "@/components/TheSection.vue";
 import LearnCard from "@/components/cards/LearnCard.vue";
@@ -72,9 +69,18 @@ export default defineComponent({
 
     const itemsToShow = ref(3);
 
-    const categoriesToShow = computed(() =>
-      store.state.learn.progress.slice(0, itemsToShow.value)
-    );
+    const categoriesToShow = computed(() => {
+      let res: [label: string, score: number][] = [];
+      Object.entries(store.state.learn.categoryProgress)
+            .map(cat => res.push([cat[1].label,
+                                  cat[1].score]))
+
+      // Filter scores equal to 0 and sort them in descending order
+      res = res.filter(([, n]) => n !== 0 && !isNaN(n))
+               .sort( ([, a], [, b]) => a - b )
+
+      return res.splice(0, itemsToShow.value);
+    });
 
     const loadMoreProgress = function() {
       itemsToShow.value += 3;
@@ -82,6 +88,9 @@ export default defineComponent({
     };
 
     const startRevision = function() {
+      // TODO: finish revision
+      console.log("REVISION DOESN'T YET WORK");
+      /*
       anime({
         targets: "main",
         duration: 250,
@@ -89,10 +98,10 @@ export default defineComponent({
         translateY: [0, 20],
         opacity: [1, 0],
         complete: () => {
-          store.dispatch("startLearningSession", "revision");
           router.push({ name: "Flashcards", params: { id: "revision" } });
         }
       });
+      */
     };
 
     return {

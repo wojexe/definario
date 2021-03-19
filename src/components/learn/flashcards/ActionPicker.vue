@@ -6,8 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
-import { useStore } from "../../../store/index";
+import { defineComponent } from "vue";
 
 import ArrowButton from "@/components/learn/flashcards/ArrowButton.vue";
 import LevelSelector from "@/components/learn/flashcards/LevelSelector.vue";
@@ -18,19 +17,17 @@ export default defineComponent({
     ArrowButton,
     LevelSelector
   },
+  props: {
+    flashcardState: Number
+  },
   emits: ["buttonClick"],
   setup(_, { emit }) {
-    const store = useStore();
-
-    const flashcardState = computed(() => store.state.flashcards.current.state);
-
     const emitClick = function() {
       emit("buttonClick");
     };
 
     return {
-      emitClick,
-      flashcardState
+      emitClick
     };
   }
 });

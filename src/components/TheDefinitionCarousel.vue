@@ -63,7 +63,6 @@ export default defineComponent({
           const firstElement = carouselEl.children[0];
           anime.set(firstElement, { opacity: 0 });
           anime.set(carouselEl, { overflow: "visible" });
-          console.log(isTouchDevice());
           anime
             .timeline({
               easing: "easeOutQuart",

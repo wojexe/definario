@@ -1,18 +1,4 @@
 <template>
-  <!-- <MultiSelect
-    v-model="value"
-    mode="multiple"
-    placeholder="Wyszukaj zagadnienie"
-    :searchable="true"
-    :minChars="3"
-    :options="
-      async function(query) {
-        console.log(query);
-        return await pickerOptions(query);
-      }
-    "
-    :caret="true"
-  ></MultiSelect> -->
   <MultiSelect
     v-model="value"
     mode="multiple"
@@ -23,24 +9,21 @@
     :filterResults="false"
     :minChars="1"
     :resolveOnLoad="false"
-    :delay="250"
     :searchable="true"
-    :options="
-      async function(query) {
-        return await pickerOptions(query);
-      }
-    "
+    :options="optionsToShow"
     :object="true"
     valueProp="id"
     label="label"
     @change="emitValue"
+    @open="fetchAll"
+    @search-change="handleInput"
   ></MultiSelect>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, Ref } from "vue";
 
-import { SearchResponse } from "@/../types/definitions";
+import { SearchResponse, Deck } from "@/../types/definitions";
 
 import MultiSelect from "@vueform/multiselect";
 
@@ -50,28 +33,45 @@ export default defineComponent({
     MultiSelect
   },
   emits: ["selectedChanged"],
-  setup(props, { emit }) {
-    // const pickerOptions = ref([
-    //   { id: "a", label: "Koło" },
-    //   { id: "b", label: "Granica ciągu" },
-    //   { id: "c", label: "Liczby pierwsze" },
-    //   { id: "d", label: "Wzory redukcyjne" }
-    // ]);
+  setup(_, { emit }) {
+    const optionsToShow: Ref<{ id: string; label: string }[]> = ref([]);
 
-    const pickerOptions = async (query: string) => {
-      const res: { data: SearchResponse[] } = await (
-        await fetch(`${process.env.VUE_APP_API_URL}/search?q=${query}`)
+    const fetchAll = async () => {
+      const res: { data: Deck[] } = await (
+        await fetch(`${process.env.VUE_APP_API_URL}/decks`)
       ).json();
 
-      console.log(
-        res.data.map(deck => {
-          return { id: deck.id, label: deck.title };
-        })
-      );
+      optionsToShow.value = res.data.map(deck => ({
+        id: deck.id,
+        label: deck.definee
+      }));
+    };
 
-      return res.data.map(deck => {
-        return { id: deck.id, label: deck.title };
-      });
+    let typingTimer = 0;
+    const waitTimeout = 350;
+    const handleInput = async (q: string) => {
+      clearTimeout(typingTimer);
+
+      typingTimer = setTimeout(async () => {
+        searchOptions(q);
+      }, waitTimeout);
+    };
+
+    const searchOptions = async (q: string) => {
+      q = q.trim();
+
+      if (q) {
+        const res: { data: SearchResponse[] } = await (
+          await fetch(`${process.env.VUE_APP_API_URL}/search?q=${q}&c=0`)
+        ).json();
+
+        // console.log(res);
+
+        optionsToShow.value = res.data.map(deck => ({
+          id: deck.id,
+          label: deck.title
+        }));
+      }
     };
 
     const multipleLabel = function(v: Array<string>) {
@@ -89,15 +89,22 @@ export default defineComponent({
 
     const value: Ref<Array<string>> = ref([]);
 
-    const emitValue = function(v: Array<string>) {
+    const emitValue = function(
+      v: Array<{
+        id: string;
+        label: string;
+      }>
+    ) {
       emit("selectedChanged", v);
     };
 
     return {
-      pickerOptions,
+      optionsToShow,
+      fetchAll,
+      handleInput,
+      emitValue,
       multipleLabel,
-      value,
-      emitValue
+      value
     };
   }
 });

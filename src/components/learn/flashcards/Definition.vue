@@ -2,38 +2,31 @@
   <div class="flashcards__definition">
     <div class="flashcards__definition__content">
       <p class="flashcards__definition__content__definition">
-        {{ definition }}
+        <ContentRenderer :content="definition" />
       </p>
-      <img
-        v-show="image"
-        :src="image"
-        :alt="`zdjęcie - ${definee}`"
-        class="flashcards__definition__content__image"
-      />
-      <div
+      <span
         class="flashcards__definition__content__credits"
-        v-if="definitionSource || imageSource"
+        v-show="definitionSource"
+        >Definicja: {{ definitionSource }}</span
       >
-        <span
-          class="flashcards__definition__content__credits__definition"
-          v-show="definitionSource"
-          >Definicja: {{ definitionSource }}</span
-        >
-      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
+import ContentRenderer from "@/components/TheContentRenderer.vue";
+
 export default defineComponent({
   name: "FlashcardDefinition",
   props: {
     definee: String,
-    definition: String,
-    definitionSource: String,
-    image: String,
-    imageAlt: String
+    definition: Array,
+    definitionSource: String
+  },
+  components: {
+    ContentRenderer
   }
 });
 </script>

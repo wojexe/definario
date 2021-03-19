@@ -32,17 +32,7 @@ export default defineComponent({
       store.dispatch("openModal", props.id);
     }
 
-    const getComponentType = function(s: string) {
-      if (s === "string") return "span";
-      else return "img";
-    };
-    const getSourcePath = function(s: string) {
-      return `/img/definitions/${s}`;
-    };
-
     return {
-      getComponentType,
-      getSourcePath,
       openModal
     };
   }

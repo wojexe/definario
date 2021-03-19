@@ -1,22 +1,24 @@
 // store.ts
 import { InjectionKey } from "vue";
-import { createStore, useStore as baseUseStore, Store } from "vuex";
+import { createStore, useStore as baseUseStore, Store, createLogger } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
-import { Card, Deck, UniResponse } from "../../types/definitions.d";
+import dayjs from "dayjs";
 
-enum flashcardState {
+import {
+  Card,
+  Deck,
+  UniResponse,
+  LearningSession,
+  Flashcard,
+  DefinitionContent
+} from "../../types/definitions.d";
+
+export enum flashcardState {
   Think = 0,
   Rate,
   WillChange,
   NextFlashcard
-}
-
-interface CurrentFlashcard extends Card {
-  id: string;
-  state: flashcardState;
-  userChoice: number;
-  idScore: number;
 }
 
 function definitionIsEqual(a: Card | Deck, b: Card | Deck) {
@@ -24,25 +26,110 @@ function definitionIsEqual(a: Card | Deck, b: Card | Deck) {
 }
 
 function sessionEquals(
-  a: Array<{ id: string; label: string }>,
-  b: Array<{ id: string; label: string }>
+  // eslint-disable-next-line prettier/prettier
+  a: [categoryId: string, categoryLabel: string][],
+  { categories: b }: LearningSession
 ) {
   if (a.length !== b.length) return false;
-  return a.every((a, i) => a.id === b[i].id);
+  return a.every((a, i) => a[0] === b[i][0]);
 }
 
 function sessionExists(
-  savedSessions: Record<string, Array<{ id: string; label: string }>>,
-  newSession: Array<{ id: string; label: string }>
+  savedSessions: Record<string, LearningSession>,
+  newSession: LearningSession
 ) {
   // Map saved sessions
   const existingSessions = Object.values(savedSessions).map(session =>
-    session.map(categories => categories)
+    session.categories.map(category => category)
   );
 
   // Check if existingSessions contains exactly te same
   // elements as newSession
   return existingSessions.some(session => sessionEquals(session, newSession));
+}
+
+function shuffleArray(array: [...any]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+class Category {
+  private _id = "";
+  private _label = "";
+  private _score = 0;
+  private _cards: Record<string, number> = {};
+
+  constructor(
+    id: string,
+    label: string,
+    score?: number,
+    cards?: Record<string, number>) {
+      this._id = id;
+      this._label = label;
+      if (score) this._score = score;
+      else this._score = 0;
+      if (cards) this._cards = cards;
+      else this._cards = {};
+    }
+
+  async init() {
+    const deck: Deck = await
+      (await fetch(`${process.env.VUE_APP_API_URL}/deck/${this._id}`))
+      .json();
+    
+    deck.cards.flatMap(card => Object.assign(card, {value: 0}))
+                                     .map(x => this._cards[x.id] = x.value);
+  }
+
+  static async create(id: string, label: string) {
+    // console.log(`creating category instance with id ${id}`);
+    const category = new Category(id, label);
+    await category.init();
+    return category;
+  }
+
+  static rehydrate(obj: {
+    id: string,
+    label: string,
+    score: number,
+    cards: Record<string, number>
+  }) {
+    // console.warn(`rehydrate called with obj:`, obj);
+    // console.log(`rehydrated as: `, new Category(obj.id, obj.label, obj.score, obj.cards))
+    return new Category(obj.id, obj.label, obj.score, obj.cards);
+  }
+
+  private calculateScore() {
+    this._score = Object.values(this.cards).reduce((acc, curr) => acc += curr)
+                / (Object.values(this.cards).length - 1)
+    this._score = Math.round((this._score + Number.EPSILON) * 100) / 100;
+  }
+
+  get id() {
+    return this._id;
+  }
+
+  get label() {
+    return this._label;
+  }
+
+  get score() {
+    this.calculateScore();
+    return this._score;
+  }
+
+  get cards() {
+    return this._cards;
+  }
+
+  set cards(input: Record<string, number>) {
+    const [ [id, score] ] = Object.entries(input);
+    // If current score is higher than previous score, persist current score
+    this._cards[id] = this._cards[id] < score ? score : this._cards[id];
+  }
+
 }
 
 // Define your typings for the store state
@@ -56,7 +143,7 @@ export interface State {
   homepage: {
     featured: {
       content: Card;
-      expires: Date;
+      expires: number;
     };
 
     carousel: {
@@ -65,17 +152,11 @@ export interface State {
   };
 
   learn: {
-    savedSessions: Record<string, Array<{ id: string; label: string }>>;
-    progress: Array<{
-      id: string;
-      name: string;
-      value: number;
-    }>;
+    savedSessions: Record<string, LearningSession>;
+    categoryProgress: Record<string, Category>
   };
 
-  flashcards: {
-    current: CurrentFlashcard;
-  };
+  flashcard: Flashcard
 
   saved: {
     definitions: Array<Card | Deck>;
@@ -122,7 +203,7 @@ export const store = createStore<State>({
           definition: [],
           definitionSource: ""
         },
-        expires: new Date()
+        expires: Date.now()
       },
       carousel: {
         blockModal: false
@@ -131,22 +212,18 @@ export const store = createStore<State>({
 
     learn: {
       savedSessions: {},
-      progress: []
+      categoryProgress: {}
     },
 
-    flashcards: {
-      current: {
+    flashcard: {
         id: "",
-
-        state: flashcardState.Think,
 
         definee: "",
         definition: [],
         definitionSource: "",
 
-        idScore: 0,
+        state: 0,
         userChoice: 0
-      }
     },
 
     saved: {
@@ -186,15 +263,15 @@ export const store = createStore<State>({
     },
     feturedUpdateDefinition(
       store,
-      content: Array<{ type: string; value: string }>
+      content: DefinitionContent[]
     ) {
       store.homepage.featured.content.definition = content;
     },
     feturedUpdateDefinitionSource(store, s: string) {
       store.homepage.featured.content.definitionSource = s;
     },
-    feturedUpdateExpires(store, s: Date) {
-      store.homepage.featured.expires = s;
+    feturedUpdateExpires(store, n: number) {
+      store.homepage.featured.expires = n;
     },
 
     // Modal
@@ -230,27 +307,71 @@ export const store = createStore<State>({
 
     // Flashcards
     updateFlashcardState(store, s: flashcardState) {
-      store.flashcards.current.state = s;
+      store.flashcard.state = s;
     },
-    updateCurrentUserChoice(store, n: number) {
-      store.flashcards.current.userChoice = n;
+    updateCurrentUserChoice(store, n: 0 | 1 | 2 | 3) {
+      store.flashcard.userChoice = n;
     },
 
     // Learning sessions
     addLearningSession(
       store,
-      s: { uuid: string; arr: Array<{ id: string; label: string }> }
+      data: { uuid: string; newSession: LearningSession }
     ) {
       // Sort to-insert array lexicographically
-      s.arr.sort((a, b) => a.label.localeCompare(b.label));
+      data.newSession.categories.sort((a, b) => a[1].localeCompare(b[1]));
 
       // Check if this exact set already exists
-      if (!sessionExists(store.learn.savedSessions, s.arr)) {
-        store.learn.savedSessions[s.uuid] = s.arr;
+      if (!sessionExists(store.learn.savedSessions, data.newSession)) {
+        
+        // Check categoryProgress has already been created
+        // for this session's categories and if not create missing 
+        data
+        .newSession
+        .categories
+        .forEach(
+          async category => {
+          if (!store.learn.categoryProgress[category[0]]) {
+            store.learn.categoryProgress[category[0]]
+              = await Category.create(category[0], category[1]);
+            // console.warn(`Progress for category "${category[1]}" has just been created`);
+          }
+          // else
+            // console.warn(`Progress for category "${category[1]}" already exists`);
+          
+          Object.entries(store.learn
+                              .categoryProgress[category[0]]
+                              .cards)
+                .forEach(card => data
+                                 .newSession
+                                 .futureBuckets[0]
+                                 .push([card[0], category[0], card[1]]))
+          }
+        )
+
+        // Finally, save the session at disclosed uuid
+        store.learn.savedSessions[data.uuid] = data.newSession;
       }
     },
     deleteLearningSession(store, uuid: string) {
       delete store.learn.savedSessions[uuid];
+    },
+    shuffleQueue(state, id: string) {
+      shuffleArray(state.learn.savedSessions[id].queue);
+    },
+    addFutureToQueue(store, id: string) {
+      const currentTime = dayjs().unix();
+      store.learn.savedSessions[id].mergeTime.forEach((time, index) => {
+        const i = index as 0 | 1 | 2 | 3;
+        if (currentTime > time) {
+          store.learn.savedSessions[id].futureBuckets[i]
+            .forEach(item => store.learn.savedSessions[id].queue.push(item));
+
+          store.learn.savedSessions[id].futureBuckets[i] = [];
+          
+          store.learn.savedSessions[id].mergeTime[i] = dayjs().endOf("day").add(i, "day").unix();
+        }
+      })
     },
 
     // Latest session
@@ -278,7 +399,7 @@ export const store = createStore<State>({
   actions: {
     // Initial data fetch
     async initialFetch({ dispatch }) {
-      if (new Date() > this.state.homepage.featured.expires)
+      if (Date.now() > this.state.homepage.featured.expires)
         dispatch("featuredUpdate");
     },
 
@@ -328,15 +449,39 @@ export const store = createStore<State>({
 
     // Flashcards
     startLearningSession({ commit }, sessionId: string) {
-      sessionId;
+      // Add to queue if mergeTime has expired
+      commit("addFutureToQueue", sessionId);
+      // Shuffle for more diversity
+      commit("shuffleQueue", sessionId);
+      // Reset the flashcard state in case it isn't zero
       commit("updateFlashcardState", 0);
     },
     endLearningSession({ commit }) {
       commit;
       // console.log("end");
     },
-    saveLearningSession({ commit }, s: { uuid: string; arr: string[] }) {
-      commit("addLearningSession", s);
+    saveLearningSession({ commit }, data: {
+        uuid: string;
+        categories: [id: string, label: string][]
+      })
+    {
+      const newLearningSession: { uuid: string, newSession: LearningSession} = {
+        uuid: data.uuid,
+        newSession: {
+          categories: data.categories,
+          queue: [],
+          futureBuckets: {
+            0: [],
+            1: [],
+            2: [],
+            3: []
+          },
+          mergeTime: [0, 0, 0, 0]
+        }
+      }
+      // console.log(newLearningSession);
+
+      commit("addLearningSession", newLearningSession);
     },
     deleteLearningSession({ commit }, uuid: string) {
       commit("deleteLearningSession", uuid);
@@ -349,12 +494,45 @@ export const store = createStore<State>({
   },
   plugins: [
     createPersistedState({
-      paths: ["homepage.featured", "latest", "learn", "saved.definitions"]
-    })
+      paths: ["homepage.featured", "latest", "learn", "saved.definitions"],
+      getState: (key, storage) => {
+        const savedState = JSON.parse(storage.getItem(key));
+
+        if (!savedState) return {};
+
+        const categoryProgress: Record<string, Category> = {};
+
+        Object.entries(savedState.learn.categoryProgress)
+              .map((x: [string, any]) => categoryProgress[x[0]] = Category.rehydrate({
+                id: x[1]._id,
+                label: x[1]._label,
+                score: x[1]._score,
+                cards: x[1]._cards
+              }));
+
+        return {
+          homepage: {
+            featured: savedState.homepage.featured
+          },
+          latest: savedState.latest,
+          learn: {
+            categoryProgress: categoryProgress,
+            savedSessions: savedState.learn.savedSessions
+          },
+          saved: savedState.saved
+        }
+      }
+    }),
+    // createLogger({
+    //   transformer(state) {
+    //     return state.flashcard
+    //   }
+    // })
   ]
 });
 
 // Define your own `useStore` composition function
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function useStore() {
   return baseUseStore(key);
 }

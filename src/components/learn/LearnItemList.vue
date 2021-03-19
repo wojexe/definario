@@ -23,9 +23,11 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, ref, onMounted } from "vue";
+<script lang="ts">
+import { defineComponent, ref, onMounted, PropType } from "vue";
 import { useStore } from "@/store/index";
+
+import { LearningSession } from "@/../types/definitions.d";
 
 import anime from "animejs";
 import { v4 as uuidv4 } from "uuid";
@@ -33,8 +35,10 @@ import { v4 as uuidv4 } from "uuid";
 export default defineComponent({
   name: "LearnItemList",
   props: {
-    selected: Array,
-    add: Boolean
+    selected: {
+      type: Array as PropType<Array<{ id: string; label: string }>>,
+      required: true
+    }
   },
   emits: ["savedSession"],
   setup(props, { emit }) {
@@ -47,7 +51,10 @@ export default defineComponent({
     const saveSession = function() {
       store.dispatch("saveLearningSession", {
         uuid: uuidv4(),
-        arr: props.selected
+        categories: Array.from(props.selected, category => [
+          category.id,
+          category.label
+        ])
       });
 
       emit("savedSession");
@@ -84,6 +91,7 @@ export default defineComponent({
     font-size: var(--text-size--XL);
     color: rgba(255, 255, 255, 1);
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+    cursor: pointer;
 
     will-change: transform filter;
     transition: 150ms all ease-in-out;
@@ -118,7 +126,6 @@ export default defineComponent({
     color: #fff;
     font-size: var(--text-size--S);
     font-weight: bold;
-    cursor: pointer;
     background-image: var(--gradient);
     border-radius: var(--card__border-radius);
 

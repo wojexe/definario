@@ -2,14 +2,14 @@
   <div class="list-container" ref="wrapper">
     <div
       class="list-container__row"
-      v-for="[sessionId, categories] in Object.entries(savedSessions)"
+      v-for="[sessionId, { categories }] in Object.entries(savedSessions)"
       :key="sessionId"
       :session-id="sessionId"
     >
       <ul class="list-container__row__item" @click="startSession(sessionId)">
         <li
           class="list-container__list__item"
-          v-for="{ id, label } in categories"
+          v-for="[id, label] in categories"
           :key="id"
         >
           {{ label }}
@@ -24,6 +24,7 @@
         tabindex="0"
         @click="deleteSession"
       >
+        <title>Usuń</title>
         <path
           fill-rule="evenodd"
           d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
@@ -49,12 +50,16 @@ export default defineComponent({
   props: {
     add: Boolean
   },
+  methods: {
+    log(item: string) {
+      console.log(item);
+    }
+  },
   setup() {
     const store = useStore();
     const router = useRouter();
 
     const wrapper = ref();
-    const parent = ref();
 
     const customStyle = `--gradient: linear-gradient(99deg, rgba(255, 166, 0, 1) 14.7%, rgb(255, 133, 63) 73%); --shadow: rgba(255, 133, 63, 1)`;
 
@@ -67,13 +72,12 @@ export default defineComponent({
     const deleteSession = async function(e: PointerEvent) {
       const tParent = (e.target as HTMLElement).parentElement;
       const tdParent = (e.target as HTMLElement).parentElement?.parentElement;
-
       const sId =
         tParent?.getAttribute("session-id") ||
         tdParent?.getAttribute("session-id");
 
       let animationTarget: HTMLElement;
-      if (tParent?.tagName === "div") animationTarget = tParent;
+      if (tParent?.tagName.toLowerCase() === "div") animationTarget = tParent;
       else animationTarget = tdParent as HTMLElement;
 
       await anime({
@@ -95,7 +99,6 @@ export default defineComponent({
         translateY: [0, 20],
         opacity: [1, 0],
         complete: () => {
-          store.dispatch("startLearningSession", sessionId);
           router.push({ name: "Flashcards", params: { id: sessionId } });
         }
       });
@@ -141,8 +144,7 @@ export default defineComponent({
       deleteSession,
       startSession,
       isEmpty,
-      wrapper,
-      parent
+      wrapper
     };
   }
 });
@@ -228,6 +230,7 @@ export default defineComponent({
       border-radius: var(--card__border-radius);
 
       text-decoration: none;
+      cursor: pointer;
 
       &__item {
         &::marker {

@@ -19,6 +19,8 @@ export default defineComponent({
     font-weight: 600;
     padding: 0.5ch 2ch;
 
+    text-align: center;
+
     color: var(--text-color__normal);
     background: rgb(var(--theme-color__card--background));
 

@@ -21,6 +21,7 @@
           :id="id"
           @click="deleteSavedItem"
         >
+          <title>Usuń</title>
           <path
             fill-rule="evenodd"
             d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
@@ -58,14 +59,14 @@ export default defineComponent({
     const isEmpty = computed(() => savedDefinitions.value.length === 0);
 
     const deleteSavedItem = async function(e: PointerEvent) {
-      const tParent = e.target as HTMLElement;
-      const tdParent = (e.target as HTMLElement).parentElement;
+      const target = e.target as HTMLElement;
+      const tParent = target.parentElement;
+      const tdParent = target.parentElement?.parentElement;
 
-      const id = tParent?.getAttribute("id") || tdParent?.getAttribute("id");
+      const id = target.getAttribute("id") || tParent?.getAttribute("id");
 
       let animationTarget: HTMLElement;
-
-      if (tParent?.tagName === "div") animationTarget = tParent;
+      if (tParent?.tagName.toLowerCase() === "div") animationTarget = tParent;
       else animationTarget = tdParent as HTMLElement;
 
       await anime({
@@ -75,6 +76,8 @@ export default defineComponent({
         translateX: [0, -30],
         opacity: [1, 0]
       }).finished;
+
+      anime.set(animationTarget, { translateX: 0, opacity: 1 });
 
       store.dispatch("deleteSavedDefinition", id);
     };
@@ -116,6 +119,7 @@ export default defineComponent({
       flex-direction: row;
       margin-bottom: 2rem;
       max-width: 100%;
+      width: var(--width);
 
       &__delete-button {
         position: absolute;
