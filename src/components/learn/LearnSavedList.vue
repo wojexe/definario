@@ -47,14 +47,6 @@ import anime from "animejs";
 
 export default defineComponent({
   name: "LearnItemList",
-  props: {
-    add: Boolean
-  },
-  methods: {
-    log(item: string) {
-      console.log(item);
-    }
-  },
   setup() {
     const store = useStore();
     const router = useRouter();

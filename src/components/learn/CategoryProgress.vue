@@ -2,7 +2,7 @@
   <div class="progress">
     <div
       class="progress__item"
-      v-for="[title, score] in sortedCategories"
+      v-for="[title, score] in categories"
       :key="title"
     >
       <span class="progress__item__title">{{ title }}</span>
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType } from "vue";
+import { defineComponent, ref, Ref, PropType } from "vue";
 
 export default defineComponent({
   name: "CategoryProgress",
@@ -24,12 +24,7 @@ export default defineComponent({
   setup(props) {
     const isEmpty = ref(props.categories?.length === 0);
 
-    const sortedCategories = ref(props.categories);
-
-    sortedCategories.value?.sort(([, a], [, b]) => b - a);
-
     return {
-      sortedCategories,
       isEmpty
     };
   }
@@ -40,7 +35,7 @@ export default defineComponent({
 .progress {
   display: grid;
   align-items: center;
-  text-align: center;
+  text-align: start;
   gap: 1rem;
   width: var(--width);
   &__item {
@@ -60,6 +55,7 @@ export default defineComponent({
     &__percentage {
       grid-area: right;
       justify-self: flex-end;
+      align-self: flex-end;
       text-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
     }
     &__bar {

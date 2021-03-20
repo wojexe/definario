@@ -8,6 +8,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { throttle } from "@martinstark/throttle-ts";
+
 import ArrowButton from "@/components/learn/flashcards/ArrowButton.vue";
 import LevelSelector from "@/components/learn/flashcards/LevelSelector.vue";
 
@@ -22,9 +24,7 @@ export default defineComponent({
   },
   emits: ["buttonClick"],
   setup(_, { emit }) {
-    const emitClick = function() {
-      emit("buttonClick");
-    };
+    const [emitClick] = throttle(() => emit("buttonClick"), 200);
 
     return {
       emitClick

@@ -102,9 +102,11 @@ class Category {
   }
 
   private calculateScore() {
-    this._score = Object.values(this.cards).reduce((acc, curr) => acc += curr)
-                / (Object.values(this.cards).length - 1)
-    this._score = Math.round((this._score + Number.EPSILON) * 100) / 100;
+    // score = (sum of all cards' scores) / (number of cards) / (max score = 4)
+    this._score = Object.values(this._cards).reduce((acc, curr) => acc += curr)
+                / (Object.values(this._cards).length) / 4;
+    // round the score
+    this._score = Math.round((this._score + Number.EPSILON) * 100) / 100 * 100;
   }
 
   get id() {
@@ -153,7 +155,8 @@ export interface State {
 
   learn: {
     savedSessions: Record<string, LearningSession>;
-    categoryProgress: Record<string, Category>
+    categoryProgress: Record<string, Category>;
+    latestLearningSession: string;
   };
 
   flashcard: Flashcard
@@ -212,7 +215,8 @@ export const store = createStore<State>({
 
     learn: {
       savedSessions: {},
-      categoryProgress: {}
+      categoryProgress: {},
+      latestLearningSession: ""
     },
 
     flashcard: {
@@ -449,16 +453,14 @@ export const store = createStore<State>({
 
     // Flashcards
     startLearningSession({ commit }, sessionId: string) {
+      // Save latest learning session
+      store.state.learn.latestLearningSession = sessionId;
       // Add to queue if mergeTime has expired
       commit("addFutureToQueue", sessionId);
       // Shuffle for more diversity
       commit("shuffleQueue", sessionId);
       // Reset the flashcard state in case it isn't zero
       commit("updateFlashcardState", 0);
-    },
-    endLearningSession({ commit }) {
-      commit;
-      // console.log("end");
     },
     saveLearningSession({ commit }, data: {
         uuid: string;

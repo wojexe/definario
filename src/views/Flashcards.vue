@@ -9,7 +9,7 @@
     />
     <ActionPicker
       :flashcard-state="flashcardState"
-      @buttonClick="handleClick"
+      @button-click="handleClick"
     />
   </main>
   <main class="flashcards" v-else>
@@ -80,7 +80,19 @@ export default defineComponent({
       // Read sessionId from the URL
       sessionId.value = router.currentRoute.value.params.id as string;
 
-      console.log(currentSession.value);
+      // Check if session is a revision
+      const isRevision =
+        router.currentRoute.value.query.revision === "true" ? true : false;
+
+      // If session is a revision, throw everything from the
+      // latest session back into queue
+      if (isRevision)
+        store.state.learn.savedSessions[sessionId.value].mergeTime = [
+          0,
+          0,
+          0,
+          0
+        ];
 
       // Add to queue, shuffle
       store.dispatch("startLearningSession", sessionId.value);
@@ -112,16 +124,17 @@ export default defineComponent({
     let cardId: string;
     let categoryId: string;
     watch(flashcardState, async stage => {
-      console.log(stage);
+      // console.log(stage);
 
       if (currentSession.value.queue.length === 0) {
-        console.log("wszystkie karty wyswietlone");
+        // console.log("wszystkie karty wyswietlone");
+        slideUp();
         return;
       }
 
-      console.log(currentSession.value.queue[0]);
-      if (currentSession.value.queue.length > 1)
-        console.log(currentSession.value.queue[1]);
+      // console.log(currentSession.value.queue[0]);
+      // if (currentSession.value.queue.length > 1)
+      //   console.log(currentSession.value.queue[1]);
 
       [cardId, categoryId] = computed(
         () => currentSession.value.queue[0]
@@ -135,12 +148,17 @@ export default defineComponent({
           await fetch(`${process.env.VUE_APP_API_URL}/card/${cardId}`)
         ).json()) as Card;
 
-        Object.assign(store.state.flashcard, {
+        store.state.flashcard = {
+          ...store.state.flashcard,
           id: id,
           definee: definee,
           definition: definition,
           definitionSource: definitionSource
-        });
+        };
+
+        slideUp();
+      } else if (stage === 1) {
+        slideUp();
       } else if (stage === 2) {
         const choice = store.state.flashcard.userChoice;
         store.state.flashcard.userChoice = 0;
@@ -196,16 +214,15 @@ export default defineComponent({
         }
 
         store.state.learn.categoryProgress[categoryId].cards = {
-          cardId: currentSession.value.queue[0][2]
+          [cardId]: currentSession.value.queue[0][2]
         };
 
         currentSession.value.queue.shift();
 
         store.state.flashcard.state = 0;
 
-        console.log(currentSession.value.futureBuckets);
+        // console.log(currentSession.value.futureBuckets);
       }
-      slideUp();
     });
 
     const handleClick = function() {
@@ -230,11 +247,6 @@ export default defineComponent({
       allCardsDisplayed,
       handleClick
     };
-  },
-  beforeRouteLeave(to, from, next) {
-    console.log("endlearningsession");
-    this.$store.dispatch("endLearningSession");
-    next();
   }
 });
 </script>

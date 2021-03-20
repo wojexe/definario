@@ -27,8 +27,6 @@
 import { defineComponent, ref, onMounted, PropType } from "vue";
 import { useStore } from "@/store/index";
 
-import { LearningSession } from "@/../types/definitions.d";
-
 import anime from "animejs";
 import { v4 as uuidv4 } from "uuid";
 

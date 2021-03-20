@@ -46,7 +46,7 @@ export default defineComponent({
         await fetch(`${process.env.VUE_APP_API_URL}/search?q=${s}&c=1`)
       ).json();
 
-      console.log(s, res.data);
+      // console.log(s, res.data);
       // console.log(resultsContainer.value.$el);
 
       await outAnimation();
