@@ -173,7 +173,7 @@ export default defineComponent({
           // User has to choose this option two times
           // to advance. The maximum level you can have
           // only choosing this option is 1
-          const prevBucket = currentSession.value.queue[0][2] as any;
+          const prevBucket: number = currentSession.value.queue[0][2];
 
           if (prevBucket >= 2) currentSession.value.queue[0][2] = 1;
           if (Number.isInteger(prevBucket)) {

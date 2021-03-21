@@ -1,6 +1,6 @@
 // store.ts
 import { InjectionKey } from "vue";
-import { createStore, useStore as baseUseStore, Store, createLogger } from "vuex";
+import { createStore, useStore as baseUseStore, Store } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
 import dayjs from "dayjs";
@@ -48,6 +48,7 @@ function sessionExists(
   return existingSessions.some(session => sessionEquals(session, newSession));
 }
 
+// eslint-disable-next-line
 function shuffleArray(array: [...any]) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -505,6 +506,7 @@ export const store = createStore<State>({
         const categoryProgress: Record<string, Category> = {};
 
         Object.entries(savedState.learn.categoryProgress)
+              // eslint-disable-next-line
               .map((x: [string, any]) => categoryProgress[x[0]] = Category.rehydrate({
                 id: x[1]._id,
                 label: x[1]._label,

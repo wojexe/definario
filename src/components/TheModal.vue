@@ -204,6 +204,7 @@ export default defineComponent({
       font-size: var(--text-size--L);
       font-weight: 600;
       margin-bottom: 1ch;
+      text-align: center;
       // Dividers
       &::after,
       &::before {

@@ -2,6 +2,7 @@
   <main>
     <Section section-title="Wybierz zakres">
       <LearnCard @click="startRevision" />
+      <span class="session-undefined">nie znaleziono odpowiedniej sesji</span>
     </Section>
     <Section class="section__picker">
       <LearnItemPicker @selected-changed="handleSelectedChange" ref="picker" />
@@ -95,8 +96,31 @@ export default defineComponent({
 
     const shouldShowButton = computed(() => categoriesLength.value > itemsToShow.value);
 
+    const showUndefinedSessionPopup = async () => {
+      await anime({
+        targets: ".session-undefined",
+        duration: 250,
+        easing: "easeInOutExpo",
+        translateY: [-10, 10],
+        opacity: [0, 1]
+      }).finished
+
+      await anime({
+        targets: ".session-undefined",
+        delay: 1000,
+        duration: 250,
+        easing: "easeInOutExpo",
+        translateY: -10,
+        opacity: 0,
+      }).finished
+    }
+
     const startRevision = function() {
-      // console.log("REVISION DOESN'T YET WORK");
+      if (store.state.learn.savedSessions[store.state.learn.latestLearningSession] === (null || undefined)) {
+        showUndefinedSessionPopup();
+        return;
+      }
+
       anime({
         targets: "main",
         duration: 250,
@@ -118,8 +142,28 @@ export default defineComponent({
       clearSelectedItems,
       categoriesToShow,
       startRevision
-      // savedSessions
     };
   }
 });
 </script>
+
+<style lang="scss" scoped>
+.section {
+  position: relative;
+}
+
+.session-undefined {
+  position: absolute;
+  bottom: 0;
+  background: rgba(255, 255, 255, 1);
+  color: black;
+  padding: 0.5ch 1ch;
+  margin-top: 0.5ch;
+  opacity: 0;
+  z-index: 125;
+  pointer-events: none;
+  user-select: none;
+  border-radius: var(--pill__border-radius);
+  box-shadow: var(--theme-shadow__card);
+}
+</style>

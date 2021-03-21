@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, PropType } from "vue";
+import { defineComponent, ref, PropType } from "vue";
 
 export default defineComponent({
   name: "CategoryProgress",
