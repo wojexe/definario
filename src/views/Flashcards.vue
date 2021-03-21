@@ -197,6 +197,10 @@ export default defineComponent({
           // Simply advance the definition one step higher
           currentSession.value.queue[0][2] =
             Math.floor(currentSession.value.queue[0][2]) + 1;
+          
+          if (currentSession.value.queue[0][2] > 3)
+            currentSession.value.queue[0][2] = 3;
+
           currentSession.value.futureBuckets[
             currentSession.value.queue[0][2] as 0 | 1 | 2 | 3
           ].unshift(currentSession.value.queue[0]);
