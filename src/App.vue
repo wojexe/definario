@@ -172,6 +172,8 @@ body {
 
   &[modal-open] {
     overflow: hidden;
+    touch-action: none;
+    position: relative;
   }
 }
 

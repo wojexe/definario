@@ -70,6 +70,7 @@ export default defineComponent({
       &__definition {
         font-size: var(--text-size--S);
         margin: 0;
+        max-height: calc(1.1em * 6);
         width: 100%;
         display: -webkit-box;
         -webkit-box-orient: vertical;

@@ -3,6 +3,7 @@ node_modules
 /dist
 
 template_base.vue
+/public/img/definitions
 
 # local env files
 .env.local

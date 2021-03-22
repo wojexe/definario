@@ -1,7 +1,7 @@
 export interface DefinitionContent {
   type: "block-image" | "inline-image" | "string";
   value: string;
-  inlineSize: "fraction" | "exponent" | "basic";
+  inlineSize: "fraction" | string;
 }
 
 export interface Card {

@@ -2,7 +2,7 @@
   <div class="carousel__card" @click="openModal" ref="card">
     <span class="carousel__card__title">{{ definee }}</span>
     <p class="carousel__card__definitionShort">
-      <ContentRenderer :content="definition" />
+      <ContentRenderer :noBlockImages="true" :content="definition" />
     </p>
   </div>
 </template>
@@ -79,11 +79,11 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-p {
-  margin: 0;
-}
+<style lang="scss">
 .carousel {
+  p {
+    margin: 0;
+  }
   &__card {
     display: grid;
     grid-template-rows:
@@ -125,9 +125,12 @@ p {
     }
 
     &__definitionShort {
+      position: relative;
+      top: 0.5em;
+
       font-size: var(--text-size--S);
       box-sizing: border-box;
-      height: 100%;
+      height: calc(1.13em * 6);
 
       display: -webkit-box;
       -webkit-box-orient: vertical;

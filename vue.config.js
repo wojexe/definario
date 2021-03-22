@@ -3,7 +3,7 @@ module.exports = {
     name: "Definario",
     description:
       "Definario jest progresywną aplikacją internetową, która pomoże ci w nauce nawet najtrudniejszych zagadnień z zakresu ponadpodstawowego i nie tylko.",
-    display: "minimal-ui",
+    display: "standalone",
     themeColor: "#e389f0",
     msTileColor: "#e389f0",
     appleMobileWebAppCapable: "yes",

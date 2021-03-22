@@ -50,6 +50,8 @@ export default defineComponent({
     let typingTimer = 0;
     const waitTimeout = 350;
     const handleInput = async (q: string) => {
+      console.log(q);
+
       clearTimeout(typingTimer);
 
       typingTimer = setTimeout(async () => {
