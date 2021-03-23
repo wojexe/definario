@@ -62,8 +62,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.string,
+.bold {
+  &::after {
+    content: " ";
+  }
+}
+.bold {
+  font-weight: 600;
+}
 .fraction {
-  vertical-align: middle;
+  vertical-align: middle !important;
 }
 .no-block-images {
   display: none;
