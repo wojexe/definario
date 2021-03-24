@@ -6,7 +6,9 @@
       :key="title"
     >
       <span class="progress__item__title">{{ title }}</span>
-      <span class="progress__item__percentage">{{ score }}%</span>
+      <span class="progress__item__percentage"
+        >{{ numberToString(score) }}%</span
+      >
       <div class="progress__item__bar" :style="`--percentage: ${score}%`"></div>
     </div>
     <span v-if="isEmpty" class="placeholder">tu pojawią się twoje postępy</span>
@@ -24,8 +26,18 @@ export default defineComponent({
   setup(props) {
     const isEmpty = ref(props.categories?.length === 0);
 
+    const numberToString = (n: number) => {
+      let arr = Math.round(n * 100)
+        .toString()
+        .split("");
+      while (arr.length < 3) arr.unshift("0");
+      arr.splice(-2, 0, ".");
+      return arr.join("");
+    };
+
     return {
-      isEmpty
+      isEmpty,
+      numberToString
     };
   }
 });

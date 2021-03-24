@@ -106,8 +106,8 @@ class Category {
     // score = (sum of all cards' scores) / (number of cards) / (max score = 4)
     this._score = Object.values(this._cards).reduce((acc, curr) => acc += curr)
                 / (Object.values(this._cards).length) / 4;
-    // round the score
-    this._score = Math.round((this._score + Number.EPSILON) * 100) / 100 * 100;
+    // * 100%
+    this._score *= 100;
   }
 
   get id() {
