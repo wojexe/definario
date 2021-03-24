@@ -64,7 +64,7 @@ export default defineComponent({
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
-        -webkit-box-pack: end;
+        -webkit-box-pack: start;
         overflow: hidden;
       }
       &__definition {
@@ -75,7 +75,7 @@ export default defineComponent({
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 6;
-        -webkit-box-pack: end;
+        -webkit-box-pack: start;
         overflow: hidden;
       }
 

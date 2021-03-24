@@ -100,10 +100,12 @@ export default defineComponent({
   }
   &__content {
     font-size: var(--text-size--S);
-    max-width: 100%;
+    max-height: calc(1.1em * 10);
+    width: 100%;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 10;
+    -webkit-box-pack: start;
     padding-bottom: 0.8px;
     overflow: hidden;
   }
