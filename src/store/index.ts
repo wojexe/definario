@@ -80,8 +80,14 @@ class Category {
       (await fetch(`${process.env.VUE_APP_API_URL}/deck/${this._id}`))
       .json();
     
-    deck.cards.flatMap(card => Object.assign(card, {value: 0}))
-                                     .map(x => this._cards[x.id] = x.value);
+    // console.log(deck);
+
+    // eslint-disable-next-line
+    // @ts-ignore
+    deck.cards.forEach(cardId => this._cards[cardId] = 0);
+    
+    // deck.cards.flatMap(card => Object.assign(card, {value: 0}))
+    //                                  .map(x => { this._cards[x.id] = x.value; console.log(x) });
   }
 
   static async create(id: string, label: string) {

@@ -21,7 +21,7 @@ export interface Deck {
   id: string;
   definee: string;
   definition: DefinitionContent[];
-  cards: Array<{ id: string }>;
+  cards: Array< string >;
 }
 
 export interface LearningSession {
