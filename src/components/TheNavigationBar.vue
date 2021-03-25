@@ -35,15 +35,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-span {
-  position: fixed;
-  top: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: red;
-  z-index: 1000;
-}
-
 .navigation {
   position: fixed;
 
@@ -57,6 +48,8 @@ span {
   width: 100%;
   bottom: 0;
   left: 0;
+
+  z-index: 99999;
 
   &__wrapper {
     display: flex;
